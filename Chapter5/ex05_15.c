@@ -1,9 +1,9 @@
 /*
- * Filename:	ex05_15.c
+ * Filename:    ex05_15.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        27/04/2017
- * Description:	Calculate hypotenuse length
+ * Description: Calculate hypotenuse length
  */
 
 #include <stdio.h>
@@ -24,16 +24,16 @@ int main()
     scanf("%f", &side2);
     
     hypotenuse = calcHypotenuse(side1, side2);
-	printf("The length of the hypotenuse is %.2f\n", hypotenuse); 
-	
-	return 0;
+    printf("The length of the hypotenuse is %.2f\n", hypotenuse); 
+    
+    return 0;
 }
 
 
 double calcHypotenuse(double side1, double side2)
 {
-	double squareHypotenuse = (side1 * side1) + (side2 * side2);
+    double squareHypotenuse = (side1 * side1) + (side2 * side2);
 
-	return sqrt(squareHypotenuse); 
+    return sqrt(squareHypotenuse); 
 }
 

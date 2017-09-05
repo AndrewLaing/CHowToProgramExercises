@@ -1,11 +1,11 @@
 /*
- * Filename:	ex05_03.c
+ * Filename:    ex05_03.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        26/04/2017
- * Description:	Write a program that tests if the examples of the 
- *				math library function calls shown in Fig 5.2 actually
- *				produce the indicated results. 
+ * Description: Write a program that tests if the examples of the 
+ *              math library function calls shown in Fig 5.2 actually
+ *              produce the indicated results. 
  */
 
 #include <stdio.h>
@@ -47,7 +47,7 @@ int main()
     printf("cos(0.0) = %.1f\n", cos(0.0));
 
     printf("tan(0.0) = %.1f\n", tan(0.0));
-	 
-	return 0;
+     
+    return 0;
 }
 
