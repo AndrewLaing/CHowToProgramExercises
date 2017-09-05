@@ -14,16 +14,16 @@ void calculateRange( int[], int );
 
 int main()
 {
-	// Array of weekly sales figures
-	int sales[STAFF] = { 2000, 2400, 1500, 10600, 1552, 2120,
-	                     1875, 7500, 4690,  9000, 2130, 4000,
-				         5800,  500, 1250,  3000 };
+    // Array of weekly sales figures
+    int sales[STAFF] = { 2000, 2400, 1500, 10600, 1552, 2120,
+                         1875, 7500, 4690,  9000, 2130, 4000,
+       		                     5800,   500, 1250, 3000 };
 				   
-	// Array for calculated wages
-	int wages[STAFF] = { 0 };
+    // Array for calculated wages
+    int wages[STAFF] = { 0 };
 	
-	calculateWages( sales, wages, STAFF );
-	calculateRange( wages, STAFF );
+    calculateWages( sales, wages, STAFF );
+    calculateRange( wages, STAFF );
 	
     return 0;
 }
@@ -31,24 +31,24 @@ int main()
 
 void calculateWages( int sales[], int wages[], int employees)
 {
-	int i, pay;
+    int i, pay;
 	
     for( i=0; i<=employees-1; i++ )
-	{
-	    pay = 200;
-		pay += sales[i] * 0.09;
-		wages[i] = pay;
-	}	
+    {
+        pay = 200;
+	pay += sales[i] * 0.09;
+	wages[i] = pay;
+    }	
 }
 
 
 void calculateRange( int wages[], int employees)
 {
-	int range[10] = { 0 };
-	int i;
+    int range[10] = { 0 };
+    int i;
 	
     for( i=0; i<=employees-1; i++ )
-	{
+    {
         if(wages[i] >= 1000)
             ++range[9];
         else if(wages[i] >= 900)
@@ -67,19 +67,19 @@ void calculateRange( int wages[], int employees)
             ++range[2];
         else if(wages[i] >= 200)
             ++range[1];
-	}
+    }
 	
-	int sum=200;
+    int sum=200;
 	
-	for(i=1; i<=9; i++)
-	{
-		if(i<9)
-    		printf("%d. $%d-$%d\t\t- %d\n",
-			       i, sum, sum+99, range[i]);
-		else
-    		printf("%d. $%d and over\t- %d\n",
-			       i, sum, range[i]);
-		sum+=100;
-	}
+    for(i=1; i<=9; i++)
+    {
+	if(i<9)
+            printf("%d. $%d-$%d\t\t- %d\n",
+	            i, sum, sum+99, range[i]);
+	else
+    	    printf("%d. $%d and over\t- %d\n",
+	           i, sum, range[i]);
+	sum+=100;
+    }
 }
 
