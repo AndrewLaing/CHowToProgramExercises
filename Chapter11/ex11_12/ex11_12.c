@@ -1,9 +1,9 @@
 /*
- * Filename:	ex11_12.c
+ * Filename:    ex11_12.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        27/07/2017.
- * TODO:		Add properly validated input methods for EACH field
+ * TODO:        Add properly validated input methods for EACH field
  *              so that the program does not need to use scanf()
  */
  
@@ -34,39 +34,39 @@ int main()
  
     if ( ( cfPtr = fopen( "hardware.dat", "rb+" ) ) == NULL )
     {
-    	/* If file doesn't exist create it */
-    	cfPtr = fopen( "hardware.dat", "wb+" );
-    	fclose( cfPtr );
-    	cfPtr = fopen( "hardware.dat", "rb+" );
-    	/* Initialise record file*/
-    	initialiseRecords( cfPtr );
-	}
+        /* If file doesn't exist create it */
+        cfPtr = fopen( "hardware.dat", "wb+" );
+        fclose( cfPtr );
+        cfPtr = fopen( "hardware.dat", "rb+" );
+        /* Initialise record file*/
+        initialiseRecords( cfPtr );
+    }
 
     while( (choice = enterChoice() ) != 6)
     {
-    	switch(choice) {
-    		case 1:
-    			textFile( cfPtr, "Hardware.txt" );
-				break;
-			case 2:
-			    addRecord( cfPtr );
-				break;
-			case 3:
-			    updateRecord( cfPtr );
-				break;
-			case 4:
-			    deleteRecord( cfPtr );
-				break;
-			case 5:
-			    displayRecords( cfPtr );
-				break;
-			default:
-			    printf("\nINVALID OPTION - Please try again!\n\n");
-				break;    
-		}
-	}
-	
-	fclose( cfPtr );
+        switch(choice) {
+            case 1:
+                textFile( cfPtr, "Hardware.txt" );
+                break;
+            case 2:
+                addRecord( cfPtr );
+                break;
+            case 3:
+                updateRecord( cfPtr );
+                break;
+            case 4:
+                deleteRecord( cfPtr );
+                break;
+            case 5:
+                displayRecords( cfPtr );
+                break;
+            default:
+                printf("\nINVALID OPTION - Please try again!\n\n");
+                break;    
+        }
+    }
+    
+    fclose( cfPtr );
 
    return 0;
 }
@@ -75,7 +75,7 @@ int main()
 void initialiseRecords(FILE *nfPtr)
 {
     struct tool blankTool = { 0, "unassigned", 0, 0.0 };
-	int i;
+    int i;
     
     rewind( nfPtr );
     
@@ -85,87 +85,87 @@ void initialiseRecords(FILE *nfPtr)
         
         fwrite( &blankTool, sizeof( struct tool ), 1, 
                  nfPtr );     
-	}
+    }
 }
 
 
 int enterChoice( void )
 {
-	int menuChoice;
-	
-	printf("Enter your choice:\n"
-	       "1 - Create a text file of all tools records\n"
-	       "    named \"tools.txt\"\n"
-	       "2 - add a new record\n"
-	       "3 - update an existing record\n"
-	       "4 - delete a record\n"
-	       "5 - display all tool records\n"
-	       "6 - end program\n? " );
+    int menuChoice;
+    
+    printf("Enter your choice:\n"
+           "1 - Create a text file of all tools records\n"
+           "    named \"tools.txt\"\n"
+           "2 - add a new record\n"
+           "3 - update an existing record\n"
+           "4 - delete a record\n"
+           "5 - display all tool records\n"
+           "6 - end program\n? " );
 
-	scanf("%d", &menuChoice);
-	fflush( stdin );
-	
-	return menuChoice;
+    scanf("%d", &menuChoice);
+    fflush( stdin );
+    
+    return menuChoice;
 }
 
 
 void addRecord( FILE *fPtr )
 {
     struct tool blankTool = { 0, "", 0, 0.0 };
-	int accountNum;
+    int accountNum;
     
     printf("Enter record number ( 1-100 ): ");
     scanf( "%d", &accountNum );
     
     fseek( fPtr, 
-	       ( accountNum - 1 ) *  sizeof( struct tool ), 
-		   SEEK_SET );
+           ( accountNum - 1 ) *  sizeof( struct tool ), 
+           SEEK_SET );
     fread( &blankTool, sizeof( struct tool ), 1,
-	       fPtr );
+           fPtr );
     
     if( strcmp2(blankTool.toolName, "unassigned") != 0)
         printf( "\nA record with that number already exists!\n\n");
     else {
         printf( "Enter tool-name, quantity, cost\n? " );
         scanf( "%s%d%lf", &blankTool.toolName, &blankTool.quantity,
-				         &blankTool.cost );   
+                         &blankTool.cost );   
         fseek( fPtr, 
-	       ( accountNum - 1 ) *  sizeof( struct tool ), 
-		   SEEK_SET );
+           ( accountNum - 1 ) *  sizeof( struct tool ), 
+           SEEK_SET );
         fwrite( &blankTool, sizeof( struct tool ), 1, 
                  fPtr );   
-		printf( "\nRecord added\n\n");
-	}
+        printf( "\nRecord added\n\n");
+    }
 }
 
 
 void updateRecord( FILE *fPtr )
 {
     struct tool blankTool = { 0, "", 0, 0.0 };
-	int accountNum;
+    int accountNum;
     
     printf("Record number to update ( 1-100 ): ");
     scanf( "%d", &accountNum );
     
     fseek( fPtr, 
-	       ( accountNum - 1 ) *  sizeof( struct tool ), 
-		   SEEK_SET );
+           ( accountNum - 1 ) *  sizeof( struct tool ), 
+           SEEK_SET );
     fread( &blankTool, sizeof( struct tool ), 1,
-	       fPtr );
+           fPtr );
     
     if( strcmp2(blankTool.toolName, "unassigned") == 0)
         printf( "\nNo info in record to update!\n\n");
     else {
         printf( "Enter tool-name, quantity, cost\n? " );
         scanf( "%s%d%lf", &blankTool.toolName, &blankTool.quantity,
-				         &blankTool.cost );   
+                         &blankTool.cost );   
         fseek( fPtr, 
-	       ( accountNum - 1 ) *  sizeof( struct tool ), 
-		   SEEK_SET );
+           ( accountNum - 1 ) *  sizeof( struct tool ), 
+           SEEK_SET );
         fwrite( &blankTool, sizeof( struct tool ), 1, 
                  fPtr );   
-		printf( "\nRecord updated\n");
-	}
+        printf( "\nRecord updated\n");
+    }
 }
 
 
@@ -174,28 +174,28 @@ void deleteRecord( FILE *fPtr )
     struct tool temp = { 0, "unassigned", 0, 0.0 };
     struct tool blankTool = { 0, "unassigned", 0, 0.0 };
     
-	int recordNum;
+    int recordNum;
     
     printf("Enter number of the record to delete ( 1-100 ): ");
     scanf( "%d", &recordNum );
     
     fseek( fPtr, 
-	       ( recordNum - 1 ) *  sizeof( struct tool ), 
-		   SEEK_SET );
+           ( recordNum - 1 ) *  sizeof( struct tool ), 
+           SEEK_SET );
     fread( &temp, sizeof( struct tool ), 1,
-	       fPtr );
+           fPtr );
     
     if( strcmp2(temp.toolName, "unassigned") == 0)
         printf( "\nRecord does not contain any info!\n\n");
     else {
         fseek( fPtr, 
-	       ( recordNum - 1 ) *  sizeof( struct tool ), 
-		   SEEK_SET );
-		blankTool.recordNum = recordNum;
+           ( recordNum - 1 ) *  sizeof( struct tool ), 
+           SEEK_SET );
+        blankTool.recordNum = recordNum;
         fwrite( &blankTool, sizeof( struct tool ), 1, 
                  fPtr );   
-		printf( "\nRecord deleted\n");
-	}
+        printf( "\nRecord deleted\n");
+    }
 }
 
 
@@ -209,20 +209,20 @@ void textFile( FILE *readPtr, char *filename )
     else { 
         rewind( readPtr );
         fprintf( writePtr, "%-12s%-32s%-11s%10s\n",
-	          "Record Num", "Tool Name", "Quantity", "Cost" );
-	          
-	    fread( &blankTool, sizeof( struct tool ), 1, readPtr );    
-	          
-	    while ( !feof( readPtr  ) ) { 
-         	fprintf( writePtr, "%-12d%-32s%-11d%10.2f\n", 
+              "Record Num", "Tool Name", "Quantity", "Cost" );
+              
+        fread( &blankTool, sizeof( struct tool ), 1, readPtr );    
+              
+        while ( !feof( readPtr  ) ) { 
+            fprintf( writePtr, "%-12d%-32s%-11d%10.2f\n", 
                     blankTool.recordNum, blankTool.toolName,
-					blankTool.quantity, blankTool.cost   );    
-					
-			fread( &blankTool, sizeof( struct tool ), 1, 
-                readPtr );		     
+                    blankTool.quantity, blankTool.cost   );    
+                    
+            fread( &blankTool, sizeof( struct tool ), 1, 
+                readPtr );           
         }
-	          
-	    fclose( writePtr );
+              
+        fclose( writePtr );
         printf("\nFile \"%s\" created\n\n",filename );
     }  
 }
@@ -242,16 +242,16 @@ void displayRecords( FILE *readPtr )
     fread( &blankTool, sizeof( struct tool ), 1, readPtr );  
           
     while ( !feof( readPtr  ) ) {
-    	if( strcmp2(blankTool.toolName, "unassigned") != 0)
-    	{
-	     	printf( "%-12d%-32s%-11d%10.2f\n", 
-	                blankTool.recordNum, blankTool.toolName,
-					blankTool.quantity, blankTool.cost   );  
-			
-			numberOfRecords++;	
-		}
-		fread( &blankTool, sizeof( struct tool ), 1, 
-			            readPtr );  
+        if( strcmp2(blankTool.toolName, "unassigned") != 0)
+        {
+            printf( "%-12d%-32s%-11d%10.2f\n", 
+                    blankTool.recordNum, blankTool.toolName,
+                    blankTool.quantity, blankTool.cost   );  
+            
+            numberOfRecords++;  
+        }
+        fread( &blankTool, sizeof( struct tool ), 1, 
+                        readPtr );  
     }
     
     if(numberOfRecords==0)
@@ -262,15 +262,15 @@ void displayRecords( FILE *readPtr )
 
 int strcmp2( const char *s1, const char *s2 )
 {      
-	while(*s2!='\0') {
-		if(*s1<*s2)
-		    return -1;
-		else if(*s1>*s2)
-		    return 1;
-		s1++;
-		s2++;			
-	}
+    while(*s2!='\0') {
+        if(*s1<*s2)
+            return -1;
+        else if(*s1>*s2)
+            return 1;
+        s1++;
+        s2++;           
+    }
 
-	return 0;	
+    return 0;   
 }
 
