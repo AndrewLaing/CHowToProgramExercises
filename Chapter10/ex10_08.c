@@ -1,5 +1,5 @@
 /*
- * Filename:	ex10_08.c
+ * Filename:    ex10_08.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        19/07/2017.
@@ -8,15 +8,15 @@
 #include <stdio.h>
 
 union integer {
-	char c;
-	short s;
-	int i;
-	long b;
+    char c;
+    short s;
+    int i;
+    long b;
 };
 
 
 int main()
-{	 
+{    
     union integer test1, test2, test3, test4;
     
     printf("Enter a char: ");
@@ -26,11 +26,11 @@ int main()
     printf("Enter a short: ");
     scanf("%hd", &test2.s);
     fflush(stdin);
-	    
+        
     printf("Enter an integer: ");
     scanf("%d", &test3.i);
     fflush(stdin);
-	    
+        
     printf("Enter a long: ");
     scanf("%ld", &test4.b);
     fflush(stdin);
@@ -54,7 +54,7 @@ int main()
     printf("test4.b as a short: %hd\n", test4.b);    
     printf("test4.b as an int: %d\n", test4.b);    
     printf("test4.b as a long: %ld\n", test4.b);  
-	return 0;
+    return 0;
 }
 
 

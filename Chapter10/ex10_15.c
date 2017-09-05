@@ -1,5 +1,5 @@
 /*
- * Filename:	ex10_15.c
+ * Filename:    ex10_15.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        21/07/2017.
@@ -11,7 +11,7 @@ unsigned packCharacters( char, char, char, char );
 void displayBits( unsigned );
 
 int main()
-{	 
+{    
     char a, b, c, d;
     unsigned result;
     
@@ -44,37 +44,37 @@ int main()
     result = packCharacters(a, b, c, d); 
     printf("Result   = ");
     displayBits( result );
-	return 0;
+    return 0;
 }
 
 
 unsigned packCharacters( char a, char b, char c, char d )
 {
-	unsigned result = a;
-	
-	result <<=8;
-	result|=b;
-	result <<=8;
-	result|=c;
-	result <<=8;
-	
-	return result|=d;  /* Inclusive OR */
+    unsigned result = a;
+    
+    result <<=8;
+    result|=b;
+    result <<=8;
+    result|=c;
+    result <<=8;
+    
+    return result|=d;  /* Inclusive OR */
 }
 
 void displayBits( unsigned value )
 {
-	unsigned c, displayMask = 1<<31;
-	
-	for( c=1; c<=32; c++ )
-	{
-		putchar( value & displayMask ? '1' : '0' );
-		value <<= 1;
-		
-		if(c % 8 == 0)
-		    putchar( ' ' );
-	}
-	
-	putchar( '\n' );
+    unsigned c, displayMask = 1<<31;
+    
+    for( c=1; c<=32; c++ )
+    {
+        putchar( value & displayMask ? '1' : '0' );
+        value <<= 1;
+        
+        if(c % 8 == 0)
+            putchar( ' ' );
+    }
+    
+    putchar( '\n' );
 }
 
 
