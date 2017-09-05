@@ -1,5 +1,5 @@
 /*
- * Filename:	ex07_13.c
+ * Filename:    ex07_13.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        30/05/2017.
@@ -61,8 +61,8 @@ int isOutsideStraight( const int [][13], const int * );
 int deckPosition = 1;  /* 1 is the top card, 2 is the card below etc*/
 const char *suit[4]  = { "Hearts", "Diamonds", "Clubs", "Spades"};
 const char *face[13] = { "Ace", "Deuce", "Three", "Four", "Five",
-	                     "Six", "Seven", "Eight", "Nine", "Ten",
-						 "Jack", "Queen", "King" };
+                         "Six", "Seven", "Eight", "Nine", "Ten",
+                         "Jack", "Queen", "King" };
 
 enum CARD { ACE, DEUCE, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT,
             NINE, TEN, JACK, QUEEN, KING
@@ -70,7 +70,7 @@ enum CARD { ACE, DEUCE, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT,
 
 enum HANDRANKINGS {
     ROYALFLUSH=1, STRAIGHTFLUSH=2, FOUROFAKIND=3, FULLHOUSE=4,
-	STRAIGHT=5, FLUSH=6, THREEOFAKIND=7, TWOPAIRS=8, ONEPAIR=9, HIGHCARD=10
+    STRAIGHT=5, FLUSH=6, THREEOFAKIND=7, TWOPAIRS=8, ONEPAIR=9, HIGHCARD=10
 };
 
 
@@ -94,78 +94,78 @@ const char *LOGO =
 
 int main()
 {
-	int dealerWins=0, playerWins=0, draws=0;
-	int winner;
-	srand( time(0));
-	int deck[4][13] = { {0} };	
-	
-	char playAgain = 'y';	
-	int maxInput = 10;
-	char input[maxInput];
+    int dealerWins=0, playerWins=0, draws=0;
+    int winner;
+    srand( time(0));
+    int deck[4][13] = { {0} };  
+    
+    char playAgain = 'y';   
+    int maxInput = 10;
+    char input[maxInput];
 
-	
-	printf("%s", LOGO);
-	system("pause");
-	
-	
+    
+    printf("%s", LOGO);
+    system("pause");
+    
+    
     /* Shuffle at start to initialise deck
-	 * and when no cards left to deal */
-	while(playAgain=='y' || playAgain=='Y') 
-	{
-		system("cls");
-		reinitialiseDeck( deck );
-		shuffle( deck );  
-		winner = playAGame( deck );
-		if(winner==1)
-		    dealerWins++;
-		else if(winner==2)
-		    playerWins++;
-		else
-		    draws++;
-		system("pause");
-		system("cls");
-		printf("---- STATS ----\n\n");
-		printf("Dealer wins = %d\n", dealerWins);
-		printf("Player wins = %d\n", playerWins);
-		printf("Draws       = %d\n\n", draws);
-		
-		printf("Would you like to play again (yes/no)?: ");
-		getLine(input, maxInput);
-		
-		if(input[0]=='\n')
-		    playAgain = 'y';
-		else
-    		playAgain = input[0];
-	}
+     * and when no cards left to deal */
+    while(playAgain=='y' || playAgain=='Y') 
+    {
+        system("cls");
+        reinitialiseDeck( deck );
+        shuffle( deck );  
+        winner = playAGame( deck );
+        if(winner==1)
+            dealerWins++;
+        else if(winner==2)
+            playerWins++;
+        else
+            draws++;
+        system("pause");
+        system("cls");
+        printf("---- STATS ----\n\n");
+        printf("Dealer wins = %d\n", dealerWins);
+        printf("Player wins = %d\n", playerWins);
+        printf("Draws       = %d\n\n", draws);
+        
+        printf("Would you like to play again (yes/no)?: ");
+        getLine(input, maxInput);
+        
+        if(input[0]=='\n')
+            playAgain = 'y';
+        else
+            playAgain = input[0];
+    }
 
-	return 0;
+    return 0;
 }
 
 
 /* Read a string into a character array and return the length of the array */
 int getLine( char s[], int maxLength )
 {
-	int c, i=0;
-	
-	while(--maxLength > 0 && ( c=getchar())!=EOF && c!='\n')
-	    s[i++]=c;
-	if(c=='\n')
-	    s[i++]=c;
-	s[i] = '\0';
-	
-	return i;	
+    int c, i=0;
+    
+    while(--maxLength > 0 && ( c=getchar())!=EOF && c!='\n')
+        s[i++]=c;
+    if(c=='\n')
+        s[i++]=c;
+    s[i] = '\0';
+    
+    return i;   
 }
 
 
 
 
 int playAGame( const int deck[][13])
-{	
-	int playerHand[HANDSIZE], dealerHand[HANDSIZE];
-	int playerHandRank[3] = {0};
-	int dealerHandRank[3] = {0};
-	
-	int winner;
+{   
+    int playerHand[HANDSIZE], dealerHand[HANDSIZE];
+    int playerHandRank[3] = {0};
+    int dealerHandRank[3] = {0};
+    
+    int winner;
     
     /* Deal out the original hands and get their current rank */
     dealAHand( deck, dealerHand );  
@@ -176,13 +176,13 @@ int playAGame( const int deck[][13])
     
     /* Print out the hands*/
     printf("---- DEALER HAND ----\n");
-	printBackOfHand(); // printHandRank( dealerHandRank );
+    printBackOfHand(); // printHandRank( dealerHandRank );
     /* Calculate and make dealer's changes then update hand rank */
     dealerDiscards( deck, dealerHand , dealerHandRank );    
     rankHand( deck, dealerHand , dealerHandRank );
 
     printf("\n---- PLAYER HAND ----\n");
-	printHand(deck, playerHand);
+    printHand(deck, playerHand);
     printHandRank( playerHandRank ); 
     
     
@@ -193,152 +193,152 @@ int playAGame( const int deck[][13])
 
     /* Print out dealer's hand and rank*/
     printf("---- DEALER HAND ----\n");
-	printHand(deck, dealerHand);
+    printHand(deck, dealerHand);
     printHandRank( dealerHandRank ); 
     
     /* Print out player's hand and rank*/
     printf("\n---- PLAYER HAND ----\n");
-	printHand(deck, playerHand);
+    printHand(deck, playerHand);
     printHandRank( playerHandRank ); 
     
     /* Find out who won */
     winner = compareHands( deck, dealerHand, playerHand, 
-	              dealerHandRank, playerHandRank );	
-	
-	if(winner==1)
-	    printf("Dealer wins!\n");
-	else if(winner==2)
-	    printf("Player wins!\n");
-	else
-	    printf("NOBODY WINS!\n");
-	    
-	return winner;
+                  dealerHandRank, playerHandRank ); 
+    
+    if(winner==1)
+        printf("Dealer wins!\n");
+    else if(winner==2)
+        printf("Player wins!\n");
+    else
+        printf("NOBODY WINS!\n");
+        
+    return winner;
 }
 
 
 /* Decides which cards the Dealer should discard, then draws new ones */
 void dealerDiscards( const int wDeck[][13], int *dealerHand, int *dealerHandRank )
 {
-	int i, card, toDiscard=0;
-	int bluff1 = rand()%10000;
-	int bluff2 = rand()%1000;
-	int bluff3 = rand()%100;
-	
-	int dealerToDiscard[HANDSIZE] = {0};
-	
-	/* Strategy is to stand on flush or higher */
-	if(dealerHandRank[0] <= FLUSH) {
-		;
-	}
-	/* Strategy is to keep trips */
-	else if(dealerHandRank[0] == THREEOFAKIND ) 
-	{
-		for(i=0; i<HANDSIZE; i++) {
-			if( getCardFace(wDeck, dealerHand[i]) != dealerHandRank[1]) {
-				dealerToDiscard[i]=1;
-				toDiscard++;
-			}    
-		}
-	}
-	/* Strategy is to keep the high pair with a 60% chance of discarding
-	 * the low pair if it is below 8s */
-	else if(dealerHandRank[0] == TWOPAIRS ) 
-	{
-		int highPair = dealerHandRank[1];
-		int lowPair = dealerHandRank[2];
-		
-		for(i=0; i<HANDSIZE; i++) 
-		{
-			card = getCardFace(wDeck, dealerHand[i]);
-			if( card != highPair )
-		    {
-		    	/* 60% chance of discarding low pair */
-		    	if(card==lowPair && bluff3<60) {
-		    		if( lowPair < EIGHT ) {
-		    			dealerToDiscard[i]=1;
-		    			toDiscard++;
-					}  	
-				}
-				else if(card!=lowPair) {
-					dealerToDiscard[i]=1;
-					toDiscard++;
-				}     
-			}		    
-		}
-	}
-	/* Strategy is to keep pair */
-	else if(dealerHandRank[0] == ONEPAIR ) 
-	{
-		int suit = isFourFlush(wDeck, dealerHand);
-		int pair = dealerHandRank[1];
-		
-		/* if pair is less than ten and dealer has a
-		 * four flush draw to the four flush*/
-		if( (pair<TEN && pair!=ACE) && suit!=-1) 
-		{
-			for(i=0; i<HANDSIZE; i++) 
-			{
-				card = getCardSuit(wDeck, dealerHand[i]);
-				if( card != suit ) {
-					dealerToDiscard[i]=1;
-					toDiscard++;
-				}	    
-			}
-		}
-		/* Otherwise keep pair */
-		else {
-			for(i=0; i<HANDSIZE; i++) {
-				if( getCardFace(wDeck, dealerHand[i]) != dealerHandRank[1]) {
-					dealerToDiscard[i]=1;
-					toDiscard++;
-				}	    
-			}			
-		}
-	}
-	/* High card strategy keep four flushes, Queen and above */
-	else 
-	{
-		/* First check if dealer has a fourflush or an outside straight */
-		int suit = isFourFlush(wDeck, dealerHand);
-		int outsideStraight = isOutsideStraight(wDeck, dealerHand); 
-		if(suit!=-1) 
-		{
-			for(i=0; i<HANDSIZE; i++) {
-				card = getCardSuit(wDeck, dealerHand[i]);
-				if( card != suit ) {
-					dealerToDiscard[i]=1;
-					toDiscard++;
-				}	    
-			}
-		}
-		else if(outsideStraight!=-1) {
-			dealerToDiscard[outsideStraight]=1;
-			toDiscard++;
-		}
-		/* Otherwise keep Queen and above */
-		else 
-		{
-			for(i=0; i<HANDSIZE; i++) {
-				card = getCardFace(wDeck, dealerHand[i]);
-				if( card<QUEEN && card!=ACE ) {
-					dealerToDiscard[i]=1;
-					toDiscard++;
-				}	    
-			}			
-		}
-	}
-	
-	if(toDiscard==1)
-	    printf("Dealer draws 1 card!\n");
-	else
-    	printf("Dealer draws %d cards!\n", toDiscard);
-    	
+    int i, card, toDiscard=0;
+    int bluff1 = rand()%10000;
+    int bluff2 = rand()%1000;
+    int bluff3 = rand()%100;
+    
+    int dealerToDiscard[HANDSIZE] = {0};
+    
+    /* Strategy is to stand on flush or higher */
+    if(dealerHandRank[0] <= FLUSH) {
+        ;
+    }
+    /* Strategy is to keep trips */
+    else if(dealerHandRank[0] == THREEOFAKIND ) 
+    {
+        for(i=0; i<HANDSIZE; i++) {
+            if( getCardFace(wDeck, dealerHand[i]) != dealerHandRank[1]) {
+                dealerToDiscard[i]=1;
+                toDiscard++;
+            }    
+        }
+    }
+    /* Strategy is to keep the high pair with a 60% chance of discarding
+     * the low pair if it is below 8s */
+    else if(dealerHandRank[0] == TWOPAIRS ) 
+    {
+        int highPair = dealerHandRank[1];
+        int lowPair = dealerHandRank[2];
+        
+        for(i=0; i<HANDSIZE; i++) 
+        {
+            card = getCardFace(wDeck, dealerHand[i]);
+            if( card != highPair )
+            {
+                /* 60% chance of discarding low pair */
+                if(card==lowPair && bluff3<60) {
+                    if( lowPair < EIGHT ) {
+                        dealerToDiscard[i]=1;
+                        toDiscard++;
+                    }   
+                }
+                else if(card!=lowPair) {
+                    dealerToDiscard[i]=1;
+                    toDiscard++;
+                }     
+            }           
+        }
+    }
+    /* Strategy is to keep pair */
+    else if(dealerHandRank[0] == ONEPAIR ) 
+    {
+        int suit = isFourFlush(wDeck, dealerHand);
+        int pair = dealerHandRank[1];
+        
+        /* if pair is less than ten and dealer has a
+         * four flush draw to the four flush*/
+        if( (pair<TEN && pair!=ACE) && suit!=-1) 
+        {
+            for(i=0; i<HANDSIZE; i++) 
+            {
+                card = getCardSuit(wDeck, dealerHand[i]);
+                if( card != suit ) {
+                    dealerToDiscard[i]=1;
+                    toDiscard++;
+                }       
+            }
+        }
+        /* Otherwise keep pair */
+        else {
+            for(i=0; i<HANDSIZE; i++) {
+                if( getCardFace(wDeck, dealerHand[i]) != dealerHandRank[1]) {
+                    dealerToDiscard[i]=1;
+                    toDiscard++;
+                }       
+            }           
+        }
+    }
+    /* High card strategy keep four flushes, Queen and above */
+    else 
+    {
+        /* First check if dealer has a fourflush or an outside straight */
+        int suit = isFourFlush(wDeck, dealerHand);
+        int outsideStraight = isOutsideStraight(wDeck, dealerHand); 
+        if(suit!=-1) 
+        {
+            for(i=0; i<HANDSIZE; i++) {
+                card = getCardSuit(wDeck, dealerHand[i]);
+                if( card != suit ) {
+                    dealerToDiscard[i]=1;
+                    toDiscard++;
+                }       
+            }
+        }
+        else if(outsideStraight!=-1) {
+            dealerToDiscard[outsideStraight]=1;
+            toDiscard++;
+        }
+        /* Otherwise keep Queen and above */
+        else 
+        {
+            for(i=0; i<HANDSIZE; i++) {
+                card = getCardFace(wDeck, dealerHand[i]);
+                if( card<QUEEN && card!=ACE ) {
+                    dealerToDiscard[i]=1;
+                    toDiscard++;
+                }       
+            }           
+        }
+    }
+    
+    if(toDiscard==1)
+        printf("Dealer draws 1 card!\n");
+    else
+        printf("Dealer draws %d cards!\n", toDiscard);
+        
     /* discard and draw cards */
-	for(i=0; i<HANDSIZE; i++)
-	    if(dealerToDiscard[i]==1)
-    	    dealerHand[i] = dealACard();
-	    
-	sortHand(wDeck, dealerHand); 
+    for(i=0; i<HANDSIZE; i++)
+        if(dealerToDiscard[i]==1)
+            dealerHand[i] = dealACard();
+        
+    sortHand(wDeck, dealerHand); 
     rankHand(wDeck, dealerHand, dealerHandRank);
 }
 
@@ -349,72 +349,72 @@ int compareHands( const int wDeck[][13],
                    const int *dealerHand, const int *playerHand,
                    const int *dealerHandRank, const int *playerHandRank)
 {
-	int i, dealerCard, playerCard;
-	
-	int winner = -1;
-	
-	int dRank0 = dealerHandRank[0];
-	int pRank0 = playerHandRank[0];
-	int dRank1 = dealerHandRank[1];
-	int pRank1 = playerHandRank[1];
-	int dRank2 = dealerHandRank[2];
-	int pRank2 = playerHandRank[2];
-	
-	/* First check if one player has a higher rank than the other */
-	if( dRank0 < pRank0 )
-	    winner = 1;				// Dealer wins
-	else if( pRank0 < dRank0 )
-	    winner = 2;				// Player wins
-	/* Next check if the player has a higher version of that rank */
-	else if( dRank1==ACE && pRank1!=ACE )
-	    winner = 1;
-	else if(pRank1==ACE && dRank1!=ACE )
-	    winner = 2;	
-	else if( dRank1 > pRank1 )
-	    winner = 1;
-	else if( pRank1 > dRank1 )
-	    winner = 2;	
-	else if(dRank0==TWOPAIRS && dRank2!=pRank2 ) 
-	{
-		if(dRank2 > pRank2)
-		    winner = 1;
-		else
-		    winner = 2;	
-	}
-	else if( ( getCardFace(wDeck, dealerHand[0])==ACE ) && 
-	         ( getCardFace(wDeck, playerHand[0])!=ACE) )
-	    winner = 1;
-	else if( ( getCardFace(wDeck, playerHand[0])==ACE ) &&
-	         ( getCardFace(wDeck, dealerHand[0])!=ACE ) )
-	    winner = 2;	 
-	else {
-		for(i=HANDSIZE-1; i>=0; i--) 
-		{
-			dealerCard = getCardFace(wDeck, dealerHand[i]);
-			playerCard = getCardFace(wDeck, playerHand[i]);
-			if( dealerCard > playerCard ) {
-				winner = 1;
-				break;
-			} 
-	        else if( playerCard > dealerCard ) {	
-	        	winner = 2;
-	        	break;
-			}    
-		}
-	}
-	return winner;
+    int i, dealerCard, playerCard;
+    
+    int winner = -1;
+    
+    int dRank0 = dealerHandRank[0];
+    int pRank0 = playerHandRank[0];
+    int dRank1 = dealerHandRank[1];
+    int pRank1 = playerHandRank[1];
+    int dRank2 = dealerHandRank[2];
+    int pRank2 = playerHandRank[2];
+    
+    /* First check if one player has a higher rank than the other */
+    if( dRank0 < pRank0 )
+        winner = 1;             // Dealer wins
+    else if( pRank0 < dRank0 )
+        winner = 2;             // Player wins
+    /* Next check if the player has a higher version of that rank */
+    else if( dRank1==ACE && pRank1!=ACE )
+        winner = 1;
+    else if(pRank1==ACE && dRank1!=ACE )
+        winner = 2; 
+    else if( dRank1 > pRank1 )
+        winner = 1;
+    else if( pRank1 > dRank1 )
+        winner = 2; 
+    else if(dRank0==TWOPAIRS && dRank2!=pRank2 ) 
+    {
+        if(dRank2 > pRank2)
+            winner = 1;
+        else
+            winner = 2; 
+    }
+    else if( ( getCardFace(wDeck, dealerHand[0])==ACE ) && 
+             ( getCardFace(wDeck, playerHand[0])!=ACE) )
+        winner = 1;
+    else if( ( getCardFace(wDeck, playerHand[0])==ACE ) &&
+             ( getCardFace(wDeck, dealerHand[0])!=ACE ) )
+        winner = 2;  
+    else {
+        for(i=HANDSIZE-1; i>=0; i--) 
+        {
+            dealerCard = getCardFace(wDeck, dealerHand[i]);
+            playerCard = getCardFace(wDeck, playerHand[i]);
+            if( dealerCard > playerCard ) {
+                winner = 1;
+                break;
+            } 
+            else if( playerCard > dealerCard ) {    
+                winner = 2;
+                break;
+            }    
+        }
+    }
+    return winner;
 }
 
 
 void dealAHand(const int wDeck[][13], int *hand)
 {
     int i;
-	int playerHandRank[3] = {0};
-	
-	for(i=0; i<HANDSIZE; i++)
-	    hand[i] = dealACard();
-	    
-	sortHand(wDeck, hand); 
+    int playerHandRank[3] = {0};
+    
+    for(i=0; i<HANDSIZE; i++)
+        hand[i] = dealACard();
+        
+    sortHand(wDeck, hand); 
     rankHand(wDeck, hand, playerHandRank);
 }
 
@@ -422,103 +422,103 @@ void dealAHand(const int wDeck[][13], int *hand)
 
 void rankHand(const int wDeck[][13], const int *hand, int *rank ) 
 {
-	int hasStraight, hasFlush;
-		
-	hasStraight = isStraight(wDeck, hand);
-	hasFlush = isFlush(wDeck, hand);
-	
-	/* Check for Royal Flush and Straight flush */
+    int hasStraight, hasFlush;
+        
+    hasStraight = isStraight(wDeck, hand);
+    hasFlush = isFlush(wDeck, hand);
+    
+    /* Check for Royal Flush and Straight flush */
     if(hasStraight>=0 && hasFlush>=0) {
-    	if(hasStraight==TEN)
-    	    rank[0] = ROYALFLUSH;
-    	else
-        	rank[0] = STRAIGHTFLUSH;
-    	rank[1] = hasStraight;
-    	return;
-	}
-	
+        if(hasStraight==TEN)
+            rank[0] = ROYALFLUSH;
+        else
+            rank[0] = STRAIGHTFLUSH;
+        rank[1] = hasStraight;
+        return;
+    }
+    
     /* Check for Four of a Kind */
     if( isFourOFAKind(wDeck, hand, rank) == 1)
-    	return;
+        return;
     
     /* Check for Full House */
     if(isFullHouse(wDeck, hand, rank) == 1)
-    	return;
+        return;
     
     /* Check for Straight */
     if(hasStraight >= 0) {
-    	rank[0] = STRAIGHT;
-    	rank[1] = hasStraight;
-    	return;
-	}
+        rank[0] = STRAIGHT;
+        rank[1] = hasStraight;
+        return;
+    }
     
     /* Check for Flush */
     if(hasFlush >= 0) {
-    	rank[0] = FLUSH;
-    	rank[1] = hasFlush;
-    	return;
-	}
+        rank[0] = FLUSH;
+        rank[1] = hasFlush;
+        return;
+    }
     
     /* Check for Three of a Kind */
     if( isThreeOFAKind(wDeck, hand, rank) == 1)
-    	return;
-	
-	/* Check for Two Pair */
+        return;
+    
+    /* Check for Two Pair */
     if( isTwoPair(wDeck, hand, rank) == 1)
-    	return;
-	
+        return;
+    
     /* Check for a Pair */
     if(isOnePair(wDeck, hand, rank) == 1)
-    	return;
-	
-	/* Otherwise player only has a High Card */
-	getHighCard(wDeck, hand, rank);
-	return;
+        return;
+    
+    /* Otherwise player only has a High Card */
+    getHighCard(wDeck, hand, rank);
+    return;
 }
 
 
 /* Set all cards to 0 before shuffling */
 void reinitialiseDeck( int wDeck[][13] )
 {
-	/* Deck is full again */
-	deckPosition = 1;
-	
-	int row, column;
-	
-	for( row=0; row<4; row++)
-	{
-		for(column=0; column<13; column++)
-    		wDeck[row][column] = 0; 	
-	}
+    /* Deck is full again */
+    deckPosition = 1;
+    
+    int row, column;
+    
+    for( row=0; row<4; row++)
+    {
+        for(column=0; column<13; column++)
+            wDeck[row][column] = 0;     
+    }
 }
 
 
 /* Add all of the cards to a random position in the deck */
 void shuffle( int wDeck[][13] )
 {
-	/* After shuffling the deck is full again */
-	deckPosition = 1;
-	
-	int row, column, card;
-	
-	for( card=1; card<=52; card++)
-	{
-		do {
-			row = rand()%4;
-			column = rand()%13;
-		} while( wDeck[row][column]!=0 );
-		
-		wDeck[row][column] = card; 	
-	}
+    /* After shuffling the deck is full again */
+    deckPosition = 1;
+    
+    int row, column, card;
+    
+    for( card=1; card<=52; card++)
+    {
+        do {
+            row = rand()%4;
+            column = rand()%13;
+        } while( wDeck[row][column]!=0 );
+        
+        wDeck[row][column] = card;  
+    }
 }
 
 
 /* Return a card position in the deck */
 int dealACard( void )
 {
-	int card = deckPosition;
-	deckPosition++;
-	return card;
+    int card = deckPosition;
+    deckPosition++;
+    return card;
 }
 
 
@@ -527,122 +527,122 @@ void printBackOfHand()
 {
     int lines=9, characters=12;
     int cards, i, j;
-	
-	for(i=0; i<lines; i++) 
-	{
-		/* Print out a line for each card in the hand */
-		for(cards=0; cards<HANDSIZE; cards++)
-		{
-			for(j=0; j<characters; j++)
-	    	    printf("%c",DECKPICS[ 4 ][ 0 ][ i ][ j ]);
-		}
-	    	
-	    printf("\n");
-	}   
+    
+    for(i=0; i<lines; i++) 
+    {
+        /* Print out a line for each card in the hand */
+        for(cards=0; cards<HANDSIZE; cards++)
+        {
+            for(j=0; j<characters; j++)
+                printf("%c",DECKPICS[ 4 ][ 0 ][ i ][ j ]);
+        }
+            
+        printf("\n");
+    }   
 }
 
 
 /* Print out the players hand */
 void printHand( const int wDeck[][13], const int *hand)
 {
-	int i;
-		
-	/* Get the suits and faces from the players hand */
+    int i;
+        
+    /* Get the suits and faces from the players hand */
     int suits[HANDSIZE], faces[HANDSIZE];
-	for(i=0; i<HANDSIZE; i++) {
-		suits[i] = getCardSuit(wDeck, hand[i]);
-		faces[i] = getCardFace(wDeck, hand[i]);  
-	}
+    for(i=0; i<HANDSIZE; i++) {
+        suits[i] = getCardSuit(wDeck, hand[i]);
+        faces[i] = getCardFace(wDeck, hand[i]);  
+    }
 
     int lines=9, characters=12;
     int cards, j;
-	
-	for(i=0; i<lines; i++) 
-	{
-		/* Print out a line for each card in the hand */
-		for(cards=0; cards<HANDSIZE; cards++)
-		{
-			for(j=0; j<characters; j++)
-	    	    printf("%c",DECKPICS[ suits[cards] ][ faces[cards] ][ i ][ j ]);
-		}
-	    	
-	    printf("\n");
-	}     
+    
+    for(i=0; i<lines; i++) 
+    {
+        /* Print out a line for each card in the hand */
+        for(cards=0; cards<HANDSIZE; cards++)
+        {
+            for(j=0; j<characters; j++)
+                printf("%c",DECKPICS[ suits[cards] ][ faces[cards] ][ i ][ j ]);
+        }
+            
+        printf("\n");
+    }     
 }
 
 /* Prints out the rank of the hand */
 void printHandRank( int *handRank) 
 {
-	switch(handRank[0]) 
-	{
-		case ROYALFLUSH:
-			printf("Player has a Royal Flush\n" );
-			break;
-		case STRAIGHTFLUSH:
-			printf("Player has a Straight Flush\n" );
-			break;
-		case FOUROFAKIND:
-			printf("Player has Four %ss\n", face[ handRank[1] ] );
-			break;
-		case FULLHOUSE:
-			printf("Player has a Full House - %ss and %ss\n", 
-			        face[ handRank[1]] , face[ handRank[2]] );
-			break;
-		case STRAIGHT:
-			printf("Player has a Straight\n" );
-			break;
-		case FLUSH:
-			printf("Player has a %s high Flush\n", face[ handRank[1]] );
-			break;
-		case THREEOFAKIND:
-			printf("Player has Three %ss\n", face[ handRank[1]] );
-			break;
-		case TWOPAIRS:
-			printf("Player has Two Pairs - %ss and %ss\n", 
-			        face[ handRank[1]] , face[ handRank[2]] );
-			break;
-		case ONEPAIR:
-			printf("Player has a Pair of %ss\n", face[ handRank[1]] );
-			break;
-		default:
-			printf("Player has %s high\n", face[ handRank[1]] );
-			break;
-	}	
+    switch(handRank[0]) 
+    {
+        case ROYALFLUSH:
+            printf("Player has a Royal Flush\n" );
+            break;
+        case STRAIGHTFLUSH:
+            printf("Player has a Straight Flush\n" );
+            break;
+        case FOUROFAKIND:
+            printf("Player has Four %ss\n", face[ handRank[1] ] );
+            break;
+        case FULLHOUSE:
+            printf("Player has a Full House - %ss and %ss\n", 
+                    face[ handRank[1]] , face[ handRank[2]] );
+            break;
+        case STRAIGHT:
+            printf("Player has a Straight\n" );
+            break;
+        case FLUSH:
+            printf("Player has a %s high Flush\n", face[ handRank[1]] );
+            break;
+        case THREEOFAKIND:
+            printf("Player has Three %ss\n", face[ handRank[1]] );
+            break;
+        case TWOPAIRS:
+            printf("Player has Two Pairs - %ss and %ss\n", 
+                    face[ handRank[1]] , face[ handRank[2]] );
+            break;
+        case ONEPAIR:
+            printf("Player has a Pair of %ss\n", face[ handRank[1]] );
+            break;
+        default:
+            printf("Player has %s high\n", face[ handRank[1]] );
+            break;
+    }   
 }
 
 
 /* Sort hand based upon the face values of its cards */
 void sortHand( const int wDeck[][13], int *hand)
 {
-	int pass, card, temp;
-	
-	/* Sort hand based upon face value*/
-	for(pass=0; pass<HANDSIZE; pass++) 
-	{
-		for(card=0; card<HANDSIZE-1; card++)
-		{
-			if( getCardFace( wDeck, hand[card]) > getCardFace( wDeck, hand[card + 1]) )
-			{
-				temp = hand[card];
-				hand[card]=hand[card+1];
-				hand[card+1]=temp;
-			}			
-		}
-	}
+    int pass, card, temp;
+    
+    /* Sort hand based upon face value*/
+    for(pass=0; pass<HANDSIZE; pass++) 
+    {
+        for(card=0; card<HANDSIZE-1; card++)
+        {
+            if( getCardFace( wDeck, hand[card]) > getCardFace( wDeck, hand[card + 1]) )
+            {
+                temp = hand[card];
+                hand[card]=hand[card+1];
+                hand[card+1]=temp;
+            }           
+        }
+    }
 }
 
 
 /* Return the face value of the card at the position passed */
 int getCardFace( const int wDeck[][13], int cardPosition)
 {
-	int suit, face;
-	
-	for(suit=0; suit<=3; suit++) {
-		for(face=0; face<=12; face++) {
-			if(wDeck[suit][face]==cardPosition)
-				return face;
-		}
-	}
+    int suit, face;
+    
+    for(suit=0; suit<=3; suit++) {
+        for(face=0; face<=12; face++) {
+            if(wDeck[suit][face]==cardPosition)
+                return face;
+        }
+    }
     
     return -1;
 }
@@ -651,14 +651,14 @@ int getCardFace( const int wDeck[][13], int cardPosition)
 /* Return the suit of the card at the position passed */
 int getCardSuit( const int wDeck[][13], int cardPosition)
 {
-	int suit, face;
-	
-	for(suit=0; suit<=3; suit++) {
-		for(face=0; face<=12; face++) {
-			if(wDeck[suit][face]==cardPosition)
-				return suit;
-		}
-	}
+    int suit, face;
+    
+    for(suit=0; suit<=3; suit++) {
+        for(face=0; face<=12; face++) {
+            if(wDeck[suit][face]==cardPosition)
+                return suit;
+        }
+    }
     
     return -1;
 }
@@ -669,27 +669,27 @@ int getCardSuit( const int wDeck[][13], int cardPosition)
  * otherwise returns -1 */
 int isFourOFAKind( const int wDeck[][13], const int *hand, int *rank)
 {
-	int i, card, count=1;
-	int prevCard = getCardFace(wDeck, hand[0]);
-	int hasFourOfKind = -1;
-	
-	for(i=1; i<HANDSIZE; i++) 
-	{
-		card = getCardFace(wDeck, hand[i]);
-		
-		if(card==prevCard) 
-		{
-			if(++count==4) {
-				rank[0] = FOUROFAKIND;
-    	        rank[1] = card;
-    	        return 1;
-			}
-		}
-		else
-			count=1;
-		
-		prevCard = card;
-	}
+    int i, card, count=1;
+    int prevCard = getCardFace(wDeck, hand[0]);
+    int hasFourOfKind = -1;
+    
+    for(i=1; i<HANDSIZE; i++) 
+    {
+        card = getCardFace(wDeck, hand[i]);
+        
+        if(card==prevCard) 
+        {
+            if(++count==4) {
+                rank[0] = FOUROFAKIND;
+                rank[1] = card;
+                return 1;
+            }
+        }
+        else
+            count=1;
+        
+        prevCard = card;
+    }
 
     return hasFourOfKind;
 }
@@ -700,26 +700,26 @@ int isFourOFAKind( const int wDeck[][13], const int *hand, int *rank)
  * otherwise returns -1 */
 int isThreeOFAKind( const int wDeck[][13], const int *hand, int *rank)
 {
-	int i, card, count=1;
-	int prevCard = getCardFace(wDeck, hand[0]);
-	
-	for(i=1; i<HANDSIZE; i++) 
-	{
-		card = getCardFace(wDeck, hand[i]);
-		
-		if(card==prevCard) 
-		{
-			if(++count==3) {
-				rank[0] = THREEOFAKIND;
-    	        rank[1] = card;
-    	        return 1;
-			}
-		}
-		else
-			count=1;
-		
-		prevCard = card;
-	}
+    int i, card, count=1;
+    int prevCard = getCardFace(wDeck, hand[0]);
+    
+    for(i=1; i<HANDSIZE; i++) 
+    {
+        card = getCardFace(wDeck, hand[i]);
+        
+        if(card==prevCard) 
+        {
+            if(++count==3) {
+                rank[0] = THREEOFAKIND;
+                rank[1] = card;
+                return 1;
+            }
+        }
+        else
+            count=1;
+        
+        prevCard = card;
+    }
 
     return -1;
 }
@@ -729,22 +729,22 @@ int isThreeOFAKind( const int wDeck[][13], const int *hand, int *rank)
  * otherwise returns -1 */
 int isFlush( const int wDeck[][13], const int *hand)
 {
-	int i, card;
-	int suit = getCardSuit(wDeck, hand[0]);
-	int isFlush=getCardFace(wDeck, hand[0]);
-	
-	for(i=1; i<HANDSIZE; i++) 
-	{
-		card = getCardSuit(wDeck, hand[i]);
-		
-		if(card!=suit) 
-		{
-			return -1;
-		}
-		else if(isFlush!=ACE) {
-			isFlush = getCardFace(wDeck, hand[i]);
-		} 
-	}
+    int i, card;
+    int suit = getCardSuit(wDeck, hand[0]);
+    int isFlush=getCardFace(wDeck, hand[0]);
+    
+    for(i=1; i<HANDSIZE; i++) 
+    {
+        card = getCardSuit(wDeck, hand[i]);
+        
+        if(card!=suit) 
+        {
+            return -1;
+        }
+        else if(isFlush!=ACE) {
+            isFlush = getCardFace(wDeck, hand[i]);
+        } 
+    }
 
     return isFlush;
 }
@@ -754,30 +754,30 @@ int isFlush( const int wDeck[][13], const int *hand)
  * otherwise returns -1 */
 int isStraight( const int wDeck[][13], const int *hand)
 {
-	int i, card;
-	int prevFace = getCardFace(wDeck, hand[0]);
-	int hasStraight = prevFace;
-	
-	for(i=1; i<HANDSIZE; i++) 
-	{
-		card = getCardFace(wDeck, hand[i]);
-		if(hasStraight==ACE && i==1) 
-		{
-			/* Note ACE is high or low */
-			if(card!=DEUCE && card!=TEN) {
-		        return -1;		
-			}
-			else if(card==TEN)
-			    hasStraight=9;
-		}
-		else if(card != prevFace+1)
-		{
-	        return -1;
-		}
-		
-		prevFace = card;
+    int i, card;
+    int prevFace = getCardFace(wDeck, hand[0]);
+    int hasStraight = prevFace;
+    
+    for(i=1; i<HANDSIZE; i++) 
+    {
+        card = getCardFace(wDeck, hand[i]);
+        if(hasStraight==ACE && i==1) 
+        {
+            /* Note ACE is high or low */
+            if(card!=DEUCE && card!=TEN) {
+                return -1;      
+            }
+            else if(card==TEN)
+                hasStraight=9;
+        }
+        else if(card != prevFace+1)
+        {
+            return -1;
+        }
+        
+        prevFace = card;
 
-	}
+    }
 
     return hasStraight;
 }
@@ -789,37 +789,37 @@ int isStraight( const int wDeck[][13], const int *hand)
  * otherwise returns -1 */
 int isFullHouse( const int wDeck[][13], const int *hand, int *rank)
 {
-	int i, card, count=1;
-	int prevCard = getCardFace(wDeck, hand[0]);
-	int hasThreeOfKind = -1;
-	int hasPair = -1;
-	
-	for(i=1; i<HANDSIZE; i++) 
-	{
-		card = getCardFace(wDeck, hand[i]);
-		
-		if(card==prevCard) 
-		{
-			if(++count==2) {
-				hasPair = card;
-			}
-			if(count==3) {
-				hasThreeOfKind = card;
-				hasPair = -1;
-			}	
-		}
-		else
-			count=1;
-		
-		prevCard = card;
-	}
-	
+    int i, card, count=1;
+    int prevCard = getCardFace(wDeck, hand[0]);
+    int hasThreeOfKind = -1;
+    int hasPair = -1;
+    
+    for(i=1; i<HANDSIZE; i++) 
+    {
+        card = getCardFace(wDeck, hand[i]);
+        
+        if(card==prevCard) 
+        {
+            if(++count==2) {
+                hasPair = card;
+            }
+            if(count==3) {
+                hasThreeOfKind = card;
+                hasPair = -1;
+            }   
+        }
+        else
+            count=1;
+        
+        prevCard = card;
+    }
+    
     if(hasPair>=0 && hasThreeOfKind>=0) {
-    	rank[0] = FULLHOUSE;
-    	rank[1] = hasThreeOfKind;
-    	rank[2] = hasPair;
-    	return 1;
-	} 
+        rank[0] = FULLHOUSE;
+        rank[1] = hasThreeOfKind;
+        rank[2] = hasPair;
+        return 1;
+    } 
     else
         return -1;
 }
@@ -830,38 +830,38 @@ int isFullHouse( const int wDeck[][13], const int *hand, int *rank)
  * then returns 1, otherwise returns -1 */
 int isTwoPair( const int wDeck[][13], const int *hand, int *rank)
 {
-	int i, card;
-	int prevCard = getCardFace(wDeck, hand[0]);
-	int pairs = 0;
-	int highPair = -1;
-	int lowPair = -1;
-	
-	for(i=1; i<HANDSIZE; i++) 
-	{
-		card = getCardFace(wDeck, hand[i]);
-		
-		if(card==prevCard) {
-			pairs++;
-			
-			if(pairs==1)
-			    highPair = card;	
-			else if( highPair!=ACE && card>highPair) {
-				lowPair = highPair;
-				highPair = card;
-			}
-			else
-			    lowPair = card;
-		}
-		
-		prevCard = card;
-	}
-	
+    int i, card;
+    int prevCard = getCardFace(wDeck, hand[0]);
+    int pairs = 0;
+    int highPair = -1;
+    int lowPair = -1;
+    
+    for(i=1; i<HANDSIZE; i++) 
+    {
+        card = getCardFace(wDeck, hand[i]);
+        
+        if(card==prevCard) {
+            pairs++;
+            
+            if(pairs==1)
+                highPair = card;    
+            else if( highPair!=ACE && card>highPair) {
+                lowPair = highPair;
+                highPair = card;
+            }
+            else
+                lowPair = card;
+        }
+        
+        prevCard = card;
+    }
+    
     if(pairs == 2) {
-    	rank[0] = TWOPAIRS;
-    	rank[1] = highPair;
-    	rank[2] = lowPair;
-    	return 1;
-	}
+        rank[0] = TWOPAIRS;
+        rank[1] = highPair;
+        rank[2] = lowPair;
+        return 1;
+    }
     else
         return -1;
 }
@@ -872,22 +872,22 @@ int isTwoPair( const int wDeck[][13], const int *hand, int *rank)
  * otherwise returns -1 */
 int isOnePair( const int wDeck[][13], const int *hand, int *rank)
 {
-	int i, card;
-	int prevCard = getCardFace(wDeck, hand[0]);
-	
-	for(i=1; i<HANDSIZE; i++) 
-	{
-		card = getCardFace(wDeck, hand[i]);
-		
-		if(card==prevCard) {
-	    	rank[0] = ONEPAIR;
-	    	rank[1] = card;
-	    	return 1;			
-		}	
-		
-		prevCard = card;
-	}
-	
+    int i, card;
+    int prevCard = getCardFace(wDeck, hand[0]);
+    
+    for(i=1; i<HANDSIZE; i++) 
+    {
+        card = getCardFace(wDeck, hand[i]);
+        
+        if(card==prevCard) {
+            rank[0] = ONEPAIR;
+            rank[1] = card;
+            return 1;           
+        }   
+        
+        prevCard = card;
+    }
+    
     return -1;
 }
 
@@ -908,22 +908,22 @@ void getHighCard( const int wDeck[][13], const int *hand, int *rank)
  * otherwise returns -1 */
 int isFourFlush( const int wDeck[][13], const int *hand)
 {
-	int i;
-	//suit[4]  = { "Hearts", "Diamonds", "Clubs", "Spades"};
-	int suit[4] = {0};
-	
-	/* Count the number of each suit*/
-	for(i=0; i<HANDSIZE; i++) 
-	{
-		++suit[getCardSuit(wDeck, hand[i])];
-	}
+    int i;
+    //suit[4]  = { "Hearts", "Diamonds", "Clubs", "Spades"};
+    int suit[4] = {0};
+    
+    /* Count the number of each suit*/
+    for(i=0; i<HANDSIZE; i++) 
+    {
+        ++suit[getCardSuit(wDeck, hand[i])];
+    }
 
     /* Return a suit if it has 4 in the hand */
     for(i=0; i<4; i++) {
-    	if(suit[i]==4)
-    		return i;
-	}
-	/* Otherwise no four flush */
+        if(suit[i]==4)
+            return i;
+    }
+    /* Otherwise no four flush */
     return -1;
 }
 
@@ -932,45 +932,45 @@ int isFourFlush( const int wDeck[][13], const int *hand)
  * outside straight, otherwise returns -1 */
 int isOutsideStraight( const int wDeck[][13], const int *hand)
 {
-	int i, card, count=1;
-	int prevFace = getCardFace(wDeck, hand[0]);
-	
-	for(i=1; i<HANDSIZE; i++) 
-	{
-		card = getCardFace(wDeck, hand[i]);
-		
-		/* Check for runs with ACES */
-		if( (i==1 || i==2) && prevFace==ACE ) 
-		{
-			/* Note ACE is high or low */
-			if(card!=DEUCE && card!=JACK)
-			    count=1;	
-			else
-			    count++;;
-		}
-		/* Check for runs with Non-ACES */
-		else if(card != prevFace+1)
-		{
-			if(i==1)
-			    count=1;
-		    /* Never draw to an inside straight */
-		    else if(i!=1 && i!=HANDSIZE-1)
- 	            return -1;
-			/* If the last card is outside of the run and the previous
-			 * cards have ran correctly */
-			else if(i==HANDSIZE-1 && count==HANDSIZE-1) {
-				return HANDSIZE-1;
-			}
-		}
-		else
-		    count++;
-		
-		prevFace = card;
-	}
-	
-	if(count==HANDSIZE-1)
-		return 0;
-	else
-	    return -1;
+    int i, card, count=1;
+    int prevFace = getCardFace(wDeck, hand[0]);
+    
+    for(i=1; i<HANDSIZE; i++) 
+    {
+        card = getCardFace(wDeck, hand[i]);
+        
+        /* Check for runs with ACES */
+        if( (i==1 || i==2) && prevFace==ACE ) 
+        {
+            /* Note ACE is high or low */
+            if(card!=DEUCE && card!=JACK)
+                count=1;    
+            else
+                count++;;
+        }
+        /* Check for runs with Non-ACES */
+        else if(card != prevFace+1)
+        {
+            if(i==1)
+                count=1;
+            /* Never draw to an inside straight */
+            else if(i!=1 && i!=HANDSIZE-1)
+                return -1;
+            /* If the last card is outside of the run and the previous
+             * cards have ran correctly */
+            else if(i==HANDSIZE-1 && count==HANDSIZE-1) {
+                return HANDSIZE-1;
+            }
+        }
+        else
+            count++;
+        
+        prevFace = card;
+    }
+    
+    if(count==HANDSIZE-1)
+        return 0;
+    else
+        return -1;
 }
 
