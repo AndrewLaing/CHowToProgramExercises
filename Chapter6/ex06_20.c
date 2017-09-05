@@ -29,62 +29,60 @@ int main()
     int rollNumber;
     int totalRolls = 0;
 	
-	int i;
+    int i;
 	
-	for(i=1; i<=GAMES; i++)
-	{	
+    for(i=1; i<=GAMES; i++)
+    {	
+	gameStatus = 0;
+        sum = rollDice();
+	rollNumber = 1;
+		
+	switch(sum) 
+	{
+            case 7: case 11:
+		gameStatus = 1;
+		break;
+   	    case 2: case 3: case 12:
+		gameStatus = 2;
+		break;
+ 	    default:
 		gameStatus = 0;
+		myPoint = sum;
+		break;
+	}
+		
+	while(gameStatus == 0)
+	{
+	    ++rollNumber;	
 	    sum = rollDice();
-		
-		rollNumber = 1;
-		
-		switch(sum) 
-		{
-			case 7: case 11:
-				gameStatus = 1;
-				break;
-			case 2: case 3: case 12:
-				gameStatus = 2;
-				break;
-			default:
-				gameStatus = 0;
-				myPoint = sum;
-				// printf("Point is %d\n", myPoint );
-				break;
-		}
-		
-		while(gameStatus == 0)
-		{
-			++rollNumber;
 			
-			sum = rollDice();
-			
-			if(sum == myPoint)
-			    gameStatus = 1;
-			else if(sum == 7)
-			    gameStatus = 2; 
-		}
-	    // add rolls made during the game to totalRolls
-		totalRolls += rollNumber;
+	    if(sum == myPoint)
+	        gameStatus = 1;
+	    else if(sum == 7)
+	        gameStatus = 2; 
+	}
+	    
+        // add rolls made during the game to totalRolls
+	totalRolls += rollNumber;
 		
-		if(gameStatus == 1) {
-			// printf("Player wins\n");
-			if(rollNumber <= 20)
-			    ++winRolls[rollNumber];
-			else
-			    ++winRolls[21];
-		}
-		    
-	    else {
-	    	// printf("Player loses\n");
-			if(rollNumber <= 20)
-			    ++loseRolls[rollNumber];
-			else
-			    ++loseRolls[21];
-		}
+	if(gameStatus == 1) {
+	    // printf("Player wins\n");
+	    if(rollNumber <= 20)
+	        ++winRolls[rollNumber];
+	    else
+	        ++winRolls[21];
+	}	    
+        else {
+	    // printf("Player loses\n");
+	    if(rollNumber <= 20)
+	        ++loseRolls[rollNumber];
+	    else
+	        ++loseRolls[21];
+	}
     }
     
     printf("WINNING ROLLS\n");
+	
     for(i=1; i<21; i++) {
     	if(i<10)
     	    printf("%4d", i);
@@ -115,10 +113,10 @@ int main()
     	totalLost += loseRolls[i];
     	
     	if(i<10)
-        	printf("%4d", loseRolls[i]);
+            printf("%4d", loseRolls[i]);
     	else
-        	printf("%3d", loseRolls[i]);
-	}
+            printf("%3d", loseRolls[i]);
+    }
 
     printf("\n\nTotal games won:\t%3d\n", totalWon);
     printf("Total games lost:\t%3d\n", totalLost);
@@ -130,20 +128,19 @@ int main()
 
 int rollDice( void )
 {
-	int die1, die2, worksum;
+    int die1, die2, worksum;
 	
-	die1 = getRandomNum(1, 6);
-	die2 = getRandomNum(1, 6);
-	worksum = die1 + die2;
-	// printf("Player rolled %d + %d = %d\n", die1, die2, worksum );
+    die1 = getRandomNum(1, 6);
+    die2 = getRandomNum(1, 6);
+    worksum = die1 + die2;
+    // printf("Player rolled %d + %d = %d\n", die1, die2, worksum );
 	
-	return worksum;
+    return worksum;
 }
 
 
 int getRandomNum(int min, int max)
 {
-	int res = min + rand()%max;
-	return res;
+    int res = min + rand()%max;
+    return res;
 }
-
