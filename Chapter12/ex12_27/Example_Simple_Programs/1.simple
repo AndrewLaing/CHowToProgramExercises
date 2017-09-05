@@ -1,0 +1,13 @@
+10 rem   determine and print the sum of two integers
+15 rem
+20 rem   input the two integers
+30 input a
+40 input b
+45 rem
+50 rem   add integers and store result in c
+60 let c = a + b
+65 rem
+70 rem   print the results
+80 print c
+90 rem   terminate program execution
+100 end
