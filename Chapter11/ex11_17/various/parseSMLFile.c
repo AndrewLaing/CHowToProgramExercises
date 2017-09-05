@@ -1,5 +1,5 @@
 /*
- * Filename:	parseSMLFile.c
+ * Filename:    parseSMLFile.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        31/07/2017.
@@ -27,8 +27,8 @@ int main()
 
 void parsefile()
 {
-	int lineNumber, opCode, validLine;
-	int sourceLineNumber = 0;
+    int lineNumber, opCode, validLine;
+    int sourceLineNumber = 0;
     char line[ 100 ];
     char *linePtr;
     size_t tokenNumber = 0;
@@ -42,63 +42,63 @@ void parsefile()
     FILE *sourceFilePtr = fopen(filename, "r");
 
     if( sourceFilePtr == NULL ) {
-    	printf("Error - unable to open file \"%s\"\n", filename);
-    	return;
-	}
+        printf("Error - unable to open file \"%s\"\n", filename);
+        return;
+    }
     else 
-	{
-		while ( fgets ( line, sizeof line, sourceFilePtr ) != NULL )
-		{
-		    validLine = 0;
-		    sourceLineNumber++;
-		    
-			linePtr = line;
-			while(linePtr[0]==' ')
-			    linePtr++;
+    {
+        while ( fgets ( line, sizeof line, sourceFilePtr ) != NULL )
+        {
+            validLine = 0;
+            sourceLineNumber++;
+            
+            linePtr = line;
+            while(linePtr[0]==' ')
+                linePtr++;
 
             tokenNumber = 0;
-	        tokenPtr = strtok (linePtr, " \t");
-	        while (tokenPtr != NULL)
-	        {
-	            if(is_valid_int( tokenPtr ) >= 0) {
-	            	if(tokenNumber == 0) {
-	            		sscanf(tokenPtr, "%d", &lineNumber);
-	            		validLine++;
-	            		printf("Line number is %d\n", lineNumber);
-					}
-	            	else if(tokenNumber == 1) {
-	            		sscanf(tokenPtr, "%d", &opCode);
-	            		validLine++;
-	            		printf("Opcode is %06d\n", opCode);
-					} 
-				}
-				    
-	            tokenPtr = strtok (NULL, " \t");
-	            tokenNumber++;
-	        }
-		    if(validLine==2)
-			    printf("linenumber=%d add %d %06d here\n", sourceLineNumber, lineNumber, opCode ); 
-	    }		
-	}
+            tokenPtr = strtok (linePtr, " \t");
+            while (tokenPtr != NULL)
+            {
+                if(is_valid_int( tokenPtr ) >= 0) {
+                    if(tokenNumber == 0) {
+                        sscanf(tokenPtr, "%d", &lineNumber);
+                        validLine++;
+                        printf("Line number is %d\n", lineNumber);
+                    }
+                    else if(tokenNumber == 1) {
+                        sscanf(tokenPtr, "%d", &opCode);
+                        validLine++;
+                        printf("Opcode is %06d\n", opCode);
+                    } 
+                }
+                    
+                tokenPtr = strtok (NULL, " \t");
+                tokenNumber++;
+            }
+            if(validLine==2)
+                printf("linenumber=%d add %d %06d here\n", sourceLineNumber, lineNumber, opCode ); 
+        }       
+    }
 
-	fclose( sourceFilePtr );
+    fclose( sourceFilePtr );
 }
 
 
 /* Get a filename without the newline character */
 int getFilename( char s[], int maxLength )
 {
-	int c, i=0;
-	
-	while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
-	    s[i++]=c;
+    int c, i=0;
+    
+    while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
+        s[i++]=c;
 
-	s[i] = '\0';
-	
-	/* Clear any overflow*/
-	fflush(stdin);
-	
-	return i;	
+    s[i] = '\0';
+    
+    /* Clear any overflow*/
+    fflush(stdin);
+    
+    return i;   
 }
 
 
