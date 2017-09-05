@@ -1,30 +1,27 @@
 /*
- * Filename:    ex07_25.c
+ * Filename:    getInteger.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
- * Date:        04/06/2017.
- * Description: Convert a hex string to an integer
+ * Date:        14/06/2017.
+ * Description: Input an Integer
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAXLEN 7
+
 int getLine( char [], int );
+int getInteger( void );
 
 int main()
 {
-    char str[7];
     int num1;
     
-    printf("Enter hex string (MAX 4 CHARS) > ");
-    getLine(str, 7); 
+    printf("Enter integer string (MAX 6 CHARS) > ");
+    num1 = getInteger();
     
-    /* Convert Hexstring to an integer */
-    sscanf(str, "%x", &num1);
-    
-    /* Print as hex using %x */
-    printf("0x%x %d\n", num1, num1); 
-    printf("%08X %i\n", num1, num1); 
+    printf("num1 = %d\n", num1);
          
     return 0;
 }
@@ -49,3 +46,17 @@ int getLine( char s[], int maxLength )
 }
 
 
+/* Returns a valid integer */
+int getInteger()
+{
+    char str[MAXLEN];
+    int result=0;
+    
+    /* Input a string */
+    getLine(str, MAXLEN);
+    
+    /* Convert to a float */
+    sscanf(str, "%d", &result);
+
+    return result;
+}

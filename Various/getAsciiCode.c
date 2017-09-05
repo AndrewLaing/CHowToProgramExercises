@@ -1,5 +1,5 @@
 /*
- * Filename:	getAsciiCode.c
+ * Filename:    getAsciiCode.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        06/08/2017
@@ -9,13 +9,13 @@
 
 int main()
 {
-	char c;
+    char c;
     printf("Enter a character: ");
     c=getchar();
     fflush(stdin);
     printf("%c = %d", c, c );
 
-	return 0;
+    return 0;
 }
 
 

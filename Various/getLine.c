@@ -13,11 +13,11 @@ int getLine( char [], int );
 
 int main()
 {
-    char str[7];
+    char str[5];
     int num1;
     
     printf("Enter hex string (MAX 4 CHARS) > ");
-    getLine(str, 7); 
+    getLine(str, 5); 
     
     /* Convert Hexstring to an integer */
     sscanf(str, "%x", &num1);

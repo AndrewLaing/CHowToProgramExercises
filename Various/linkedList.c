@@ -1,5 +1,5 @@
 /*
- * Filename:	linkedList.c
+ * Filename:    linkedList.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        09/07/2017.
@@ -13,8 +13,8 @@
 
 struct node
 {
-	char word[30];
-	int count;
+    char word[30];
+    int count;
     struct node *next;
 };
 
@@ -28,25 +28,25 @@ void freeList( struct node * );
 
 int main()
 {
-	struct node *start = NULL;
-	
-	start = updateList( start, "Word One" );
-	start = updateList( start, "Word Two" );
-	start = updateList( start, "Word Three" );
-	start = updateList( start, "Word Four" );                          
-	
-	printf("--- Initial list ---\n");
-	printlist ( start );
-	searchlist ( start, "Word Two" );
-	searchlist ( start, "Dumplings" );
+    struct node *start = NULL;
+    
+    start = updateList( start, "Word One" );
+    start = updateList( start, "Word Two" );
+    start = updateList( start, "Word Three" );
+    start = updateList( start, "Word Four" );                          
+    
+    printf("--- Initial list ---\n");
+    printlist ( start );
+    searchlist ( start, "Word Two" );
+    searchlist ( start, "Dumplings" );
 
     start = updateList( start, "Word Two" );
-	printf("\n\n--- Updated list ---\n");
-	printlist ( start );
+    printf("\n\n--- Updated list ---\n");
+    printlist ( start );
 
-	/* Free all the memory allocated for the linked list */
-	freeList( start );
-	return 0;
+    /* Free all the memory allocated for the linked list */
+    freeList( start );
+    return 0;
 }
 
 
@@ -56,7 +56,7 @@ struct node *insert(struct node *p, const char *word, int n)
     
     /* If this is the first node...*/
     if( p == NULL )
-	{
+    {
         p = ( struct node * )malloc( sizeof(struct node) );
 
         if( p==NULL ) {
@@ -68,15 +68,15 @@ struct node *insert(struct node *p, const char *word, int n)
         p-> count = n;
         p-> next = NULL;
     } 
-	else 
-	{
+    else 
+    {
         temp = p;
         
         /* move to the end of the list */
         while (temp-> next != NULL)
             temp = temp-> next;
         
-		/* Allocate space for a new node */    
+        /* Allocate space for a new node */    
         temp-> next = (struct node *)malloc(sizeof(struct node));
         
         /* If space could not be allocated */
@@ -92,39 +92,39 @@ struct node *insert(struct node *p, const char *word, int n)
         temp-> next = NULL;
     }
         
-	return (p);
+    return (p);
 }
 
 
 /* searchlist looks for a word in the linked list */
 int searchlist( struct node *p, char *toFind )
 {
-	struct node *temp;
-	temp = p;
-	int found = 0;
+    struct node *temp;
+    temp = p;
+    int found = 0;
 
-	if(p!= NULL)
-	{
-	    do {
-	    	if(strcmp(temp->word, toFind) == 0) {
-	    	    found=1;
-				break;	
-			}
-	        temp = temp-> next;
-	    } while (temp!= NULL);
-	}
-	else
-	{
-		printf("The list is empty\n");
-		return 0;
-	}
-	
-	if(found==0)
-	    printf("%s NOT found in linked list\n", toFind);
-	else
-	    printf("%s found :)\n", toFind);
-	
-	return found;
+    if(p!= NULL)
+    {
+        do {
+            if(strcmp(temp->word, toFind) == 0) {
+                found=1;
+                break;  
+            }
+            temp = temp-> next;
+        } while (temp!= NULL);
+    }
+    else
+    {
+        printf("The list is empty\n");
+        return 0;
+    }
+    
+    if(found==0)
+        printf("%s NOT found in linked list\n", toFind);
+    else
+        printf("%s found :)\n", toFind);
+    
+    return found;
 }
 
 
@@ -134,7 +134,7 @@ struct node *updateList(struct node *p, const char *word)
     
     /* If this is the first node...*/
     if( p == NULL )
-	{
+    {
         p = ( struct node * )malloc( sizeof(struct node) );
 
         if( p==NULL ) {
@@ -154,15 +154,15 @@ struct node *updateList(struct node *p, const char *word)
     /* Search for token, if found update its count */
     while (temp-> next != NULL)
     {
-    	if(strcmp(temp->word, word) == 0) {
-    		temp-> count += 1;
-    		return (p);
-    	}
-    	temp = temp-> next; 
-	}
+        if(strcmp(temp->word, word) == 0) {
+            temp-> count += 1;
+            return (p);
+        }
+        temp = temp-> next; 
+    }
        
     /* If token is not in the list add it */
-	/* Allocate space for a new node */    
+    /* Allocate space for a new node */    
     temp-> next = (struct node *)malloc(sizeof(struct node));
     
     /* If space could not be allocated */
@@ -177,24 +177,24 @@ struct node *updateList(struct node *p, const char *word)
     temp-> count = 1;
     temp-> next = NULL;
 
-	return (p);
+    return (p);
 }
 
 
 void printlist ( struct node *p )
 {
-	struct node *temp;
-	temp = p;
-	printf("%s\t\t\t%s\n\n","Token", "Value" );
-	if(p!= NULL)
-	{
-	    do {
-	    	printf("%s\t%13d\n",temp->word, temp->count );
-	        temp = temp-> next;
-	    } while (temp!= NULL);
-	}
-	else
-		printf("The list is empty\n");
+    struct node *temp;
+    temp = p;
+    printf("%s\t\t\t%s\n\n","Token", "Value" );
+    if(p!= NULL)
+    {
+        do {
+            printf("%s\t%13d\n",temp->word, temp->count );
+            temp = temp-> next;
+        } while (temp!= NULL);
+    }
+    else
+        printf("The list is empty\n");
 }
 
 

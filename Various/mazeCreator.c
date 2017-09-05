@@ -1,17 +1,17 @@
 /*
- * Filename:	mazeCreator.c
+ * Filename:    mazeCreator.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        09/06/2017.
  * Description: Creates a Maze with a Depth-first search Algorithm
  *
  * Pseudo code for Algorithm:
- *				Start at a random cell.
- *					Mark the current cell as visited, and get a list of its neighbors.
- * 					For each neighbor, starting with a randomly selected neighbor:
- *				    If that neighbor hasn't been visited, remove the wall between
- *					this cell and that neighbor, and then recurse with
- *					that neighbor as the current cell.
+ *              Start at a random cell.
+ *                  Mark the current cell as visited, and get a list of its neighbors.
+ *                  For each neighbor, starting with a randomly selected neighbor:
+ *                  If that neighbor hasn't been visited, remove the wall between
+ *                  this cell and that neighbor, and then recurse with
+ *                  that neighbor as the current cell.
  *
  * TODO:        Add an entrance and exit point to the maze on an odd numbered square
  */
@@ -44,38 +44,38 @@ void removeRightWall(int (*)[MAX], int , int );
 
 int main()
 {
-	int maze[MAX][MAX] = { {0} };        /* Used to hold the finished maze */
+    int maze[MAX][MAX] = { {0} };        /* Used to hold the finished maze */
     int visited[MAX/2][MAX/2] = { {0} }; /* Used to hold the positiojns visited for use
-										  * by the Depth-first Algorithm */
-	
-	srand(time(NULL));
-	
-	int startRow = getRandomNumber(MAX/2);
-	int startCol = getRandomNumber(MAX/2);
-	
-	/* Create the visual representation of maze */
-	initialiseMazeArray(maze);
+                                          * by the Depth-first Algorithm */
+    
+    srand(time(NULL));
+    
+    int startRow = getRandomNumber(MAX/2);
+    int startCol = getRandomNumber(MAX/2);
+    
+    /* Create the visual representation of maze */
+    initialiseMazeArray(maze);
 
-	/* Call maze creator */
+    /* Call maze creator */
     removeWalls(maze, visited, startRow, startCol);
 
-	CLEARSCREEN;
+    CLEARSCREEN;
     drawMaze(maze);
-	PAUSE;
+    PAUSE;
 
-	return 0;
+    return 0;
 }
 
 /* Shuffle method randomly shuffles an array */
 void shuffle(int *array, size_t n)
 {
-	size_t i, j;
+    size_t i, j;
     int t;
-	
+    
     if (n > 1)
-	{
+    {
         for (i = 0; i < n - 1; i++)
-		{
+        {
             j = i + rand() / (RAND_MAX / (n - i) + 1);
             t = array[j];
             array[j] = array[i];
@@ -88,7 +88,7 @@ void shuffle(int *array, size_t n)
 /* Returns a random number in the range 0 to max-1*/
 int getRandomNumber( int max )
 {
-	return rand()%max;
+    return rand()%max;
 }
 
 
@@ -97,151 +97,151 @@ int getRandomNumber( int max )
 void removeWalls(int (*maze)[MAX], int (*visited)[MAX/2],
                  int startRow, int startCol)
 {
-	/* Mark trhe start position as visited */
+    /* Mark trhe start position as visited */
     visited[startRow][startCol] = 1;
 
-	/* Remove walls between current square and adjacent visited squares
-	 * in a random order */
+    /* Remove walls between current square and adjacent visited squares
+     * in a random order */
     int i;
-	int order[4] = {0,1,2,3};
-	
-	for(i=0; i<6; i++)
-    	shuffle(order, 4);
+    int order[4] = {0,1,2,3};
+    
+    for(i=0; i<6; i++)
+        shuffle(order, 4);
 
     for(i=0; i<4; i++)
     {
-    	if(order[i]==0)
-		{
-			/* If the position above has not been visited
-			 * remove the wall between it and the start row */
-			if(startRow>0 && (squareVisited(visited, startRow-1, startCol)==0) )
-			{
-				removeTopWall(maze, startRow, startCol);
-				removeWalls(maze, visited, startRow-1, startCol);
-			}
-		}
-    	if(order[i]==1)
-		{
-			/* If the position below has not been visited
-			 * remove the wall between it and the start row */
-			if( ( startRow<(MAX/2)-1 ) && ( squareVisited(visited, startRow+1, startCol)==0 ) )
-			{
-				removeBottomWall(maze, startRow, startCol);
-				removeWalls(maze, visited, startRow+1, startCol);
-			}
-		}
-    	if(order[i]==2)
-		{
-			/* If the position ato the left has not been visited
-			 * remove the wall between it and the start row */
-			if( ( startCol>0 ) && ( squareVisited(visited, startRow, startCol-1)==0) )
-			{
-				removeLeftWall(maze, startRow, startCol);
-				removeWalls(maze, visited, startRow, startCol-1);
-			}
-		}
-    	if(order[i]==3)
-		{
-			/* If the position to the right has not been visited
-			 * remove the wall between it and the start row */
-			if( (  startCol<(MAX/2)-1 ) && ( squareVisited(visited, startRow, startCol+1)==0) )
-			{
-				removeRightWall(maze, startRow, startCol);
-				removeWalls(maze, visited, startRow, startCol+1);
-			}
-		}
-	}
+        if(order[i]==0)
+        {
+            /* If the position above has not been visited
+             * remove the wall between it and the start row */
+            if(startRow>0 && (squareVisited(visited, startRow-1, startCol)==0) )
+            {
+                removeTopWall(maze, startRow, startCol);
+                removeWalls(maze, visited, startRow-1, startCol);
+            }
+        }
+        if(order[i]==1)
+        {
+            /* If the position below has not been visited
+             * remove the wall between it and the start row */
+            if( ( startRow<(MAX/2)-1 ) && ( squareVisited(visited, startRow+1, startCol)==0 ) )
+            {
+                removeBottomWall(maze, startRow, startCol);
+                removeWalls(maze, visited, startRow+1, startCol);
+            }
+        }
+        if(order[i]==2)
+        {
+            /* If the position ato the left has not been visited
+             * remove the wall between it and the start row */
+            if( ( startCol>0 ) && ( squareVisited(visited, startRow, startCol-1)==0) )
+            {
+                removeLeftWall(maze, startRow, startCol);
+                removeWalls(maze, visited, startRow, startCol-1);
+            }
+        }
+        if(order[i]==3)
+        {
+            /* If the position to the right has not been visited
+             * remove the wall between it and the start row */
+            if( (  startCol<(MAX/2)-1 ) && ( squareVisited(visited, startRow, startCol+1)==0) )
+            {
+                removeRightWall(maze, startRow, startCol);
+                removeWalls(maze, visited, startRow, startCol+1);
+            }
+        }
+    }
 }
 
 
 /* Add the positions and walls to the maze template */
 void initialiseMazeArray(int (*maze)[MAX])
 {
-	int i, j;
-	for(j=0; j<MAX; j++) {
-		maze[0][j] = 1;
-		maze[MAX-1][j] = 1;
-	}
-	
-	for(i=1; i<MAX-1; i++) {
-		for(j=0; j<MAX; j++)
-		{
-			if(i%2==0)
-				maze[i][j] = 1;
-			else {
-				if(j%2==0)
-	    			maze[i][j] = 1;
-				else
-	    			maze[i][j] = 0;
-			}
-		}
-	}
+    int i, j;
+    for(j=0; j<MAX; j++) {
+        maze[0][j] = 1;
+        maze[MAX-1][j] = 1;
+    }
+    
+    for(i=1; i<MAX-1; i++) {
+        for(j=0; j<MAX; j++)
+        {
+            if(i%2==0)
+                maze[i][j] = 1;
+            else {
+                if(j%2==0)
+                    maze[i][j] = 1;
+                else
+                    maze[i][j] = 0;
+            }
+        }
+    }
 }
 
 /* Draw the maze to the terminal */
 void drawMaze(int (*maze)[MAX])
 {
-	int i, j;
-	
-	for(i=0; i<MAX; i++) {
-		for(j=0; j<MAX; j++) {
-			if(maze[i][j]==1)
-				printf("#");
-			else
-				printf(" ");
-		}
-		printf("\n");
-	}
-	printf("\n");
+    int i, j;
+    
+    for(i=0; i<MAX; i++) {
+        for(j=0; j<MAX; j++) {
+            if(maze[i][j]==1)
+                printf("#");
+            else
+                printf(" ");
+        }
+        printf("\n");
+    }
+    printf("\n");
 }
 
 
 /* Check whether the position has been visited before - 1=yes */
 int squareVisited(int (*visited)[MAX/2], int row, int col )
 {
-	return visited[row][col];
+    return visited[row][col];
 }
 
 
 /* Remove a wall from the maze array */
 void removeTopWall(int (*maze)[MAX], int startRow, int startCol)
 {
-	int removeRow, removeCol;
-	removeRow = ((startRow - 1)+1)*2;
-	removeCol = (startCol)*2 - 1 + 2;
-	maze[removeRow][removeCol] = 0;
+    int removeRow, removeCol;
+    removeRow = ((startRow - 1)+1)*2;
+    removeCol = (startCol)*2 - 1 + 2;
+    maze[removeRow][removeCol] = 0;
 }
 
 
 /* Remove a wall from the maze array */
 void removeLeftWall(int (*maze)[MAX], int startRow, int startCol)
 {
-	int removeRow, removeCol;
+    int removeRow, removeCol;
 
-	removeCol = ((startCol - 1)+1)*2;
-	removeRow = (startRow)*2 - 1 + 2;
-	maze[removeRow][removeCol] = 0;
+    removeCol = ((startCol - 1)+1)*2;
+    removeRow = (startRow)*2 - 1 + 2;
+    maze[removeRow][removeCol] = 0;
 }
 
 
 /* Remove a wall from the maze array */
 void removeBottomWall(int (*maze)[MAX], int startRow, int startCol)
 {
-	int removeRow, removeCol;
+    int removeRow, removeCol;
 
-	removeRow = (startRow + 1)*2;
-	removeCol = (startCol)*2 - 1 + 2;
-	maze[removeRow][removeCol] = 0;
+    removeRow = (startRow + 1)*2;
+    removeCol = (startCol)*2 - 1 + 2;
+    maze[removeRow][removeCol] = 0;
 }
 
 
 /* Remove a wall from the maze array */
 void removeRightWall(int (*maze)[MAX], int startRow, int startCol)
 {
-	int removeRow, removeCol;
+    int removeRow, removeCol;
 
-	removeCol = (startCol + 1)*2;
-	removeRow = (startRow)*2 - 1 + 2;
-	maze[removeRow][removeCol] = 0;
+    removeCol = (startCol + 1)*2;
+    removeRow = (startRow)*2 - 1 + 2;
+    maze[removeRow][removeCol] = 0;
 }
 

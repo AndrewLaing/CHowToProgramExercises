@@ -67,57 +67,29 @@ int getLine( char s[], int maxLength )
 }
 
 
-/* This method returns 1 if the user could extract a valid signed
- * or unsigned int from it, otherwise ir returns 0
- * Note: at the moment the method does not check that the string
- *       is within system boundaries 
- */ 
-int isValidIntegerString(const char *str)
-{
-    int i=0;
-    
-    /* Check first that only valid characters are used */
-    while( str[i] != '\n' && str[i] != '\0' )
-    {
-        if( i==0 && ( str[0]=='+' || str[0]=='-' ) )
-            ;
-        else if( isdigit(str[i]) == 0 )
-            return 0;
-            
-        i++;
-    }
-
-    /* Finally check that a valid signed or unsigned int has been entered */
-    if( (str[i-1]=='\0' || str[i-1] != '\n' ) && isdigit(str[0]) )
-        return 1;
-    else if( ( str[0]=='+' || str[0]=='-' ) ) {
-        if( str[1]=='\0' || str[1] == '\n' )
-            return 0;
-        else
-            return 1;
-    }
-    else
-        return 0;
-}
-
 
 /* This method gets the user to input, then returns a valid integer
  * Note: The maximum length of the integer is define as MAXLEN, and 
  *       at the moment the method does not check that the string
  *       is within system integer boundaries. 
+ 
+ ** PROBLEM CAUSED BY SSCANF skipping SPACES
  */
 int getValidInteger()
 {
-    char str[MAXLEN];
-    int result=0;
+    char str[MAXLEN+1];
+    int result = 0;
     int validInt = 0;
     
     /* Input a string */
     getLine(str, MAXLEN);
     
+    /* If the string is valid convert and return it */
     while(validInt == 0)
-    {
-        validInt = isValidIntegerString( str ); 
+    { 
+        /* sscanf returns the number of conversions made */
+        if( !isspace(str[0]) )
+            validInt = sscanf(str, "%d", &result); 
 
         if( validInt == 0 ) 
         {
@@ -125,9 +97,7 @@ int getValidInteger()
             getLine(str, MAXLEN);           
         }
     }
-    
-    /* Convert string to an integer */
-    sscanf(str, "%d", &result);
 
     return result;
 }
+

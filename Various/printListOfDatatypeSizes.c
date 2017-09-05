@@ -1,5 +1,5 @@
 /*
- * Filename:	ex11_16.c
+ * Filename:    ex11_16.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        30/07/2017.
@@ -8,14 +8,14 @@
 #include <stdio.h>
 
 int main(int argc, char **argv)
-{	   
+{      
     FILE *ofPtr;
 
     if ( ( ofPtr = fopen( "datasize.dat", "w" ) ) == NULL )
     {
-    	printf("Error - unable to open file \"%s\"\n", argv[1]);
-    	return -1;
-	}
+        printf("Error - unable to open file \"%s\"\n", argv[1]);
+        return -1;
+    }
 
 
     fprintf(ofPtr, "%-25s%5s\n", "Data Type", "Size");
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     fprintf(ofPtr, "%-25s%5d\n", "double", sizeof(double));  
     fprintf(ofPtr, "%-25s%5d\n", "long double", sizeof(long double));     
 
- 	return 0;
+    return 0;
 }
 
 

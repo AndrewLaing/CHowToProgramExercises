@@ -1,10 +1,10 @@
 /*
- * Filename:	startsWithEndsWith.c
+ * Filename:    startsWithEndsWith.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        16/08/2017
  * Description: Two methods wich test whether a string starts eith
- *				or ends with the character provided.
+ *              or ends with the character provided.
  */
  
 #include <stdio.h>
@@ -34,28 +34,28 @@ int main()
     else
         printf("Line does not end with )\n");
         
-	return 0;
+    return 0;
 }
 
 
 int startsWith( const char *s, char c )
 {
-	if(s!=NULL)
-	    return s[0] == c;
-	return 0;
+    if(s!=NULL)
+        return s[0] == c;
+    return 0;
 }
 
 
 int endsWith( const char *s, char c )
 {
-	if(s==NULL)
-	   return 0;
-	int i=0;
-	
-	while(s[i]!='\0')
-	    i++;
-	
-	return s[--i] == c;
+    if(s==NULL)
+       return 0;
+    int i=0;
+    
+    while(s[i]!='\0')
+        i++;
+    
+    return s[--i] == c;
 }
 
 
@@ -65,16 +65,16 @@ int endsWith( const char *s, char c )
  * this version does not add newline characters */
 int getLine( char s[], int maxLength )
 {
-	int c, i=0;
-	
-	while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
-	    s[i++]=c;
+    int c, i=0;
+    
+    while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
+        s[i++]=c;
 
-	s[i] = '\0';
-	
-	/* Clear any overflow*/
-	fflush(stdin);
-	
-	return i;	
+    s[i] = '\0';
+    
+    /* Clear any overflow*/
+    fflush(stdin);
+    
+    return i;   
 }
 
