@@ -1,5 +1,5 @@
 /*
- * Filename:	ex09_17.c
+ * Filename:    ex09_17.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        18/07/2017.
@@ -10,20 +10,20 @@
 
 
 int main()
-{	
-	float a, b, c;
-	 
+{   
+    float a, b, c;
+     
     printf("a: Enter 1.2345: ");
     scanf("%e", &a);
-    fflush(stdin);	 
+    fflush(stdin);   
     
     printf("b: Enter 1.2345: ");
     scanf("%f", &b);
-    fflush(stdin);	 
+    fflush(stdin);   
     
     printf("c: Enter 1.2345: ");
     scanf("%g", &c);
-    fflush(stdin);	 
+    fflush(stdin);   
     
 
     
@@ -45,7 +45,7 @@ int main()
     printf("%%g  = %g\n", c);
 
 
-	return 0;
+    return 0;
 }
 
 

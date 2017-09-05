@@ -1,5 +1,5 @@
 /*
- * Filename:	ex09_14.c
+ * Filename:    ex09_14.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        17/07/2017.
@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 int main()
-{	
+{   
     printf("single quote  - \'\n");
     printf("double quote  - \"\n");
     printf("question mark - \?\n");
@@ -21,7 +21,7 @@ int main()
     printf("horizontal tab - 1\t2\n");
     printf("vertical tab   - 1\v2\n");             /* Not on this terminal */
 
-	return 0;
+    return 0;
 }
 
 

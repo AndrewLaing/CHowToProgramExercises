@@ -1,5 +1,5 @@
 /*
- * Filename:	ex09_16.c
+ * Filename:    ex09_16.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        17/07/2017.
@@ -10,38 +10,38 @@
 
 
 int main()
-{	 
-	int a,b,c,d,e,f;
-	short g;
-	long h;
-	 
+{    
+    int a,b,c,d,e,f;
+    short g;
+    long h;
+     
     printf("a: Enter 437: ");
     scanf("%d", &a);
-    fflush(stdin);	 
+    fflush(stdin);   
     
     printf("b: Enter 437: ");
     scanf("%i", &b);
-    fflush(stdin);	 
+    fflush(stdin);   
     
     printf("c: Enter 437: ");
     scanf("%o", &c);
-    fflush(stdin);	 
+    fflush(stdin);   
     
     printf("d: Enter 437: ");
     scanf("%u", &d);
-    fflush(stdin);	 
+    fflush(stdin);   
     
     printf("e: Enter 437: ");
     scanf("%x", &e);
-    fflush(stdin);	 
+    fflush(stdin);   
     
     printf("f: Enter 437: ");
     scanf("%X", &f);
-    fflush(stdin);	
-	 
+    fflush(stdin);  
+     
     printf("g: Enter 437: ");
     scanf("%hd", &g);
-    fflush(stdin);	 
+    fflush(stdin);   
     
     printf("h: Enter 437: ");
     scanf("%ld", &h);
@@ -128,7 +128,7 @@ int main()
     printf("%%hd = %hd\n", h);
     printf("%%ld = %ld\n", h); 
 
-	return 0;
+    return 0;
 }
 
 

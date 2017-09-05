@@ -1,5 +1,5 @@
 /*
- * Filename:	ex09_09.c
+ * Filename:    ex09_09.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        17/07/2017.
@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 int main()
-{	
+{   
     int a = 455;
     int *a1;    
     a1 = &a;
@@ -30,19 +30,19 @@ int main()
 
 
 
-	printf("%d\n", &a1);	
-	printf("%i\n", &b1);	
-	printf("%d\n", &a1);
-	printf("%hd\n", &c1);    /* h is short */	
-	printf("%ld\n", &d1);    /* l is long */	
-	printf("%o\n", &a1);	
-	printf("%u\n", &a1);	
-	printf("%u\n", &b1);	
-	printf("%x\n", &a1);	
-	printf("%X\n", &a1);
-	printf("%p\n", a1);
+    printf("%d\n", &a1);    
+    printf("%i\n", &b1);    
+    printf("%d\n", &a1);
+    printf("%hd\n", &c1);    /* h is short */   
+    printf("%ld\n", &d1);    /* l is long */    
+    printf("%o\n", &a1);    
+    printf("%u\n", &a1);    
+    printf("%u\n", &b1);    
+    printf("%x\n", &a1);    
+    printf("%X\n", &a1);
+    printf("%p\n", a1);
 
-	return 0;
+    return 0;
 }
 
 

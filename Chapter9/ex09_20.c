@@ -1,5 +1,5 @@
 /*
- * Filename:	ex09_20.c
+ * Filename:    ex09_20.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        18/07/2017.
@@ -9,7 +9,7 @@
 
 
 int main()
-{	 
+{    
     double num = 9876.12345;
     printf("Precision 1: %0.1lg\n", num);
     printf("Precision 2: %0.2lg\n", num);
@@ -21,6 +21,6 @@ int main()
     printf("Precision 8: %0.8lg\n", num);
     printf("Precision 9: %0.9lg\n", num);
 
-	return 0;
+    return 0;
 }
 
