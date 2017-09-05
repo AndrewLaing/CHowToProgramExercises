@@ -1,10 +1,10 @@
 REGISTERS:
-accumulator:		   +000000
-float accumulator:	 +0.000000
-instructionCounter:	      0000
-instructionRegister:	   +000000
-operationCode:		        00
-operand:		    000000
+accumulator:           +000000
+float accumulator:   +0.000000
+instructionCounter:       0000
+instructionRegister:       +000000
+operationCode:              00
+operand:            000000
 
 MEMORY:
             0        1        2        3        4        5        6        7        8        9
