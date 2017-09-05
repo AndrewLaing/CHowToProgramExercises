@@ -1,5 +1,5 @@
 /*
- * Filename:	ex04_29.c
+ * Filename:    ex04_29.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        23/04/2017
@@ -24,6 +24,6 @@ int main()
     if( !( (i>4) || (j<=6)) == ( !(i>4) && !(j<=6)) )
         printf("Fourth expression passes\n");
     
-	return 0;
+    return 0;
 }
 

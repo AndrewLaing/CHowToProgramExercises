@@ -1,5 +1,5 @@
 /*
- * Filename:	ex04_18.c
+ * Filename:    ex04_18.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        21/04/2017
@@ -14,8 +14,8 @@ int main()
     int a, b, c, d, e;
     int count;
     
-	printf("Enter five numbers separated by spaces: ");
-	scanf("%d%d%d%d%d", &a, &b, &c, &d, &e);
+    printf("Enter five numbers separated by spaces: ");
+    scanf("%d%d%d%d%d", &a, &b, &c, &d, &e);
 
     for(count = 0; count < a; count++)
         printf("*");
@@ -43,6 +43,6 @@ int main()
     
     printf("\n");
 
-	return 0;
+    return 0;
 }
 

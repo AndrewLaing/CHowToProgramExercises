@@ -1,10 +1,10 @@
 /*
- * Filename:	ex04_24.c
+ * Filename:    ex04_24.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        22/04/2017
  * Description: Print a table of decimal, binary, octal and
- *				hexadecimal equivalents.
+ *              hexadecimal equivalents.
  */
 
 #include <stdio.h>
@@ -29,6 +29,6 @@ int main()
     printf( "14\t1110\t16\tE\n" );    
     printf( "15\t1111\t17\tF\n" ); 
     
-	return 0;
+    return 0;
 }
 

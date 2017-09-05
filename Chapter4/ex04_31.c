@@ -1,5 +1,5 @@
 /*
- * Filename:	ex04_31.c
+ * Filename:    ex04_31.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        23/04/2017
@@ -19,22 +19,22 @@ int main()
     
     for(i=0; i<=max; i++) 
     {
-    	for(j=0; j<(max-i); j++)
-    	    printSpace;
-    	for(k=0; k<(1+(i*2)); k++)
-    	    printStar;
-    	newLine;
-	}
+        for(j=0; j<(max-i); j++)
+            printSpace;
+        for(k=0; k<(1+(i*2)); k++)
+            printStar;
+        newLine;
+    }
 
     for(i=max-1; i>=0; i--) 
     {
-    	for(j=0; j<(max-i); j++)
-    	    printSpace;
-    	for(k=0; k<(1+(i*2)); k++)
-    	    printStar;
-    	newLine;
-	}
+        for(j=0; j<(max-i); j++)
+            printSpace;
+        for(k=0; k<(1+(i*2)); k++)
+            printStar;
+        newLine;
+    }
     
-	return 0;
+    return 0;
 }
 

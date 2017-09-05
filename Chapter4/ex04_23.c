@@ -1,10 +1,10 @@
 /*
- * Filename:	ex04_23.c
+ * Filename:    ex04_23.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        21/04/2017
  * Description: Modify the program in fig04_06 so that it uses only integers
- *				to calculate the compound interest.
+ *              to calculate the compound interest.
  */
 
 #include <stdio.h>
@@ -22,18 +22,18 @@ int main()
     
     for(year = 1; year <= 10; year++ )
     {
-    	modifier = r;
-    	for(count=1; count<year; count++) {
-    		modifier*=r;
-			modifier/=100;
-		}
-    	    
-    	    
-    	//printf("modifier = %d\n", modifier );
-    	/* amount = principal * ((1 + rate)**years)    */
-    	amount = (principal * modifier)/100;
-    	printf( "%4d%21d\n", year, amount );	
-	}
+        modifier = r;
+        for(count=1; count<year; count++) {
+            modifier*=r;
+            modifier/=100;
+        }
+            
+            
+        //printf("modifier = %d\n", modifier );
+        /* amount = principal * ((1 + rate)**years)    */
+        amount = (principal * modifier)/100;
+        printf( "%4d%21d\n", year, amount );    
+    }
 
-	return 0;
+    return 0;
 }
