@@ -1,0 +1,17 @@
+10 rem    Use a sentinel controlled loop to input 10 integers,
+20 rem    compute and print their sum (s)
+21 rem
+22 rem    set sum (s) to 0
+30 let s = 0
+31 rem
+32 rem    Input a number into a, if it is a sentinel value (less than zero)
+33 rem    then print out the result, else add it to the sum and continue
+34 rem    inputting numbers
+40 input a
+50 if a < 0 goto 80
+60 let s = s + a 
+70 goto 30
+71 rem
+72 rem    print out the result and quit
+80 print s
+90 end

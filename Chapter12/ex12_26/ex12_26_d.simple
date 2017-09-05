@@ -1,0 +1,28 @@
+10  rem    Input a series of numbers and determine and print 
+11  rem    the largest. The first integer input indicates how
+12  rem    many numbers should be processed.
+13  rem
+14  rem    set the value of the variables largest (l) to 0
+15  rem    and count (c) to 0
+20  let l = 0
+30  let c = 0
+31  rem
+32  rem    input the number of numbers to be processed (n)
+40  input n
+41  rem
+42  rem    check whether all numbers have been input
+43  rem    if yes go print the result, else input a number
+50  if c == n goto 120 
+60  input a
+70  if a > l goto 100
+71  rem    increment the counter and return to the beginning 
+72  rem    of the input loop
+80  let c = c + 1
+90  goto 50
+91  rem
+92  rem    if a is larger than the current largest number (l)
+93  rem    set l equal to a and return back to the input loop
+100 let l = a
+110 goto 80
+120 print l
+130 end

@@ -1,0 +1,21 @@
+10  rem    calculate the average of three numbers version 2
+11  rem 
+12  rem    initialise total(t) to 0, max(m) to 3 and count(c) to 0
+20  let t = 0
+30  let m = 3
+40  let c = 0
+50  if c == m goto 100
+51  rem
+52  rem    while count < max input a number and add it to the total
+60  input a
+70  let t = t + a
+71  rem
+72  rem    increment the count and go back to the start of the loop
+80  let c = c + 1
+90  goto 50
+91  rem
+92  rem    calculate the average (v) and print it out
+100 let v = t / m
+110 print v 
+120 end
+

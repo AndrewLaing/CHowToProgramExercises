@@ -1,0 +1,28 @@
+10  rem    Calculate and print the product of the odd Integers 
+11  rem    from 1 to 9
+12  rem
+13  rem    set the value of the variables number (n) to 1,
+14  rem    sum (s) to 0, increment value (i) to 2, and max (m) to 9
+20  let n = 1
+30  let s = 0
+40  let i = 2
+50  let m = 9
+51  rem    LOOP to add the numbers, if the current number is greater
+52  rem    than 9 then go and print the result
+60  if n > m goto 100
+61  rem
+62  rem    ADD n to the sum
+70  let s = s + n
+71  rem
+72  rem    Increment n by 2 to get the next odd number, then
+73  rem    return to the beginning of the loop
+80  let n = n + i
+90  goto 60
+91  rem
+92  rem    print out the sum of the odd integers and quit
+100 print s
+110 end
+
+
+
+

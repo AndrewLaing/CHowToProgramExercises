@@ -1,0 +1,17 @@
+10 rem    calculate the average of three numbers
+11 rem
+15 rem    start by inputting the three values (a,b,c)
+20 input a
+30 input b
+40 input c 
+45 rem
+46 rem    next add the numbers together to get the total (t)
+50 let t = a + b + c 
+55 rem
+56 rem    next calculate the average (v)
+60 let v = t / 3
+65 rem
+66 rem    print out the result
+70 print v 
+80 end
+

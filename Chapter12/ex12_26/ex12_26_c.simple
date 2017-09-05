@@ -1,0 +1,25 @@
+10  rem    Use a counter controlled loop to input 7 integers,
+20  rem    some positive and some negative, and compute and
+21  rem    print their average
+22  rem
+23  rem    set the values of the variables sum (s), max (m)
+24  rem    and count (c)
+30  let s = 0
+40  let m = 7
+50  let c = 0
+51  rem
+52  rem    if 7 numbers have been input go and print the result
+53  rem    else input a number and add it to the total then
+54  rem    increment the counter
+60  if c == m goto 110
+70  input a
+80  let s = s + a
+90  let c = c + 1
+100 goto 60
+101 rem
+102 rem    print the sum (s) of the inputted numbers, then calculate
+103 rem    and print the average (v)
+110 print s
+120 let v = s / m
+130 print v
+140 end

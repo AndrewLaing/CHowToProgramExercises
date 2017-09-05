@@ -1,0 +1,37 @@
+10  rem    Input 10 integers and print the smallest 
+11  rem
+14  rem    set the value of the variables max (m) to 10,
+15  rem    smallest(s) to 0, and count (c) to 0
+20  let m = 10
+25  let s = 0
+30  let c = 0
+31  rem
+32  rem    INPUT LOOP - if counter == 10 go and print then quit
+40  if c == m goto 120
+50  input a
+51  rem
+52  rem    if this is the first number input then it is
+53  rem    the smallest number added so far, so goto the 
+54  rem    subroutine which sets s to this value
+60  if c == 0 goto 100
+61  rem
+62  rem    if the input is smaller than s, goto the 
+64  rem    subroutine which sets s to this value
+70  if a < s goto 100
+71  rem
+72  rem    increment the counter and return to the beginning
+73  rem    of the input loop
+80  let c = c + 1
+90  goto 40
+91  rem
+92  rem    set the value of smallest (s) and return to the 
+93  rem    input loop, incrementing the counter
+100 let s = a
+110 goto 70
+111 rem
+112 rem    print the smallest value and quit
+120 print s
+130 end
+
+
+
