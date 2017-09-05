@@ -1,5 +1,5 @@
 /*
- * Filename:	ex11_11.c
+ * Filename:    ex11_11.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        26/07/2017.
@@ -29,10 +29,10 @@ int main()
 { 
     FILE *nfPtr;
     if ( ( nfPtr = fopen( "nameage.dat", "wb+" ) ) == NULL ) {
-   	    printf( "File \"nameage.dat\" could not be opened.\n" );
-   	    return -1;
-    }		
-	
+        printf( "File \"nameage.dat\" could not be opened.\n" );
+        return -1;
+    }       
+    
     createNameage( nfPtr );
     if(DEBUG) printf("File \"nameage.dat\" created.\n");
     
@@ -57,7 +57,7 @@ int main()
     
     fclose ( nfPtr );
     
-	return 0;
+    return 0;
 }
 
 
@@ -75,7 +75,7 @@ void createNameage(FILE *nfPtr)
 void addTenRecords( FILE *fPtr )
 {
     struct person blankPerson = { "", "", "" };
-	int i;
+    int i;
     
     rewind( fPtr );
     
@@ -83,41 +83,41 @@ void addTenRecords( FILE *fPtr )
     {   
         printf( "Enter lastname, firstname, age\n? " );
         scanf( "%s%s%s", &blankPerson.lastName, &blankPerson.firstName,
-				         &blankPerson.age  );   
+                         &blankPerson.age  );   
         
         fwrite( &blankPerson, sizeof( struct person ), 1, 
                  fPtr );        
-	}
+    }
 }
 
 
 void updateRecord( FILE *fPtr )
 {
     struct person blankPerson = { "", "", "" };
-	int accountNum;
+    int accountNum;
     
     printf("Enter number of account to update ( 1-100 ): ");
     scanf( "%d", &accountNum );
     
     fseek( fPtr, 
-	       ( accountNum - 1 ) *  sizeof( struct person ), 
-		   SEEK_SET );
+           ( accountNum - 1 ) *  sizeof( struct person ), 
+           SEEK_SET );
     fread( &blankPerson, sizeof( struct person ), 1,
-	       fPtr );
+           fPtr );
     
     if( strcmp2(blankPerson.lastName, "unassigned") == 0)
         printf( "No info\n");
     else {
         printf( "Enter lastname, firstname, age\n? " );
         scanf( "%s%s%s", &blankPerson.lastName, &blankPerson.firstName,
-				         &blankPerson.age  );   
+                         &blankPerson.age  );   
         fseek( fPtr, 
-	       ( accountNum - 1 ) *  sizeof( struct person ), 
-		   SEEK_SET );
+           ( accountNum - 1 ) *  sizeof( struct person ), 
+           SEEK_SET );
         fwrite( &blankPerson, sizeof( struct person ), 1, 
                  fPtr );   
-		printf( "Record updated\n");
-	}
+        printf( "Record updated\n");
+    }
 }
 
 
@@ -126,27 +126,27 @@ void deleteRecord( FILE *fPtr )
     struct person temp = { "", "", ""};
     struct person blankPerson = { "unassigned", "", "0"};
     
-	int accountNum;
+    int accountNum;
     
     printf("Enter number of account to delete ( 1-100 ): ");
     scanf( "%d", &accountNum );
     
     fseek( fPtr, 
-	       ( accountNum - 1 ) *  sizeof( struct person ), 
-		   SEEK_SET );
+           ( accountNum - 1 ) *  sizeof( struct person ), 
+           SEEK_SET );
     fread( &temp, sizeof( struct person ), 1,
-	       fPtr );
+           fPtr );
     
     if( strcmp2(temp.lastName, "unassigned") == 0)
         printf( "Record does not contain any info\n");
     else {
         fseek( fPtr, 
-	       ( accountNum - 1 ) *  sizeof( struct person ), 
-		   SEEK_SET );
+           ( accountNum - 1 ) *  sizeof( struct person ), 
+           SEEK_SET );
         fwrite( &blankPerson, sizeof( struct person ), 1, 
                  fPtr );   
-		printf( "Record deleted\n");
-	}
+        printf( "Record deleted\n");
+    }
 }
 
 
@@ -161,18 +161,18 @@ void textFile( FILE *readPtr, char *filename )
    else { 
         rewind( readPtr );
         fprintf( writePtr, "%-16s%-11s%10s\n",
-	          "Last Name", "First Name", "Age" );
-	          
-	    while ( !feof( readPtr  ) ) { 
+              "Last Name", "First Name", "Age" );
+              
+        while ( !feof( readPtr  ) ) { 
             fread( &blankPerson, sizeof( struct person ), 1, 
                 readPtr );
 
-         	fprintf( writePtr, "%-16s%-11s%10s\n", 
+            fprintf( writePtr, "%-16s%-11s%10s\n", 
                     blankPerson.lastName, blankPerson.firstName,
-					blankPerson.age  );            
+                    blankPerson.age  );            
          }
-	          
-	  fclose( writePtr );
+              
+      fclose( writePtr );
       printf("File \"%s\" created\n",filename );
    }  
 }
@@ -181,15 +181,15 @@ void textFile( FILE *readPtr, char *filename )
 /* Using pointer arithmetic */
 int strcmp2( const char* s1, const char *s2 )
 {      
-	while(*s2!='\0') {
-		if(*s1<*s2)
-		    return -1;
-		else if(*s1>*s2)
-		    return 1;
-		s1++;
-		s2++;			
-	}
+    while(*s2!='\0') {
+        if(*s1<*s2)
+            return -1;
+        else if(*s1>*s2)
+            return 1;
+        s1++;
+        s2++;           
+    }
 
-	return 0;	
+    return 0;   
 }
 
