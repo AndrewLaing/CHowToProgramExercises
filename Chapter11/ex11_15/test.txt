@@ -1,0 +1,5 @@
+This is from the infile
+This is where the text
+Was input from
+One more line
+The end

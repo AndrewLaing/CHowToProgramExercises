@@ -1,0 +1,2 @@
+create an all-in-one for create/populate master
+check for all necessary files at beginning of main()

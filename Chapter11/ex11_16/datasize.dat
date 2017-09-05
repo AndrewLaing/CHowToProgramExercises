@@ -1,0 +1,12 @@
+Data Type                 Size
+char                         1
+unsigned char                1
+short int                    2
+unsigned short int           2
+int                          4
+unsigned int                 4
+long int                     4
+unsigned long int            4
+float                        4
+double                       8
+long double                 12

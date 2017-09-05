@@ -1,0 +1,5 @@
+Acct  Last Name       First Name    Balance
+100   Jones           Alan          4815.60
+300   Smith           Mary            27.19
+500   Sharp           Sam              0.00
+700   Green           Suzy           -14.22
