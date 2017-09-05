@@ -1,5 +1,5 @@
 /*
- * Filename:	ex08_13.c
+ * Filename:    ex08_13.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        23/06/2017.
@@ -16,46 +16,46 @@ void printLatinWord(char *);
 
 int main()
 {
-	char str[80];
-	char *tokenPtr;
-	
-	printf("Enter sentence: ");
-	getLine(str, 80); 
-	
-	tokenPtr = strtok( str, " " );
-	
-	
-	while( tokenPtr != NULL ) {
-    	printLatinWord(tokenPtr); 
-    	tokenPtr = strtok( NULL, " " );
-	}
-		 
- 	return 0;
+    char str[80];
+    char *tokenPtr;
+    
+    printf("Enter sentence: ");
+    getLine(str, 80); 
+    
+    tokenPtr = strtok( str, " " );
+    
+    
+    while( tokenPtr != NULL ) {
+        printLatinWord(tokenPtr); 
+        tokenPtr = strtok( NULL, " " );
+    }
+         
+    return 0;
 }
 
 
 /* Read a string into a character array and return the length of the array */
 int getLine( char s[], int maxLength )
 {
-	int c, i=0;
-	
-	while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
-	    s[i++]=c;
+    int c, i=0;
+    
+    while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
+        s[i++]=c;
 
-	s[i] = '\0';
-	
-	/* Clear any overflow*/
-	fflush(stdin);
-	
-	return i;	
+    s[i] = '\0';
+    
+    /* Clear any overflow*/
+    fflush(stdin);
+    
+    return i;   
 }
 
 
 void printLatinWord(char *word)
 {
-	if(strlen(word)>1)
-    	printf("%s%cay ",&word[1], tolower(word[0]));
-	else
-    	printf("%cay ", tolower(word[0]));
+    if(strlen(word)>1)
+        printf("%s%cay ",&word[1], tolower(word[0]));
+    else
+        printf("%cay ", tolower(word[0]));
     
 }

@@ -1,5 +1,5 @@
 /*
- * Filename:	ex08_05.c
+ * Filename:    ex08_05.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        20/06/2017.
@@ -14,7 +14,7 @@ char inputCharacter( void );
 
 char inputCharacter( void )
 {
-	char c, sentence[2];
+    char c, sentence[2];
     int i = 0;
     
     puts( "Enter a character: " );
@@ -27,45 +27,45 @@ char inputCharacter( void )
     sentence[i] = '\0';
     
     if(strlen(sentence)>0)
-    	c = sentence[0];
-	else
-	    c = '\0';
+        c = sentence[0];
+    else
+        c = '\0';
     
     /* Clear any overflow*/
-	fflush(stdin);
+    fflush(stdin);
     
     return c;
 }
 
 
 int main()
-{	    
+{       
     char c = inputCharacter(); 
     printf( "\nThe character entered was: %c\n", c );
     
     printf("\'%c\'%s%s\n",
-	      c, (isalnum(c) ? " is " : " is not "), "alphabetic or numeric");
+          c, (isalnum(c) ? " is " : " is not "), "alphabetic or numeric");
     printf("\'%c\'%s%s\n",
-	      c, (isalpha(c) ? " is " : " is not "), "a letter");
+          c, (isalpha(c) ? " is " : " is not "), "a letter");
     printf("\'%c\'%s%s\n",
-	      c, (iscntrl(c) ? " is " : " is not "), "a control character");
+          c, (iscntrl(c) ? " is " : " is not "), "a control character");
     printf("\'%c\'%s%s\n",
-	      c, (isdigit(c) ? " is " : " is not "), "a number");     
+          c, (isdigit(c) ? " is " : " is not "), "a number");     
     printf("\'%c\'%s%s\n",
-	      c, (isgraph(c) ? " is " : " is not "), "a printing character except SPACE");     
+          c, (isgraph(c) ? " is " : " is not "), "a printing character except SPACE");     
     printf("\'%c\'%s%s\n",
-	      c, (islower(c) ? " is " : " is not "), "lowercase");     
+          c, (islower(c) ? " is " : " is not "), "lowercase");     
     printf("\'%c\'%s%s\n",
-	      c, (isprint(c) ? " is " : " is not "), "a printing character including space");            
+          c, (isprint(c) ? " is " : " is not "), "a printing character including space");            
     printf("\'%c\'%s%s\n",
-	      c, (ispunct(c) ? " is " : " is not "), "a printing character except SPACE or letter or digit");     
+          c, (ispunct(c) ? " is " : " is not "), "a printing character except SPACE or letter or digit");     
     printf("\'%c\'%s%s\n",
-	      c, (isspace(c) ? " is " : " is not "), "a whitespace character");        
+          c, (isspace(c) ? " is " : " is not "), "a whitespace character");        
     printf("\'%c\'%s%s\n",
-	      c, (isupper(c) ? " is " : " is not "), "uppercase");     
+          c, (isupper(c) ? " is " : " is not "), "uppercase");     
     printf("\'%c\'%s%s\n",
-	      c, (isxdigit(c) ? " is " : " is not "), "a hexadecimal digit");  
- 	return 0;
+          c, (isxdigit(c) ? " is " : " is not "), "a hexadecimal digit");  
+    return 0;
 }
 
 

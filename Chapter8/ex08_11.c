@@ -1,5 +1,5 @@
 /*
- * Filename:	ex08_11.c
+ * Filename:    ex08_11.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        20/06/2017.
@@ -1180,144 +1180,144 @@ const char *noun[] = { "people",
 "tear", "temporary", "tomorrow", "wake", "wrap", "yesterday"};
 
 const char *verb[] = { "accepted","added", "admired","admitted", "advised","afforded", 
-					"agreed","alerted", "allowed","amused", "analysed","announced", 
-					"annoyed","answered", "apologised","appeared", "applauded","appreciated",
-					"approved","argued", "arranged","arrested", "arrived","asked", 
-					"attached","attacked", "attempted","attended", "attracted","avoided", 
-					"backed","baked", "balanced","banned", "banged","bared", 
-					"batted","bathed", "battled","beamed", "begged","behaved", 
-					"belonged","bleached", "blessed","blinded", "blinked","blotted",
-					"blushed","boasted", "boiled","bolted", "bombed","booked", 
-					"bored","borrowed", "bounced","bowed", "boxed","braked", 
-					"branched","breathed", "bruised","brushed", "bubbled","bumped", 
-					"burned","buried", "buzzed","calculated", "called","camped", 
-					"cared","carried", "carved","caused", "challenged","changed", 
-					"charged","chased", "cheated","checked", "cheered","chewed", 
-					"choked","chopped","claimed", "clapped","cleaned", "cleared",
-					"clipped", "closed","coached", "coiled","collected", "coloured",
-					"combed", "commanded","communicated", "compared","competed", "complained",
-					"completed", "concentrated","concerned", "confessed","confused", "connected",
-					"considered", "consisted","contained", "continued","copied", "corrected",
-					"coughed", "counted","covered", "cracked","crashed", "crawled",
-					"crossed", "crushed", "cried","cured", "curled","curved", 
-					"cycled","damaged", "danced","dared", "decayed","deceived", 
-					"decided","decorated", "delayed","delighted", "delivered","depended", 
-					"described","deserted", "deserved","destroyed", "detected","developed", 
-					"disagreed","disappeared", "disapproved","disarmed", "discovered","disliked", 
-					"divided","doubled", "doubted","dragged", "drained","dreamed", 
-					"dressed","dripped", "dropped", "drowned","drummed", "dried",
-					"dusted", "earned","educated", "embarrassed","employed", "emptied",
-					"encouraged", "ended","enjoyed", "entered","entertained", "escaped",
-					"examined", "excited","excused", "exercised","existed", "expanded",
-					"expected", "explained","exploded", "extended","faced", "faded",
-					"failed", "fancied","fastened", "faxed","feared", "fenced",
-					"fetched", "filed","filled", "filmed","fired","fitted", 
-					"fixed","flapped", "flashed","floated", "flooded","flowed", 
-					"flowered","folded", "followed","fooled", "forced","formed", 
-					"founded","framed", "frightened","fried", "gathered","gazed", 
-					"glowed","glued", "grabbed","grated", "greased","greeted", 
-					"grinned","gripped", "groaned","guaranteed", "guarded","guessed", 
-					"guided","hammered", "handed","handled", "hanged", "happened",
-					"harassed","harmed", "hated","haunted", "headed","healed", 
-					"heaped","heated", "helped","hooked", "hopped","hoped", 
-					"hovered","hugged", "hummed","hunted", "hurried","identified", 
-					"ignored","imagined", "impressed","improved", "included","increased", 
-					"influenced","informed", "injected","injured", "instructed","intended", 
-					"interested","interfered", "interrupted","introduced", "invented","invited", 
-					"irritated","itched","jailed", "jammed","jogged", "joined",
-					"joked", "judged","juggled", "jumped","kicked", "killed",
-					"kissed", "kneeled","knitted", "knocked","knotted", "labeled",
-					"landed", "lasted","laughed", "launched","learned", "leveled",
-					"licensed", "licked","lied", "lightened","liked", "listed",
-					"listened", "lived","loaded", "locked","longed", "looked",
-					"loved"};
+                    "agreed","alerted", "allowed","amused", "analysed","announced", 
+                    "annoyed","answered", "apologised","appeared", "applauded","appreciated",
+                    "approved","argued", "arranged","arrested", "arrived","asked", 
+                    "attached","attacked", "attempted","attended", "attracted","avoided", 
+                    "backed","baked", "balanced","banned", "banged","bared", 
+                    "batted","bathed", "battled","beamed", "begged","behaved", 
+                    "belonged","bleached", "blessed","blinded", "blinked","blotted",
+                    "blushed","boasted", "boiled","bolted", "bombed","booked", 
+                    "bored","borrowed", "bounced","bowed", "boxed","braked", 
+                    "branched","breathed", "bruised","brushed", "bubbled","bumped", 
+                    "burned","buried", "buzzed","calculated", "called","camped", 
+                    "cared","carried", "carved","caused", "challenged","changed", 
+                    "charged","chased", "cheated","checked", "cheered","chewed", 
+                    "choked","chopped","claimed", "clapped","cleaned", "cleared",
+                    "clipped", "closed","coached", "coiled","collected", "coloured",
+                    "combed", "commanded","communicated", "compared","competed", "complained",
+                    "completed", "concentrated","concerned", "confessed","confused", "connected",
+                    "considered", "consisted","contained", "continued","copied", "corrected",
+                    "coughed", "counted","covered", "cracked","crashed", "crawled",
+                    "crossed", "crushed", "cried","cured", "curled","curved", 
+                    "cycled","damaged", "danced","dared", "decayed","deceived", 
+                    "decided","decorated", "delayed","delighted", "delivered","depended", 
+                    "described","deserted", "deserved","destroyed", "detected","developed", 
+                    "disagreed","disappeared", "disapproved","disarmed", "discovered","disliked", 
+                    "divided","doubled", "doubted","dragged", "drained","dreamed", 
+                    "dressed","dripped", "dropped", "drowned","drummed", "dried",
+                    "dusted", "earned","educated", "embarrassed","employed", "emptied",
+                    "encouraged", "ended","enjoyed", "entered","entertained", "escaped",
+                    "examined", "excited","excused", "exercised","existed", "expanded",
+                    "expected", "explained","exploded", "extended","faced", "faded",
+                    "failed", "fancied","fastened", "faxed","feared", "fenced",
+                    "fetched", "filed","filled", "filmed","fired","fitted", 
+                    "fixed","flapped", "flashed","floated", "flooded","flowed", 
+                    "flowered","folded", "followed","fooled", "forced","formed", 
+                    "founded","framed", "frightened","fried", "gathered","gazed", 
+                    "glowed","glued", "grabbed","grated", "greased","greeted", 
+                    "grinned","gripped", "groaned","guaranteed", "guarded","guessed", 
+                    "guided","hammered", "handed","handled", "hanged", "happened",
+                    "harassed","harmed", "hated","haunted", "headed","healed", 
+                    "heaped","heated", "helped","hooked", "hopped","hoped", 
+                    "hovered","hugged", "hummed","hunted", "hurried","identified", 
+                    "ignored","imagined", "impressed","improved", "included","increased", 
+                    "influenced","informed", "injected","injured", "instructed","intended", 
+                    "interested","interfered", "interrupted","introduced", "invented","invited", 
+                    "irritated","itched","jailed", "jammed","jogged", "joined",
+                    "joked", "judged","juggled", "jumped","kicked", "killed",
+                    "kissed", "kneeled","knitted", "knocked","knotted", "labeled",
+                    "landed", "lasted","laughed", "launched","learned", "leveled",
+                    "licensed", "licked","lied", "lightened","liked", "listed",
+                    "listened", "lived","loaded", "locked","longed", "looked",
+                    "loved"};
 const char *proposition[] = { "about", "before", "down", "into", "through", "above", "behind", 
-							"during", "like", "to", "across", "below", "except", "of", "toward", 
-							"after", "beneath", "for", "off", "under", "among", "beside", "from",
-							"on", "up", "around", "between", "in", "over", "with", "at", "by",
-							"instead of", "since", "without"};
+                            "during", "like", "to", "across", "below", "except", "of", "toward", 
+                            "after", "beneath", "for", "off", "under", "among", "beside", "from",
+                            "on", "up", "around", "between", "in", "over", "with", "at", "by",
+                            "instead of", "since", "without"};
 
 
 void printSentence()
 {
-	char *first = article[getRandomNumber(7)];
-	printf("%c%s ",toupper(first[0]), &first[1]);
-	printf("%s %s %s %s %s.\n",
-			noun[getRandomNumber(1524)],
-			verb[getRandomNumber(301)],
-			proposition[getRandomNumber(35)],
-			article[getRandomNumber(7)],
-			noun[getRandomNumber(1524)]
-	);
+    char *first = article[getRandomNumber(7)];
+    printf("%c%s ",toupper(first[0]), &first[1]);
+    printf("%s %s %s %s %s.\n",
+            noun[getRandomNumber(1524)],
+            verb[getRandomNumber(301)],
+            proposition[getRandomNumber(35)],
+            article[getRandomNumber(7)],
+            noun[getRandomNumber(1524)]
+    );
 }
 
 
 void printVerse()
 {
-	char *first = article[getRandomNumber(7)];
-	printf("%c%s ",toupper(first[0]), &first[1]);
-	printf("%s %s %s %s %s.\n",
-			noun[getRandomNumber(1524)],
-			verb[getRandomNumber(301)],
-			proposition[getRandomNumber(35)],
-			article[getRandomNumber(7)],
-			noun[getRandomNumber(1524)]
-	);
-	
-	char *second = article[getRandomNumber(7)];
-	printf("%c%s ",toupper(second[0]), &second[1]);
-	printf("%s %s.\n",
-			noun[getRandomNumber(1524)],
-			verb[getRandomNumber(301)]
-	);
-	
-	char *third = noun[getRandomNumber(1524)];
-	printf("%c%s ",toupper(third[0]), &third[1]);
-	printf("%s %s %s %s.\n",
-			verb[getRandomNumber(301)],
-			proposition[getRandomNumber(35)],
-			article[getRandomNumber(7)],
-			noun[getRandomNumber(1524)]
-	);
-	
-	char *fourth = article[getRandomNumber(7)];
-	printf("%c%s ",toupper(fourth[0]), &fourth[1]);
-	printf("%s %s.\n",
-			noun[getRandomNumber(1524)],
-			verb[getRandomNumber(301)]
-	);
-	
-	char *fifth = noun[getRandomNumber(1524)];
-	printf("%c%s ",toupper(fifth[0]), &fifth[1]);
-	printf("%s %s %s %s.\n",
-			verb[getRandomNumber(301)],
-			proposition[getRandomNumber(35)],
-			article[getRandomNumber(7)],
-			noun[getRandomNumber(1524)]
-	);
+    char *first = article[getRandomNumber(7)];
+    printf("%c%s ",toupper(first[0]), &first[1]);
+    printf("%s %s %s %s %s.\n",
+            noun[getRandomNumber(1524)],
+            verb[getRandomNumber(301)],
+            proposition[getRandomNumber(35)],
+            article[getRandomNumber(7)],
+            noun[getRandomNumber(1524)]
+    );
+    
+    char *second = article[getRandomNumber(7)];
+    printf("%c%s ",toupper(second[0]), &second[1]);
+    printf("%s %s.\n",
+            noun[getRandomNumber(1524)],
+            verb[getRandomNumber(301)]
+    );
+    
+    char *third = noun[getRandomNumber(1524)];
+    printf("%c%s ",toupper(third[0]), &third[1]);
+    printf("%s %s %s %s.\n",
+            verb[getRandomNumber(301)],
+            proposition[getRandomNumber(35)],
+            article[getRandomNumber(7)],
+            noun[getRandomNumber(1524)]
+    );
+    
+    char *fourth = article[getRandomNumber(7)];
+    printf("%c%s ",toupper(fourth[0]), &fourth[1]);
+    printf("%s %s.\n",
+            noun[getRandomNumber(1524)],
+            verb[getRandomNumber(301)]
+    );
+    
+    char *fifth = noun[getRandomNumber(1524)];
+    printf("%c%s ",toupper(fifth[0]), &fifth[1]);
+    printf("%s %s %s %s.\n",
+            verb[getRandomNumber(301)],
+            proposition[getRandomNumber(35)],
+            article[getRandomNumber(7)],
+            noun[getRandomNumber(1524)]
+    );
 }
 
 
 void printVerbLine()
 {
-	char *first = verb[getRandomNumber(301)];
-	printf("%c%s, ",toupper(first[0]), &first[1]);
-	printf("%s, and %s.\n",
-			verb[getRandomNumber(301)],
-			verb[getRandomNumber(301)]
-	);
+    char *first = verb[getRandomNumber(301)];
+    printf("%c%s, ",toupper(first[0]), &first[1]);
+    printf("%s, and %s.\n",
+            verb[getRandomNumber(301)],
+            verb[getRandomNumber(301)]
+    );
 }
 
 
 /* Returns a random number in the range 0 to max-1*/
 int getRandomNumber( int max )
 {
-	return rand()%max;
+    return rand()%max;
 }
 
 
 int main()
-{	
+{   
     srand( time(NULL) );
     
     int i;
@@ -1331,8 +1331,8 @@ int main()
     
     printVerbLine();
     
-	
- 	return 0;
+    
+    return 0;
 }
 
 

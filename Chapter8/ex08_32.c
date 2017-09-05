@@ -1,5 +1,5 @@
 /*
- * Filename:	ex08_32.c
+ * Filename:    ex08_32.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        02/07/2017.
@@ -14,7 +14,7 @@ void *memchr1( const void *, int, size_t );
 void *memset1( void *, int, size_t );
 
 int main()
-{	
+{   
     char *test = "This is only a test string ok";
     char result[] = "The original string was longer";
 
@@ -76,7 +76,7 @@ int main()
         printf("6 characters of %s is greater than %s\n",a1, b1);
         
     printf("\n");
-	
+    
     const char *test2 = "This is only a test string ok";
 
     printf("---- memchr1 ----\n");
@@ -86,7 +86,7 @@ int main()
         printf("memchr1(test2, '7', 29) = NULL\n");
     else
         printf("memchr1(test2, '7', 29) != NULL\n");
-	        
+            
     printf("\n");
     
     
@@ -96,21 +96,21 @@ int main()
     printf("memset1(test3, 'A', 12) = %s\n", (char *)memset1(test3, 'A', 12) );
     printf("test3 = %s\n", test3);
     
- 	return 0;
+    return 0;
 }
 
 
 void *memcpy1( void *s1, const void *s2, size_t n )
 {
-	/* Cannot dereference a void pointer so cast contents to
-	 * an unsigned char pointer which allows it to copy
-	 * one byte at a time from unknown data types */
+    /* Cannot dereference a void pointer so cast contents to
+     * an unsigned char pointer which allows it to copy
+     * one byte at a time from unknown data types */
     const unsigned char *toCopy = (const unsigned char *)s2;
     unsigned char *result = (unsigned char *)s1;
     
     for( ; n > 0; n-- ) 
-	    *result++ = *toCopy++;
-	    
+        *result++ = *toCopy++;
+        
     return s1;
 }
 
@@ -118,14 +118,14 @@ void *memcpy1( void *s1, const void *s2, size_t n )
 /* memmove works even if the objects overlap */
 void *memmove1( void *s1, const void *s2, size_t n)
 {
-	unsigned char temp[n];
-	memcpy1( temp, s2, n );
+    unsigned char temp[n];
+    memcpy1( temp, s2, n );
     
     unsigned char *result = (unsigned char *)s1;
     size_t i;
     for(i=0 ; n > 0; n--, i++ ) 
-	    *result++ = temp[i];
-	    
+        *result++ = temp[i];
+        
     return s1;
     
 }
@@ -133,48 +133,48 @@ void *memmove1( void *s1, const void *s2, size_t n)
 
 int memcmp1( const void *s1, const void *s2, size_t n)
 {
-	/* Use copies because cannot dereference void pointers */
+    /* Use copies because cannot dereference void pointers */
     const unsigned char *s1Copy = (const unsigned char *)s1;
     const unsigned char *s2Copy = (const unsigned char *)s2;
-	
+    
     for( ; n > 0; n-- ) 
     {
-    	if(*s1Copy < *s2Copy)
-    	    return -1;
-    	else if(*s1Copy > *s2Copy)
-    	    return 1; 
-    	    
-    	s1Copy++;
-		s2Copy++;
-	}
-	   
-	return 0; 
+        if(*s1Copy < *s2Copy)
+            return -1;
+        else if(*s1Copy > *s2Copy)
+            return 1; 
+            
+        s1Copy++;
+        s2Copy++;
+    }
+       
+    return 0; 
 }
 
 
 void *memchr1( const void *s, int c, size_t n )
 {
-	/* Use copies because cannot dereference void pointers */
+    /* Use copies because cannot dereference void pointers */
     const unsigned char *sCopy = (const unsigned char *)s;
     
     for( ; n > 0; n-- ) 
     {
-    	if(*sCopy==c)
-		    return sCopy;
-		sCopy++;			
-	}
-	return NULL;
+        if(*sCopy==c)
+            return sCopy;
+        sCopy++;            
+    }
+    return NULL;
 }
 
 
 void *memset1( void *s, int c, size_t n )
 {
-	/* Use copies because cannot dereference void pointers */
+    /* Use copies because cannot dereference void pointers */
     unsigned char *sCopy = (unsigned char *)s;
     
     for( ; n > 0; n-- ) {
-    	*sCopy++=c;
-	}				
-	
-	return s;
+        *sCopy++=c;
+    }               
+    
+    return s;
 }

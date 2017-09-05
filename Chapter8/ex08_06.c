@@ -1,5 +1,5 @@
 /*
- * Filename:	ex08_06.c
+ * Filename:    ex08_06.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        20/06/2017.
@@ -13,13 +13,13 @@
 
 
 int main()
-{	
+{   
     int i = 0;    
     char s[100];
-	
-	printf("Enter a line of text: ");
-	gets( s );
-	 
+    
+    printf("Enter a line of text: ");
+    gets( s );
+     
     while(s[i]!='\0')
         printf("%c", tolower(s[i++]));
     printf("\n");
@@ -29,7 +29,7 @@ int main()
         printf("%c", toupper(s[i++]));
     printf("\n");
 
- 	return 0;
+    return 0;
 }
 
 

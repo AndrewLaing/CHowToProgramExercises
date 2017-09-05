@@ -1,5 +1,5 @@
 /*
- * Filename:	ex08_12.c
+ * Filename:    ex08_12.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        20/06/2017.
@@ -28,18 +28,18 @@ const char *twoSyllableAns[57] = {
 "stunt man", "susanne", "tarzan", "tin can", "trash can", "white man",
 "wild man", "wise man", "young man" };
 
-	
+    
 const char *oneSyllableAns[16] = {
-"anne", "ban", "can", "chan", "clan", "dan",		
+"anne", "ban", "can", "chan", "clan", "dan",        
 "fan", "flan", "gran", "nan", "pan", "ran",
 "span", "stan", "tan", "van"};
 
 
 const char *oneSyllableSubject[30] = {
-"raid", "moon", "base", "life", "head", "plot",		
-"soul", "week", "door", "yard", "pole", "cord",	
-"path", "step", "sack", "sword", "steel", "tongue",	
-"crown", "count", "snake", "school", "boy", "girl",	
+"raid", "moon", "base", "life", "head", "plot",     
+"soul", "week", "door", "yard", "pole", "cord", 
+"path", "step", "sack", "sword", "steel", "tongue", 
+"crown", "count", "snake", "school", "boy", "girl", 
 "cat", "dog", "fish", "tree", "judge", "geek"};
 
 
@@ -76,13 +76,13 @@ const char *threeSyllableVerbs[50] = { "accepted", "admitted", "afforded", "aler
 "excited", "expanded", "expected", "exploded", "extended", "guaranteed",  
 "influenced", "injected", "instructed", "intended", "interfered", "introduced", 
 "invented", "invited" };
-	
+    
 
-const char *oneSyllablePron[7] = { 	"he", "she", "it", "if", "when", "not",
+const char *oneSyllablePron[7] = {  "he", "she", "it", "if", "when", "not",
 "so" };
 
 
-const char *oneSyllableLinks[12] = { 	"and", "but", "with", "for", "when", "then", 
+const char *oneSyllableLinks[12] = {    "and", "but", "with", "for", "when", "then", 
 "this", "which", "not", "like", "when", "so" };
 
 
@@ -124,66 +124,66 @@ const char *article[7] = { "the", "that", "this", "a", "one", "some", "any"};
 
 void printSentence()
 {
-	/* First line */
-	printf("There once was a %s %s %s\n",
-			oneSyllableSubject[getRandomNumber(30)],
-			proposition[getRandomNumber(12)],
-			twoSyllableAns[getRandomNumber(57)]	
-	);
-	
-	/* Second line */
-	printf("Who %s %s %s %s %s\n",
-	        twoSyllableverbs[getRandomNumber(50)],
-	        article[getRandomNumber(7)],
-	        twoSyllableAns[getRandomNumber(57)],
-	        proposition[getRandomNumber(12)],
-			oneSyllableAns[getRandomNumber(16)]
-	);
+    /* First line */
+    printf("There once was a %s %s %s\n",
+            oneSyllableSubject[getRandomNumber(30)],
+            proposition[getRandomNumber(12)],
+            twoSyllableAns[getRandomNumber(57)] 
+    );
+    
+    /* Second line */
+    printf("Who %s %s %s %s %s\n",
+            twoSyllableverbs[getRandomNumber(50)],
+            article[getRandomNumber(7)],
+            twoSyllableAns[getRandomNumber(57)],
+            proposition[getRandomNumber(12)],
+            oneSyllableAns[getRandomNumber(16)]
+    );
 
-	/* Third line */
-	const char *first = oneSyllablePron[getRandomNumber(7)];
-	printf("%c%s ",toupper(first[0]), &first[1]);
-	printf("%s %s\n",
-	        twoSyllableAdjectives[getRandomNumber(50)], 
-	        twoSyllableverbs[getRandomNumber(116)]
-	);
-	
-	/* Fourth line */
-	const char *second = oneSyllableLinks[getRandomNumber(12)];
-	printf("%c%s ",toupper(second[0]), &second[1]);
-	printf("%s %s\n",
-	        twoSyllableAdjectives[getRandomNumber(50)], 
-	        twoSyllableverbs[getRandomNumber(116)]
-	);
-	
-	/* Fourth line */
-	const char *third = oneSyllableLinks[getRandomNumber(12)];
-	printf("%c%s ",toupper(third[0]), &third[1]);
-	printf("%s %s %s %s\n",
-	        twoSyllableAdjectives[getRandomNumber(50)], 
-	        threeSyllableVerbs[getRandomNumber(50)],
-	        proposition[getRandomNumber(12)],
-			oneSyllableAns[getRandomNumber(16)]
-	);	
-	
+    /* Third line */
+    const char *first = oneSyllablePron[getRandomNumber(7)];
+    printf("%c%s ",toupper(first[0]), &first[1]);
+    printf("%s %s\n",
+            twoSyllableAdjectives[getRandomNumber(50)], 
+            twoSyllableverbs[getRandomNumber(116)]
+    );
+    
+    /* Fourth line */
+    const char *second = oneSyllableLinks[getRandomNumber(12)];
+    printf("%c%s ",toupper(second[0]), &second[1]);
+    printf("%s %s\n",
+            twoSyllableAdjectives[getRandomNumber(50)], 
+            twoSyllableverbs[getRandomNumber(116)]
+    );
+    
+    /* Fourth line */
+    const char *third = oneSyllableLinks[getRandomNumber(12)];
+    printf("%c%s ",toupper(third[0]), &third[1]);
+    printf("%s %s %s %s\n",
+            twoSyllableAdjectives[getRandomNumber(50)], 
+            threeSyllableVerbs[getRandomNumber(50)],
+            proposition[getRandomNumber(12)],
+            oneSyllableAns[getRandomNumber(16)]
+    );  
+    
 }
 
 
 /* Returns a random number in the range 0 to max-1*/
 int getRandomNumber( int max )
 {
-	return rand()%max;
+    return rand()%max;
 }
 
 
 int main()
-{	
+{   
     srand( time(NULL) );
     
     printSentence();
     
-	
- 	return 0;
+    
+    return 0;
 }
 
 

@@ -1,5 +1,5 @@
 /*
- * Filename:	ex08_24.c
+ * Filename:    ex08_24.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        25/06/2017.
@@ -11,14 +11,14 @@
 #define SIZE 16
 
 char *words[SIZE] = { "FRUITY", "PRETTIFIED", "MODE", "BOTTLED", 
-	                "WALLABY", "PRICED", "WALLED", "LAKE", 
-					"FORM", "WOOLY", "LITHE", "BABE",
-	                "LINGERED", "CROSS", "FRANKED", "THURSDAY"};
-	                
+                    "WALLABY", "PRICED", "WALLED", "LAKE", 
+                    "FORM", "WOOLY", "LITHE", "BABE",
+                    "LINGERED", "CROSS", "FRANKED", "THURSDAY"};
+                    
 int endsInED( char *toCheck);
 
 int endsInED( char *toCheck)
-{	
+{   
     int len = strlen(toCheck);
     if(len<=1)
         return -1;
@@ -32,13 +32,13 @@ int endsInED( char *toCheck)
 
 int main()
 {
-	int i;
-	for(i=0; i<SIZE; i++) {
-	    if(endsInED(words[i])==1)
-	        printf("%s\n", words[i]);	
-	}
+    int i;
+    for(i=0; i<SIZE; i++) {
+        if(endsInED(words[i])==1)
+            printf("%s\n", words[i]);   
+    }
 
-	return 0;
+    return 0;
 }
 
 

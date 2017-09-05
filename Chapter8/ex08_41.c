@@ -1,5 +1,5 @@
 /*
- * Filename:	ex08_41.c
+ * Filename:    ex08_41.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        15/07/2017.
@@ -34,24 +34,24 @@ void printLetter5(char *name, char *address, char *accountReference,
 
 int main()
 {
-	char input[10];
-	char name[80];
-	char address[80];
-	char accountReference[10];
-	double amountOwed;
-	int ageOfAmountOwed = 0;
-	
+    char input[10];
+    char name[80];
+    char address[80];
+    char accountReference[10];
+    double amountOwed;
+    int ageOfAmountOwed = 0;
+    
     printf("Enter debtor's name: ");
     getLine(name, 80);
-	printf("Enter debtor's address: ");
-	getLine(address, 80);
-	printf("Enter debtor's account reference: ");
-	getLine(accountReference, 80);
-	printf("Enter amount owed: ");
-	getLine(input, 80);
-	sscanf(input, "%lf", &amountOwed);
-	printf("Enter months amount overdue: ");
-	getLine(input, 80);
+    printf("Enter debtor's address: ");
+    getLine(address, 80);
+    printf("Enter debtor's account reference: ");
+    getLine(accountReference, 80);
+    printf("Enter amount owed: ");
+    getLine(input, 80);
+    sscanf(input, "%lf", &amountOwed);
+    printf("Enter months amount overdue: ");
+    getLine(input, 80);
     sscanf(input, "%d", &ageOfAmountOwed);
     
     printf("\n\n\n\n\n");
@@ -67,24 +67,24 @@ int main()
     else
         printLetter1( name, address, accountReference, amountOwed, ageOfAmountOwed ); 
         
-	return 0;
+    return 0;
 }
 
 
 /* Read a string into a character array and return the length of the array */
 int getLine( char s[], int maxLength )
 {
-	int c, i=0;
-	
-	while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
-	    s[i++]=c;
+    int c, i=0;
+    
+    while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
+        s[i++]=c;
 
-	s[i] = '\0';
-	
-	/* Clear any overflow*/
-	fflush(stdin);
-	
-	return i;	
+    s[i] = '\0';
+    
+    /* Clear any overflow*/
+    fflush(stdin);
+    
+    return i;   
 }
 
 
@@ -155,7 +155,7 @@ void printLetter3(char *name, char *address, char *accountReference,
     printf("%s\n\n", todaysDate);
     printf("Dear Sir/Madam,\n\n");
     printf("Our Ref: %s\n\n", accountReference);
-	
+    
     printf("Final Request For Payment \n\n");
 
     printf("Further to our previous correspondence dated %s, your account \n", dateOfSecondLetter );
@@ -186,7 +186,7 @@ void printLetter4(char *name, char *address, char *accountReference,
     printf("Without Prejudice\n\n");
     printf("Outstanding Invoices - Laing Software Services\n\n");
 
-    printf("Our Ref: %s\n\n", accountReference);	
+    printf("Our Ref: %s\n\n", accountReference);    
     printf("Final Letter before Action - via email & tracked post\n\n");
 
     printf("We are disappointed to see that despite numerous requests, payment \n");
@@ -222,7 +222,7 @@ void printLetter5(char *name, char *address, char *accountReference,
     printf("Notification of Transference of Debt \n\n");
     printf("Outstanding Invoices - Laing Software Services\n\n");
 
-    printf("Our Ref: %s\n\n", accountReference);	
+    printf("Our Ref: %s\n\n", accountReference);    
     printf("Notification of Actions to be Taken\n\n");
 
     printf("Despite our numerous requests for payment for the overdue invoices listed \n");

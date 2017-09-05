@@ -1,11 +1,11 @@
 /*
- * Filename:	ex08_34c_v1.c
+ * Filename:    ex08_34c_v1.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        05/07/2017.
  * Description: Write a program that reads several lines of text and prints
- *				a table indicating the number of occurences of each different
- *				word in the text.
+ *              a table indicating the number of occurences of each different
+ *              word in the text.
  * Derived from: http://www.java2s.com/Tutorial/C/0260__Data-Structure/LinkedLists.htm
  */
 
@@ -15,8 +15,8 @@
 
 struct node
 {
-	char word[30];
-	int count;
+    char word[30];
+    int count;
     struct node *next;
 };
 
@@ -34,28 +34,28 @@ struct node *bucketSortLinkedList( struct node * );
 
 int main()
 {
-	struct node *start = NULL;
-	char line[80];
+    struct node *start = NULL;
+    char line[80];
     int i;
 
     for(i=0; i<3; i++)
     {
-    	printf("Enter line #%d: ", i);
-    	getLine(line, 80); 
-    	start = addTokensToList( start, line );
-	}
-	
-	printlist ( start );
-	
-	printf("\nList length = %d\n", LISTLENGTH);
-	
-	start = bucketSortLinkedList( start );
-	printf("\n---- List after sorting ----\n");
-	printlist ( start );
-	
-	/* Free all the memory allocated for the linked list */
-	freeList( start );
-	return 0;
+        printf("Enter line #%d: ", i);
+        getLine(line, 80); 
+        start = addTokensToList( start, line );
+    }
+    
+    printlist ( start );
+    
+    printf("\nList length = %d\n", LISTLENGTH);
+    
+    start = bucketSortLinkedList( start );
+    printf("\n---- List after sorting ----\n");
+    printlist ( start );
+    
+    /* Free all the memory allocated for the linked list */
+    freeList( start );
+    return 0;
 }
 
 
@@ -65,7 +65,7 @@ struct node *insert(struct node *p, const char *word, int n)
     
     /* If this is the first node...*/
     if( p == NULL )
-	{
+    {
         p = ( struct node * )malloc( sizeof(struct node) );
 
         if( p==NULL ) {
@@ -79,15 +79,15 @@ struct node *insert(struct node *p, const char *word, int n)
         
         LISTLENGTH++;
     } 
-	else 
-	{
+    else 
+    {
         temp = p;
         
         /* move to the end of the list */
         while (temp-> next != NULL)
             temp = temp-> next;
         
-		/* Allocate space for a new node */    
+        /* Allocate space for a new node */    
         temp-> next = (struct node *)malloc(sizeof(struct node));
         
         /* If space could not be allocated */
@@ -104,39 +104,39 @@ struct node *insert(struct node *p, const char *word, int n)
         LISTLENGTH++;
     }
         
-	return (p);
+    return (p);
 }
 
 
 /* searchlist looks for a word in the linked list */
 int searchlist( struct node *p, char *toFind )
 {
-	struct node *temp;
-	temp = p;
-	int found = 0;
+    struct node *temp;
+    temp = p;
+    int found = 0;
 
-	if(p!= NULL)
-	{
-	    do {
-	    	if(strcmp(temp->word, toFind) == 0) {
-	    	    found=1;
-				break;	
-			}
-	        temp = temp-> next;
-	    } while (temp!= NULL);
-	}
-	else
-	{
-		printf("The list is empty\n");
-		return 0;
-	}
-	
-	if(found==0)
-	    printf("%s NOT found in linked list\n", toFind);
-	else
-	    printf("%s found :)\n", toFind);
-	
-	return found;
+    if(p!= NULL)
+    {
+        do {
+            if(strcmp(temp->word, toFind) == 0) {
+                found=1;
+                break;  
+            }
+            temp = temp-> next;
+        } while (temp!= NULL);
+    }
+    else
+    {
+        printf("The list is empty\n");
+        return 0;
+    }
+    
+    if(found==0)
+        printf("%s NOT found in linked list\n", toFind);
+    else
+        printf("%s found :)\n", toFind);
+    
+    return found;
 }
 
 
@@ -146,7 +146,7 @@ struct node *updateList(struct node *p, const char *word)
     
     /* If this is the first node...*/
     if( p == NULL )
-	{
+    {
         p = ( struct node * )malloc( sizeof(struct node) );
 
         if( p==NULL ) {
@@ -167,15 +167,15 @@ struct node *updateList(struct node *p, const char *word)
     /* Search for token, if found update its count */
     while (temp-> next != NULL)
     {
-    	if(strcmp(temp->word, word) == 0) {
-    		temp-> count += 1;
-    		return (p);
-    	}
-    	temp = temp-> next; 
-	}
+        if(strcmp(temp->word, word) == 0) {
+            temp-> count += 1;
+            return (p);
+        }
+        temp = temp-> next; 
+    }
        
     /* If token is not in the list add it */
-	/* Allocate space for a new node */    
+    /* Allocate space for a new node */    
     temp-> next = (struct node *)malloc(sizeof(struct node));
     
     /* If space could not be allocated */
@@ -190,26 +190,26 @@ struct node *updateList(struct node *p, const char *word)
     temp-> count = 1;
     temp-> next = NULL;
     
-	LISTLENGTH++;
+    LISTLENGTH++;
 
-	return (p);
+    return (p);
 }
 
 
 void printlist ( struct node *p )
 {
-	struct node *temp;
-	temp = p;
-	printf("%-30s%s\n\n","Token", "Value" );
-	if(p!= NULL)
-	{
-	    do {
-	    	printf("%-30s%d\n",temp->word, temp->count );
-	        temp = temp-> next;
-	    } while (temp!= NULL);
-	}
-	else
-		printf("The list is empty\n");
+    struct node *temp;
+    temp = p;
+    printf("%-30s%s\n\n","Token", "Value" );
+    if(p!= NULL)
+    {
+        do {
+            printf("%-30s%d\n",temp->word, temp->count );
+            temp = temp-> next;
+        } while (temp!= NULL);
+    }
+    else
+        printf("The list is empty\n");
 }
 
 
@@ -231,29 +231,29 @@ void freeList(struct node* head)
 /* Read a string into a character array and return the length of the array */
 int getLine( char s[], int maxLength )
 {
-	int c, i=0;
-	
-	while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
-	    s[i++]=c;
+    int c, i=0;
+    
+    while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
+        s[i++]=c;
 
-	s[i] = '\0';
-	
-	/* Clear any overflow*/
-	fflush(stdin);
-	
-	return i;	
+    s[i] = '\0';
+    
+    /* Clear any overflow*/
+    fflush(stdin);
+    
+    return i;   
 }
 
 
 struct node *addTokensToList(struct node *p, const char *sentence)
 {
-	char *tokenPtr; 
-	tokenPtr = strtok( sentence, " .,;:?" );
-	
-	while( tokenPtr != NULL ) {
-    	p = updateList( p, tokenPtr );
-    	tokenPtr = strtok( NULL, " .,;:?" );
-	}	
+    char *tokenPtr; 
+    tokenPtr = strtok( sentence, " .,;:?" );
+    
+    while( tokenPtr != NULL ) {
+        p = updateList( p, tokenPtr );
+        tokenPtr = strtok( NULL, " .,;:?" );
+    }   
 
     return (p);
 }
@@ -263,34 +263,34 @@ struct node *addTokensToList(struct node *p, const char *sentence)
 /* bucketSortLinkedList sorts the linked list by words ascending */
 struct node *bucketSortLinkedList( struct node *p )
 {
-	struct node *temp, *temp2;
-	char copyOfWord[30];
-	int copyOfCount;
-	temp = p;
-	temp2=p;
-	
-	if(temp2 == NULL)
-	    return (p);
+    struct node *temp, *temp2;
+    char copyOfWord[30];
+    int copyOfCount;
+    temp = p;
+    temp2=p;
+    
+    if(temp2 == NULL)
+        return (p);
 
-	while(temp-> next != NULL) 
-	{
-	    temp2 = temp-> next;
-		while(temp2 != NULL) 
-		{
-	    	if(strcmp(temp->word, temp2->word) > 0) {
-	    		strcpy(copyOfWord, temp->word );
-	    		strcpy(temp->word, temp2->word );
-	    		strcpy(temp2->word, copyOfWord );
-	    		copyOfCount = temp-> count;
-	    		temp-> count = temp2-> count;;
-	    		temp-> count = copyOfCount;
-	    	}
-	    	temp2 = temp2-> next;
-		} 
+    while(temp-> next != NULL) 
+    {
+        temp2 = temp-> next;
+        while(temp2 != NULL) 
+        {
+            if(strcmp(temp->word, temp2->word) > 0) {
+                strcpy(copyOfWord, temp->word );
+                strcpy(temp->word, temp2->word );
+                strcpy(temp2->word, copyOfWord );
+                copyOfCount = temp-> count;
+                temp-> count = temp2-> count;;
+                temp-> count = copyOfCount;
+            }
+            temp2 = temp2-> next;
+        } 
 
-		temp = temp-> next; 
-	} 
-	
+        temp = temp-> next; 
+    } 
+    
     return (p);;
 }
 
