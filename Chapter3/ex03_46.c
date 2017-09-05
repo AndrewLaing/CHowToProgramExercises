@@ -1,5 +1,5 @@
 /*
- * Filename:	ex03_46.c
+ * Filename:    ex03_46.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        16/04/2017
@@ -18,16 +18,16 @@ int main()
 {
     int number;
 
-	printf("Enter the number to encrypt: ");
-	scanf("%d", &number);
-	
-	int encrypted = encrypt(number); 	
-	printf("The encrypted number is %d\n", encrypted);
-	
-	int decrypted = decrypt(encrypted);
-	printf("The decrypted number is %d\n", decrypted);
+    printf("Enter the number to encrypt: ");
+    scanf("%d", &number);
+    
+    int encrypted = encrypt(number);    
+    printf("The encrypted number is %d\n", encrypted);
+    
+    int decrypted = decrypt(encrypted);
+    printf("The decrypted number is %d\n", decrypted);
 
-	return 0;
+    return 0;
 }
 
 
@@ -41,12 +41,12 @@ int operation1(int number)
 /* Used by both encrypt and decrypt. */
 int operation2(int one, int two, int three, int four)
 {
-	int result = two;
-	result += (one*10);
-	result += (four*100);
-	result += (three*1000);
-	
-	return result;
+    int result = two;
+    result += (one*10);
+    result += (four*100);
+    result += (three*1000);
+    
+    return result;
 }
 
 
@@ -64,14 +64,14 @@ int decrypt(int number)
     int result;
     
     four = operation3(number%10);
-	number/=10;
+    number/=10;
 
-	three = operation3(number%10);
-	number/=10;
-	
+    three = operation3(number%10);
+    number/=10;
+    
     two = operation3(number%10);
-	number/=10;
-	
+    number/=10;
+    
     one = operation3(number%10);
     
     result = operation2(one, two, three, four);
@@ -87,14 +87,14 @@ int encrypt(int number)
     int result;
     
     four = operation1(number%10);
-	number/=10;
+    number/=10;
 
-	three = operation1(number%10);
-	number/=10;
-	
+    three = operation1(number%10);
+    number/=10;
+    
     two = operation1(number%10);
-	number/=10;
-	
+    number/=10;
+    
     one = operation1(number%10);
     
     result = operation2(one, two, three, four);

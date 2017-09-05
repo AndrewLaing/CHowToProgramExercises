@@ -1,5 +1,5 @@
 /*
- * Filename:	ex03_19.c
+ * Filename:    ex03_19.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        14/04/2017
@@ -9,9 +9,9 @@
 
 int main()
 {
-	float sales, commission, salary;
-	const float rate = 0.09;
-	const float basicPay = 200.0;
+    float sales, commission, salary;
+    const float rate = 0.09;
+    const float basicPay = 200.0;
     
     printf( "Enter sales in dollars (-1 to end): " );
     scanf( "%f", &sales);
@@ -26,8 +26,8 @@ int main()
         
         printf( "\n\nEnter sales in dollars (-1 to end): " );
         scanf( "%f", &sales);
-	}
+    }
     
-	return 0;
+    return 0;
 }
 
