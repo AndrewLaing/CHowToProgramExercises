@@ -1,5 +1,5 @@
 /*
- * Filename:	IntStack.c
+ * Filename:    IntStack.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        31/08/2017.
@@ -19,17 +19,17 @@
  */
 void push( StackNodePtr *topPtr, int info )
 {
-	StackNodePtr newPtr;
-	
-	newPtr = malloc( sizeof( StackNode ) ); /* Now points to a place in memory*/
-	
-	if( newPtr != NULL ) {
-		newPtr->data = info;
-		newPtr->nextPtr = *topPtr;
-		*topPtr = newPtr;
-	}
-	else
-	    printf( "%c not inserted. No memory available.\n", info );
+    StackNodePtr newPtr;
+    
+    newPtr = malloc( sizeof( StackNode ) ); /* Now points to a place in memory*/
+    
+    if( newPtr != NULL ) {
+        newPtr->data = info;
+        newPtr->nextPtr = *topPtr;
+        *topPtr = newPtr;
+    }
+    else
+        printf( "%c not inserted. No memory available.\n", info );
 }
 
 
@@ -41,15 +41,15 @@ void push( StackNodePtr *topPtr, int info )
  */
 int pop( StackNodePtr *topPtr )
 {
-	StackNodePtr tempPtr;
-	int popValue;
-	
-	tempPtr = *topPtr;
-	popValue = (*topPtr)->data;
-	*topPtr = (*topPtr)->nextPtr;
-	free( tempPtr );
-	
-	return popValue;
+    StackNodePtr tempPtr;
+    int popValue;
+    
+    tempPtr = *topPtr;
+    popValue = (*topPtr)->data;
+    *topPtr = (*topPtr)->nextPtr;
+    free( tempPtr );
+    
+    return popValue;
 }
 
 
@@ -61,11 +61,11 @@ int pop( StackNodePtr *topPtr )
  */
 int stackTop( StackNodePtr topPtr )
 {
-	int topValue;
-	
-	topValue = topPtr->data;
-	
-	return topValue;	
+    int topValue;
+    
+    topValue = topPtr->data;
+    
+    return topValue;    
 }
 
 
@@ -77,7 +77,7 @@ int stackTop( StackNodePtr topPtr )
  */
 int isEmpty( StackNodePtr topPtr )
 {
-	return topPtr==NULL;
+    return topPtr==NULL;
 }
 
 
@@ -88,18 +88,18 @@ int isEmpty( StackNodePtr topPtr )
  */
 void printStack( StackNodePtr currentPtr )
 {
-	if( currentPtr == NULL )
-    	printf( "The stack is empty.\n\n" );
+    if( currentPtr == NULL )
+        printf( "The stack is empty.\n\n" );
     else 
-	{
-    	printf( "The stack is:\n" );
-    	
-    	while( currentPtr != NULL) {
-    		printf( "%d --> ", currentPtr->data );
-    		currentPtr = currentPtr->nextPtr;
-		}
-		
-		printf( "NULL\n\n" );
-	}
+    {
+        printf( "The stack is:\n" );
+        
+        while( currentPtr != NULL) {
+            printf( "%d --> ", currentPtr->data );
+            currentPtr = currentPtr->nextPtr;
+        }
+        
+        printf( "NULL\n\n" );
+    }
 }
 

@@ -1,5 +1,5 @@
 /*
- * Filename:	StringMethods.h
+ * Filename:    StringMethods.h
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        31/08/2017.

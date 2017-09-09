@@ -1,5 +1,5 @@
 /*
- * Filename:	SimpleCompiler.h
+ * Filename:    SimpleCompiler.h
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        31/08/2017.
@@ -28,18 +28,18 @@
 /* /// CONTAINERS ///*/
 
 struct tableEntry {
-	int symbol;
-	char type;
-	int location;
+    int symbol;
+    char type;
+    int location;
 };
 
 struct tableEntry Table[MAXTABLESIZE];
 
 
 enum ComparisonOperators {
-	LTOPERATOR, GTOPERATOR, 
-	LTEOPERATOR, GTEOPERATOR,
-	EQOPERATOR, NEOPERATOR
+    LTOPERATOR, GTOPERATOR, 
+    LTEOPERATOR, GTEOPERATOR,
+    EQOPERATOR, NEOPERATOR
 };
 
 const char compOperators[ NUMBEROFCOMPOPERATORS ][3] = { "<", ">", "<=", ">=", "==", "!=" };

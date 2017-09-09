@@ -1,5 +1,5 @@
 /*
- * Filename:	main.c
+ * Filename:    main.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        03/09/2017.
@@ -13,27 +13,27 @@
 
 int main()
 {
-	/* Set each element in flags to -1 */
-	initialiseFlags();
-	
-	char filename[ MAXLINELENGTH ];
+    /* Set each element in flags to -1 */
+    initialiseFlags();
+    
+    char filename[ MAXLINELENGTH ];
     printf("Enter name of file to load: ");
     getLine( filename, MAXLINELENGTH );
     
     /* Compile to SML */
     if( runFirstPass( filename ) != 0)
-	    return -1; 
-	    
-	if( runSecondPass() != 0)
-	    return -1; 
+        return -1; 
+        
+    if( runSecondPass() != 0)
+        return -1; 
 
     /* Write out the instructions to file */
-	if( writeInstructionsToFile( "out.sml" ) != 0 )
-	    return -1; 
+    if( writeInstructionsToFile( "out.sml" ) != 0 )
+        return -1; 
     else
         printf("Instructions successfully written to \"out.sml\"\n");
         
- 	return 0;
+    return 0;
 }
 
 
@@ -44,10 +44,10 @@ int main()
  */
 void initialiseFlags()
 {
-	int i;
-	
-	for(i=0; i<MEMORYSIZE; i++)
-	    Flags[i]=-1;
+    int i;
+    
+    for(i=0; i<MEMORYSIZE; i++)
+        Flags[i]=-1;
 }
 
 
@@ -56,15 +56,15 @@ void initialiseFlags()
  */
 void printFlags()
 {
-	int i;
-	
-	printf("\n---- Flags for Second Pass ----\n\n");
-	
-	for( i=1; i<=MEMORYSIZE; i++ ) {
-		printf( "%4d ", Flags[i-1]) ;
-		if(i%10==0)
-    		printf( "\n" );
-	}   
+    int i;
+    
+    printf("\n---- Flags for Second Pass ----\n\n");
+    
+    for( i=1; i<=MEMORYSIZE; i++ ) {
+        printf( "%4d ", Flags[i-1]) ;
+        if(i%10==0)
+            printf( "\n" );
+    }   
 }
 
 
@@ -74,11 +74,11 @@ void printFlags()
  */
 void printInstructions()
 {
-	int i;
-	for( i=0; i<MEMORYSIZE; i++ ) {
-		if( MEMORY[i]!=0 )
-		    printf("%4d   %6d\n", i, MEMORY[i]); 
-	}
+    int i;
+    for( i=0; i<MEMORYSIZE; i++ ) {
+        if( MEMORY[i]!=0 )
+            printf("%4d   %6d\n", i, MEMORY[i]); 
+    }
 }
 
 
@@ -90,28 +90,28 @@ void printInstructions()
  */
 int writeInstructionsToFile( const char *outFile )
 {
-	int i;
+    int i;
     FILE *ofPtr;
     
     if( (ofPtr = fopen(outFile, "w")) == NULL ) {
-    	printf("File could not be opened\n");
-    	return -1;
-	}
+        printf("File could not be opened\n");
+        return -1;
+    }
     else 
-	{
-		for( i=0; i<MEMORYSIZE; i++ ) {
-			if( MEMORY[i]!=0 ) {
-				if( MEMORY[i]>0 )
-				    fprintf(ofPtr, "%02d +%d\n", i, MEMORY[i]); 
-				else
-				    fprintf(ofPtr, "%02d %d\n", i, MEMORY[i]); 
-			} 
-		}
-		
-		fclose(ofPtr);
-	}
-	
-	return 0;
+    {
+        for( i=0; i<MEMORYSIZE; i++ ) {
+            if( MEMORY[i]!=0 ) {
+                if( MEMORY[i]>0 )
+                    fprintf(ofPtr, "%02d +%d\n", i, MEMORY[i]); 
+                else
+                    fprintf(ofPtr, "%02d %d\n", i, MEMORY[i]); 
+            } 
+        }
+        
+        fclose(ofPtr);
+    }
+    
+    return 0;
 }
 
 
@@ -122,11 +122,11 @@ int writeInstructionsToFile( const char *outFile )
  */
 void addLineNumberToTable( int number )
 {
-	Table[TABLEPOSITION].symbol = number;
-	Table[TABLEPOSITION].type = 'L';
-	Table[TABLEPOSITION].location = INSTRUCTIONCOUNTER++;
-	TABLEPOSITION++;  
-	PREVIOUSLINENUMBER = number;
+    Table[TABLEPOSITION].symbol = number;
+    Table[TABLEPOSITION].type = 'L';
+    Table[TABLEPOSITION].location = INSTRUCTIONCOUNTER++;
+    TABLEPOSITION++;  
+    PREVIOUSLINENUMBER = number;
 }
 
 
@@ -136,13 +136,13 @@ void addLineNumberToTable( int number )
  * @param c A variable.
  */
 void addVariableToTable( char c )
-{	
-	if( variableExistsInTable( c ) == -1)  {
-		Table[TABLEPOSITION].symbol = c;
-	    Table[TABLEPOSITION].type = 'V'; 
-		Table[TABLEPOSITION].location = VARCONSTADDRESS--;
-		TABLEPOSITION++;
-	}
+{   
+    if( variableExistsInTable( c ) == -1)  {
+        Table[TABLEPOSITION].symbol = c;
+        Table[TABLEPOSITION].type = 'V'; 
+        Table[TABLEPOSITION].location = VARCONSTADDRESS--;
+        TABLEPOSITION++;
+    }
 }
 
 
@@ -154,13 +154,13 @@ void addVariableToTable( char c )
  */
 void addConstantToTable( int number )
 {
-	if( constantExistsInTable( number ) == -1 ) {
-		Table[TABLEPOSITION].symbol = number;
-	    Table[TABLEPOSITION].type = 'C';
-	    MEMORY[ VARCONSTADDRESS ] = number;
-		Table[TABLEPOSITION].location = VARCONSTADDRESS--;	
-		TABLEPOSITION++;					
-	}
+    if( constantExistsInTable( number ) == -1 ) {
+        Table[TABLEPOSITION].symbol = number;
+        Table[TABLEPOSITION].type = 'C';
+        MEMORY[ VARCONSTADDRESS ] = number;
+        Table[TABLEPOSITION].location = VARCONSTADDRESS--;  
+        TABLEPOSITION++;                    
+    }
 }
 
 
@@ -174,56 +174,56 @@ void addConstantToTable( int number )
  */
 int runFirstPass( const char *inFile )
 {
-	char line[ MAXLINELENGTH ];
-	char lineCopy[ MAXLINELENGTH ];
-	char tokenArray[ MAXLINELENGTH ][MAXTOKENLENGTH];
+    char line[ MAXLINELENGTH ];
+    char lineCopy[ MAXLINELENGTH ];
+    char tokenArray[ MAXLINELENGTH ][MAXTOKENLENGTH];
     int lineParsed;
-	
-	if( inFile == NULL ) {
-    	printf( "Error - a valid Simple sourcecode file name has not been provided.\n" );
-	    return 1;
-	}
-	
-	if( !endsWithSuffix( inFile, ".simple" ) ) {	
-    	printf( "Error - \"%s\" does not seem to be a valid Simple sourcecode file.\n", inFile );
-    	return 2;
-	}
-	
+    
+    if( inFile == NULL ) {
+        printf( "Error - a valid Simple sourcecode file name has not been provided.\n" );
+        return 1;
+    }
+    
+    if( !endsWithSuffix( inFile, ".simple" ) ) {    
+        printf( "Error - \"%s\" does not seem to be a valid Simple sourcecode file.\n", inFile );
+        return 2;
+    }
+    
     FILE *sourceFilePtr = fopen( inFile, "r" );
 
     if( sourceFilePtr == NULL ) 
-	{
-    	printf("Error - unable to open file \"%s\"\n", inFile);
-		return 3;
-	}
+    {
+        printf("Error - unable to open file \"%s\"\n", inFile);
+        return 3;
+    }
     else 
-	{
-		while ( fgets ( line, sizeof line, sourceFilePtr ) != NULL )
-		{   
-			if(endsWith(line, '\n') )
-			    removeEndChar( line );
-			    
-			strcpy2( lineCopy, line ); 
-			
-			int numberOfTokens;
-			numberOfTokens = createTokenArray( lineCopy, tokenArray );
+    {
+        while ( fgets ( line, sizeof line, sourceFilePtr ) != NULL )
+        {   
+            if(endsWith(line, '\n') )
+                removeEndChar( line );
+                
+            strcpy2( lineCopy, line ); 
+            
+            int numberOfTokens;
+            numberOfTokens = createTokenArray( lineCopy, tokenArray );
 
             lineParsed = addSymbolsToTable( tokenArray, numberOfTokens );
             
             if(lineParsed==0) {
-            	fclose( sourceFilePtr );
-            	return 4;
-			}
+                fclose( sourceFilePtr );
+                return 4;
+            }
                 
             strcpy2( lineCopy, line ); 
             /* pass to create SML here */
             createFirstSML( tokenArray, numberOfTokens ); 
-	    }		
-	}
+        }       
+    }
 
-	fclose( sourceFilePtr );
-	printf("\nFile \"%s\" loaded. Compiling...\n", inFile );
-	return 0;
+    fclose( sourceFilePtr );
+    printf("\nFile \"%s\" loaded. Compiling...\n", inFile );
+    return 0;
 }
 
 
@@ -235,18 +235,18 @@ int runFirstPass( const char *inFile )
  */
 int runSecondPass()
 {
-	int i, address;
-	for( i=0; i<MEMORYSIZE; i++ ) 
-	{
-		if( Flags[i] != -1 ) {
-			address = lineNumberExistsInTable(Flags[i]);
-			if(address==-1) return -1;
-			MEMORY[ i ] += address;
-			Flags[i] = -1;
-		}
-	}
-	
-	return 0;
+    int i, address;
+    for( i=0; i<MEMORYSIZE; i++ ) 
+    {
+        if( Flags[i] != -1 ) {
+            address = lineNumberExistsInTable(Flags[i]);
+            if(address==-1) return -1;
+            MEMORY[ i ] += address;
+            Flags[i] = -1;
+        }
+    }
+    
+    return 0;
 }
 
 
@@ -261,31 +261,31 @@ int createTokenArray( const char *line, char tokenArray[][MAXTOKENLENGTH] )
 {
     int length = 0;
     char lineCopy[ MAXLINELENGTH ]; /* make copy of line because strtok 
-	                                 * alters the line it tokenises */
-	char *tokenPtr;
-	
-	strcpy2(lineCopy, line);
-	
-	tokenPtr = strtok( lineCopy, " \n" );
-	
-	while( tokenPtr != NULL ) 
-	{	
-		while(startsWith(tokenPtr, '(') ) {
-			strcpy2( tokenArray[length++], "(" ); 
-			tokenPtr++;
-		}
-		if(endsWith(tokenPtr, ')') ) {
-			removeEndChar(tokenPtr); 			
-			strcpy2( tokenArray[length++], tokenPtr ); 
-			strcpy2( tokenArray[length++], ")" ); 
-		}
-		else if(tokenPtr[0] != '\0') {
-			strcpy2( tokenArray[length++], tokenPtr ); 
-		}
+                                     * alters the line it tokenises */
+    char *tokenPtr;
+    
+    strcpy2(lineCopy, line);
+    
+    tokenPtr = strtok( lineCopy, " \n" );
+    
+    while( tokenPtr != NULL ) 
+    {   
+        while(startsWith(tokenPtr, '(') ) {
+            strcpy2( tokenArray[length++], "(" ); 
+            tokenPtr++;
+        }
+        if(endsWith(tokenPtr, ')') ) {
+            removeEndChar(tokenPtr);            
+            strcpy2( tokenArray[length++], tokenPtr ); 
+            strcpy2( tokenArray[length++], ")" ); 
+        }
+        else if(tokenPtr[0] != '\0') {
+            strcpy2( tokenArray[length++], tokenPtr ); 
+        }
 
-    	tokenPtr = strtok( NULL, " \n" );
-	}
-		 
+        tokenPtr = strtok( NULL, " \n" );
+    }
+         
     return length;
 }
 
@@ -299,69 +299,69 @@ int createTokenArray( const char *line, char tokenArray[][MAXTOKENLENGTH] )
  * @return 1 if the line parsed correctly, otherwise 0.
  */
 int addSymbolsToTable( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens )
-{	
-	if( numberOfTokens == 0 ) {
-		printf("Syntax Error!\n");
-		return 0;
-	}
-	
-	int number;
-	int isLineNumber = 1;
+{   
+    if( numberOfTokens == 0 ) {
+        printf("Syntax Error!\n");
+        return 0;
+    }
+    
+    int number;
+    int isLineNumber = 1;
 
-	int i;
-	for(i=0; i<numberOfTokens; i++)
-	{
-		if(strlen2( tokenArray[i] ) > 1 ) 
-		{	
-			if(isdigit( tokenArray[i][0] ) || (  tokenArray[i][0] =='-' && isdigit(  tokenArray[i][1] )) )
-			{
-				number = strToInt(  tokenArray[i] ); 
-				
-				if(isLineNumber) 
-				{
-					if( number > PREVIOUSLINENUMBER && i==0 ) {
-						addLineNumberToTable( number );
-						isLineNumber = 0;
-					} else {
-						printf("Syntax Error!\n");
-						return 0;
-					}
-				}
-				else
-					addConstantToTable( number );		
-			}
-			else {
-				/* If the rem command is encountered skip the rest of the line */				
-				if( strcmp2( tokenArray[i], "rem") == 0 ) {
-					INSTRUCTIONCOUNTER--;
-					return 1;
-				}
-			}    
-		}
-		else 
-		{
-			if(isdigit( tokenArray[i][0] )) {
-				number = strToInt( tokenArray[i] ); 
-				
-				if(isLineNumber)
-				{
-					if(number > PREVIOUSLINENUMBER && i==0 ) {
-						addLineNumberToTable( number );
-						isLineNumber = 0;
-					} else {
-						printf("Syntax Error!\n");
-						return 0;
-					}
-				}
-				else
-					addConstantToTable( number );
-			}
-			else if(isalpha( tokenArray[i][0] ) )
-			    addVariableToTable( tokenArray[i][0] );
-		}
-	}
-	
-	return 1;
+    int i;
+    for(i=0; i<numberOfTokens; i++)
+    {
+        if(strlen2( tokenArray[i] ) > 1 ) 
+        {   
+            if(isdigit( tokenArray[i][0] ) || (  tokenArray[i][0] =='-' && isdigit(  tokenArray[i][1] )) )
+            {
+                number = strToInt(  tokenArray[i] ); 
+                
+                if(isLineNumber) 
+                {
+                    if( number > PREVIOUSLINENUMBER && i==0 ) {
+                        addLineNumberToTable( number );
+                        isLineNumber = 0;
+                    } else {
+                        printf("Syntax Error!\n");
+                        return 0;
+                    }
+                }
+                else
+                    addConstantToTable( number );       
+            }
+            else {
+                /* If the rem command is encountered skip the rest of the line */               
+                if( strcmp2( tokenArray[i], "rem") == 0 ) {
+                    INSTRUCTIONCOUNTER--;
+                    return 1;
+                }
+            }    
+        }
+        else 
+        {
+            if(isdigit( tokenArray[i][0] )) {
+                number = strToInt( tokenArray[i] ); 
+                
+                if(isLineNumber)
+                {
+                    if(number > PREVIOUSLINENUMBER && i==0 ) {
+                        addLineNumberToTable( number );
+                        isLineNumber = 0;
+                    } else {
+                        printf("Syntax Error!\n");
+                        return 0;
+                    }
+                }
+                else
+                    addConstantToTable( number );
+            }
+            else if(isalpha( tokenArray[i][0] ) )
+                addVariableToTable( tokenArray[i][0] );
+        }
+    }
+    
+    return 1;
 }
 
 
@@ -375,18 +375,18 @@ int addSymbolsToTable( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens )
  */
 int createInputInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens ) 
 {
-	int instruction = READ*10000;
-	int variableAddress = variableExistsInTable( tokenArray[2][0] );
-	
-	/* The line number has been assigned an address use this for the
-	 * first instruction (it has also augmented the instruction pointer)*/
-	int lineNumber = strToInt(tokenArray[0]);
-	int instructionAddress = lineNumberExistsInTable( lineNumber );
-	instruction += variableAddress;
-	 
-	MEMORY[ instructionAddress ] = instruction;
-	
-	return 1;
+    int instruction = READ*10000;
+    int variableAddress = variableExistsInTable( tokenArray[2][0] );
+    
+    /* The line number has been assigned an address use this for the
+     * first instruction (it has also augmented the instruction pointer)*/
+    int lineNumber = strToInt(tokenArray[0]);
+    int instructionAddress = lineNumberExistsInTable( lineNumber );
+    instruction += variableAddress;
+     
+    MEMORY[ instructionAddress ] = instruction;
+    
+    return 1;
 }
 
 
@@ -400,19 +400,19 @@ int createInputInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToken
  */
 int createPrintInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens ) 
 {
-	int instruction = WRITE*10000;
-	int variableAddress;	
-	
-	if( !isdigit( tokenArray[2][0]) )
+    int instruction = WRITE*10000;
+    int variableAddress;    
+    
+    if( !isdigit( tokenArray[2][0]) )
         variableAddress = variableExistsInTable( tokenArray[2][0] );
     else
         variableAddress = constantExistsInTable( strToInt(tokenArray[2]) );
-	
-	instruction += variableAddress;
-	 
-	MEMORY[ lineNumberExistsInTable( strToInt(tokenArray[0]) ) ] = instruction;
-	
-	return 1;
+    
+    instruction += variableAddress;
+     
+    MEMORY[ lineNumberExistsInTable( strToInt(tokenArray[0]) ) ] = instruction;
+    
+    return 1;
 }
 
 
@@ -426,23 +426,23 @@ int createPrintInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToken
  */
 int createGotoInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens ) 
 {
-	int instruction = BRANCH*10000;
-	/* get the address to add the instruction to */
-	int lineNumber = strToInt(tokenArray[0]);
-	int returnLineNumber = strToInt(tokenArray[2]);
-	int instructionAddress = lineNumberExistsInTable( lineNumber );
-	
-	int returnAddress = lineNumberExistsInTable( returnLineNumber );
-	
-	if(returnAddress != -1 )
-	    instruction += returnAddress;
-	else {
-	    Flags[ instructionAddress ] = returnLineNumber;
-	}
-	
-	MEMORY[ instructionAddress ] = instruction;
-	
-	return 1;
+    int instruction = BRANCH*10000;
+    /* get the address to add the instruction to */
+    int lineNumber = strToInt(tokenArray[0]);
+    int returnLineNumber = strToInt(tokenArray[2]);
+    int instructionAddress = lineNumberExistsInTable( lineNumber );
+    
+    int returnAddress = lineNumberExistsInTable( returnLineNumber );
+    
+    if(returnAddress != -1 )
+        instruction += returnAddress;
+    else {
+        Flags[ instructionAddress ] = returnLineNumber;
+    }
+    
+    MEMORY[ instructionAddress ] = instruction;
+    
+    return 1;
 }
 
 
@@ -456,10 +456,10 @@ int createGotoInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens
  */
 int createEndInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens ) 
 {
-	int instruction = HALT*10000;
-	MEMORY[ lineNumberExistsInTable( strToInt(tokenArray[0]) ) ] = instruction;
-	
-	return 1;
+    int instruction = HALT*10000;
+    MEMORY[ lineNumberExistsInTable( strToInt(tokenArray[0]) ) ] = instruction;
+    
+    return 1;
 }
 
 
@@ -473,31 +473,31 @@ int createEndInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens 
  */
 int createLetInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens ) 
 {
-	/* The line number has been assigned the address of the instruction pointer
-	 * and augmented it, so it needs to be decremented to place the first
-	 * instruction here in the correct memory address */
-	INSTRUCTIONCOUNTER--;
-	
-	/* Evaluate the expression on the RHS of the = sign */
-	char postfix[ MAXLINELENGTH ];
-	convertToPostfix( tokenArray, postfix, 4, numberOfTokens ); 
+    /* The line number has been assigned the address of the instruction pointer
+     * and augmented it, so it needs to be decremented to place the first
+     * instruction here in the correct memory address */
+    INSTRUCTIONCOUNTER--;
+    
+    /* Evaluate the expression on the RHS of the = sign */
+    char postfix[ MAXLINELENGTH ];
+    convertToPostfix( tokenArray, postfix, 4, numberOfTokens ); 
 
     int variableAddress = variableExistsInTable( tokenArray[2][0] ); 
     
     int loadInstruction  = LOAD * 10000;
-	int storeInstruction = STORE * 10000;
-	
-	int evalResult = evaluatePostfixExpression( postfix );
-	 
-	/* Load result of evaluation to the accumulator */
-	loadInstruction += evalResult;
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;
-	
-	/* Store the accumulator value into the variable */
-	storeInstruction += variableAddress;
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction;
-	
-	return 1;
+    int storeInstruction = STORE * 10000;
+    
+    int evalResult = evaluatePostfixExpression( postfix );
+     
+    /* Load result of evaluation to the accumulator */
+    loadInstruction += evalResult;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;
+    
+    /* Store the accumulator value into the variable */
+    storeInstruction += variableAddress;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction;
+    
+    return 1;
 }
 
 
@@ -511,41 +511,41 @@ int createLetInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens 
  */
 int createIfInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens ) 
 {
-	/* The line number has been assigned the address of the instruction pointer
-	 * and augmented it, so it needs to be decremented to place the first
-	 * instruction here in the correct memory address */
-	INSTRUCTIONCOUNTER--;
-	
-	/* Get the index of the comparison operator in the if statement */
-	int compOpIdx = getComparisonOperatorIndex( tokenArray, numberOfTokens);
-	
-	/* Evaluate the conditional expression then goto */
-	 
-	 switch( isComparisonOperator(tokenArray[compOpIdx]) )
-	{
-		case LTOPERATOR:
-			doLTJMP( tokenArray, numberOfTokens, compOpIdx );
-			break;
-		case GTOPERATOR:
-			doGTJMP( tokenArray, numberOfTokens, compOpIdx );
-			break;
-		case LTEOPERATOR:
-			doLTEJMP( tokenArray, numberOfTokens, compOpIdx );
-			break;
-		case GTEOPERATOR:
-			doGTEJMP( tokenArray, numberOfTokens, compOpIdx );
-		    break;
-		case EQOPERATOR:
-			doEQJMP( tokenArray, numberOfTokens, compOpIdx );
-			break;
-		case NEOPERATOR:
-			doNEJMP( tokenArray, numberOfTokens, compOpIdx );
-			break;
-		default:
-			break;
-	}
+    /* The line number has been assigned the address of the instruction pointer
+     * and augmented it, so it needs to be decremented to place the first
+     * instruction here in the correct memory address */
+    INSTRUCTIONCOUNTER--;
+    
+    /* Get the index of the comparison operator in the if statement */
+    int compOpIdx = getComparisonOperatorIndex( tokenArray, numberOfTokens);
+    
+    /* Evaluate the conditional expression then goto */
+     
+     switch( isComparisonOperator(tokenArray[compOpIdx]) )
+    {
+        case LTOPERATOR:
+            doLTJMP( tokenArray, numberOfTokens, compOpIdx );
+            break;
+        case GTOPERATOR:
+            doGTJMP( tokenArray, numberOfTokens, compOpIdx );
+            break;
+        case LTEOPERATOR:
+            doLTEJMP( tokenArray, numberOfTokens, compOpIdx );
+            break;
+        case GTEOPERATOR:
+            doGTEJMP( tokenArray, numberOfTokens, compOpIdx );
+            break;
+        case EQOPERATOR:
+            doEQJMP( tokenArray, numberOfTokens, compOpIdx );
+            break;
+        case NEOPERATOR:
+            doNEJMP( tokenArray, numberOfTokens, compOpIdx );
+            break;
+        default:
+            break;
+    }
  
-	return 1;
+    return 1;
 }
 
 
@@ -558,31 +558,31 @@ int createIfInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens )
  */
 int createFirstSML( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens ) 
 {
-	if( numberOfTokens == 0 ) {
-		printf("Syntax Error!\n");
-		return 0;
-	}
-	
-	if(strcmp2( tokenArray[1], "rem" ) == 0 )
-	    return 1;
-	else if(strcmp2( tokenArray[1], "input" ) == 0 )
+    if( numberOfTokens == 0 ) {
+        printf("Syntax Error!\n");
+        return 0;
+    }
+    
+    if(strcmp2( tokenArray[1], "rem" ) == 0 )
+        return 1;
+    else if(strcmp2( tokenArray[1], "input" ) == 0 )
         return createInputInstruction( tokenArray, numberOfTokens );
-	else if(strcmp2( tokenArray[1], "print" ) == 0 )
+    else if(strcmp2( tokenArray[1], "print" ) == 0 )
         return createPrintInstruction( tokenArray, numberOfTokens );
-	else if(strcmp2( tokenArray[1], "goto" ) == 0 )
+    else if(strcmp2( tokenArray[1], "goto" ) == 0 )
         return createGotoInstruction( tokenArray, numberOfTokens );
-	else if(strcmp2( tokenArray[1], "end" ) == 0 )
+    else if(strcmp2( tokenArray[1], "end" ) == 0 )
         return createEndInstruction( tokenArray, numberOfTokens );
-	else if(strcmp2( tokenArray[1], "if" ) == 0 )
+    else if(strcmp2( tokenArray[1], "if" ) == 0 )
         return createIfInstruction( tokenArray, numberOfTokens );
-	else if(strcmp2( tokenArray[1], "let" ) == 0 )
+    else if(strcmp2( tokenArray[1], "let" ) == 0 )
         return createLetInstruction( tokenArray, numberOfTokens );
-	else {
-		printf("Syntax Error!\n");
-		return 0;
-	}
-	
-	return 1;
+    else {
+        printf("Syntax Error!\n");
+        return 0;
+    }
+    
+    return 1;
 }
 
 
@@ -592,20 +592,20 @@ int createFirstSML( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens )
  */
 void dumpTableEntries()
 {
-	int i;
-	printf( "\n---- Symbol Table Contents ----\n\n" );
-	for( i=0; i<TABLEPOSITION; i++ )
-	{
-		printf( "---- Entry #%d ----\n", i);
-		
-		if(Table[i].type == 'V')
-		    printf( "Symbol   = %c\n", Table[i].symbol );
-		else
-		    printf( "Symbol   = %d\n", Table[i].symbol );
-		
-		printf( "Type     = %c\n", Table[i].type );
-		printf( "Location = %d\n\n", Table[i].location );
-	}
+    int i;
+    printf( "\n---- Symbol Table Contents ----\n\n" );
+    for( i=0; i<TABLEPOSITION; i++ )
+    {
+        printf( "---- Entry #%d ----\n", i);
+        
+        if(Table[i].type == 'V')
+            printf( "Symbol   = %c\n", Table[i].symbol );
+        else
+            printf( "Symbol   = %d\n", Table[i].symbol );
+        
+        printf( "Type     = %c\n", Table[i].type );
+        printf( "Location = %d\n\n", Table[i].location );
+    }
 }
 
 
@@ -618,16 +618,16 @@ void dumpTableEntries()
   */
 int variableExistsInTable( char symbol )
 {
-	int i;
-	for( i=0; i<TABLEPOSITION; i++ )
-	{
-		if(Table[i].type == 'V') 
-		{
-			if(Table[i].symbol == symbol )
-			    return Table[i].location;
-		}
-	}
-	return -1;
+    int i;
+    for( i=0; i<TABLEPOSITION; i++ )
+    {
+        if(Table[i].type == 'V') 
+        {
+            if(Table[i].symbol == symbol )
+                return Table[i].location;
+        }
+    }
+    return -1;
 }
 
 
@@ -640,16 +640,16 @@ int variableExistsInTable( char symbol )
   */
 int constantExistsInTable( int value )
 {
-	int i;
-	for( i=0; i<TABLEPOSITION; i++ )
-	{
-		if(Table[i].type == 'C') 
-		{
-			if(Table[i].symbol == value )
-			    return Table[i].location;
-		}
-	}
-	return -1;
+    int i;
+    for( i=0; i<TABLEPOSITION; i++ )
+    {
+        if(Table[i].type == 'C') 
+        {
+            if(Table[i].symbol == value )
+                return Table[i].location;
+        }
+    }
+    return -1;
 }
 
 
@@ -662,16 +662,16 @@ int constantExistsInTable( int value )
   */
 int lineNumberExistsInTable( int value )
 {
-	int i;
-	for( i=0; i<TABLEPOSITION; i++ )
-	{
-		if(Table[i].type == 'L') 
-		{
-			if(Table[i].symbol == value )
-			    return Table[i].location;
-		}
-	}
-	return -1;
+    int i;
+    for( i=0; i<TABLEPOSITION; i++ )
+    {
+        if(Table[i].type == 'L') 
+        {
+            if(Table[i].symbol == value )
+                return Table[i].location;
+        }
+    }
+    return -1;
 }
 
 
@@ -685,73 +685,73 @@ int lineNumberExistsInTable( int value )
  */
 void convertToPostfix( char infix[][MAXTOKENLENGTH], char postfix[], int start, int end )
 {
-    int i=start, j=0;	
-	char c;
+    int i=start, j=0;   
+    char c;
 
-	/* Push left parenthesis to stack */
+    /* Push left parenthesis to stack */
     StackNodePtr stackPtr = NULL;
     push( &stackPtr, '(' ); 
 
-	infix[end][0] = ')';
-	
-	/* Do the conversion */
-	while( !isEmpty( stackPtr ) && i <= end )
-	{
-	    int k=0;
-		c = infix[i][k++];
-		
-		if( c=='-' && strlen2(infix[i])>1  && isdigit(infix[i][1]) )
-		{
-		    postfix[j++] = c;
-		    c = infix[i][k++];
-		}
-		
-		if( isdigit(c) ) 
-		{	    
-			while( isdigit(c) ) {
-				postfix[j++] = c;
-				c = infix[i][k++];
-			}
-			postfix[j++] = ' ';
-		}
-		else if( c == '(')
-		    push( &stackPtr, '(' );
-		else if( isOperator(c) == 1 ) 
-		{
-			if( !isEmpty( stackPtr ) && isOperator( stackTop(stackPtr) ) ) {
-				while( isOperator( stackTop(stackPtr) ) && 
-				       (precedence( stackTop(stackPtr), c )) >= 0 ) 
-				{
-				   	postfix[j++] = pop( &stackPtr );
-					postfix[j++] = ' ';
-				}
-				push( &stackPtr, c );
-			}
-			else
-			    push( &stackPtr, c );
-		}
-		else if( c == ')') 
-		{
-			if( !isEmpty( stackPtr ) ) 
-			{
-				c = pop( &stackPtr ); 
+    infix[end][0] = ')';
+    
+    /* Do the conversion */
+    while( !isEmpty( stackPtr ) && i <= end )
+    {
+        int k=0;
+        c = infix[i][k++];
+        
+        if( c=='-' && strlen2(infix[i])>1  && isdigit(infix[i][1]) )
+        {
+            postfix[j++] = c;
+            c = infix[i][k++];
+        }
+        
+        if( isdigit(c) ) 
+        {       
+            while( isdigit(c) ) {
+                postfix[j++] = c;
+                c = infix[i][k++];
+            }
+            postfix[j++] = ' ';
+        }
+        else if( c == '(')
+            push( &stackPtr, '(' );
+        else if( isOperator(c) == 1 ) 
+        {
+            if( !isEmpty( stackPtr ) && isOperator( stackTop(stackPtr) ) ) {
+                while( isOperator( stackTop(stackPtr) ) && 
+                       (precedence( stackTop(stackPtr), c )) >= 0 ) 
+                {
+                    postfix[j++] = pop( &stackPtr );
+                    postfix[j++] = ' ';
+                }
+                push( &stackPtr, c );
+            }
+            else
+                push( &stackPtr, c );
+        }
+        else if( c == ')') 
+        {
+            if( !isEmpty( stackPtr ) ) 
+            {
+                c = pop( &stackPtr ); 
 
-				while( !isEmpty( stackPtr ) && c != '(' ) {
-					postfix[j++] = c;
-					postfix[j++] = ' ';
-					c = pop( &stackPtr ); 
-				}
-			}
-	    }
-	    else if( c != ' ')
-	    {
-	    	postfix[j++] = c;
-	    	postfix[j++] = ' ';
-		}
-		
-		i++;
-	}
-	postfix[j] = '\0';
+                while( !isEmpty( stackPtr ) && c != '(' ) {
+                    postfix[j++] = c;
+                    postfix[j++] = ' ';
+                    c = pop( &stackPtr ); 
+                }
+            }
+        }
+        else if( c != ' ')
+        {
+            postfix[j++] = c;
+            postfix[j++] = ' ';
+        }
+        
+        i++;
+    }
+    postfix[j] = '\0';
 }
 
 
@@ -765,36 +765,36 @@ void convertToPostfix( char infix[][MAXTOKENLENGTH], char postfix[], int start, 
  */
 int precedence( char operator1, char operator2 )
 {
-	int result = 1;
+    int result = 1;
 
-	switch( operator1 )
-	{
-		case '^':
-			if( operator2 == '^') result = 0;
-			break;
-	    case '*': case '/': case '%':
-	    	switch( operator2 ) {
-	    		case '^':
-	    			result = -1;
-	    			break;
-	    		case '*': case '/': case '%':
-	    			result = 0;
-	    		    break;
-	    		default:
-	    			break;
-			}
-	    	break;
-	    case '+': case '-':	
-	        switch( operator2 ) {
-	    		case '-': case '+':
-	    			result = 0;
-	    			break;
-	    		default:
-	    			result = -1;
-	    			break;
-			}
-	    	break;
-	}
+    switch( operator1 )
+    {
+        case '^':
+            if( operator2 == '^') result = 0;
+            break;
+        case '*': case '/': case '%':
+            switch( operator2 ) {
+                case '^':
+                    result = -1;
+                    break;
+                case '*': case '/': case '%':
+                    result = 0;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case '+': case '-': 
+            switch( operator2 ) {
+                case '-': case '+':
+                    result = 0;
+                    break;
+                default:
+                    result = -1;
+                    break;
+            }
+            break;
+    }
 
     return result;
 }
@@ -811,60 +811,60 @@ int precedence( char operator1, char operator2 )
  */
 int evaluatePostfixExpression( char *expr )
 {
-	StackNodePtr stackPtr = NULL;
-	
-	char postfix[MAXLINELENGTH][MAXTOKENLENGTH];
-	int pfLength = createTokenArray( expr, postfix );
-	
-	int x, y;
-	
-	int i=0;
-	int address;
-	char c;
-	
-	while( i < pfLength )
-	{
-		c = postfix[i][0];
-		
-		/* Must also handle negative numbers */
-		if( isdigit( c ) || ( c=='-' && strlen2(postfix[i])>1  && isdigit(postfix[i][1]) ) )
-		{
-		    int number;
-			sscanf(postfix[i], "%d", &number);
-			
-		    address = constantExistsInTable( number );
-			push( &stackPtr, address );     /* TODO - insert atoi method */
-		}
-		else if( isalpha( c ) ) 
-		{
-		    address = variableExistsInTable( c );
-			push( &stackPtr, address ); 
-		}
-		else if( isOperator( c ) )
-		{
-			if(isEmpty( stackPtr ) ) {
-				printf("Invalid postfix expression!\n");
-				return 0;
-			}
-			x = pop( &stackPtr );
-			
-			if(isEmpty( stackPtr ) ) {
-				printf("Invalid postfix expression!\n");
-				return 0;
-			}
-			y = pop( &stackPtr );
-			
-			push( &stackPtr, calculate( y, x, c ) );
-		}
-		i++;
-	}
-	
-	if(isEmpty( stackPtr ) ) {
-		printf("Invalid postfix expression!\n");
-		return 0;
-	}
-	
-	return pop( &stackPtr );
+    StackNodePtr stackPtr = NULL;
+    
+    char postfix[MAXLINELENGTH][MAXTOKENLENGTH];
+    int pfLength = createTokenArray( expr, postfix );
+    
+    int x, y;
+    
+    int i=0;
+    int address;
+    char c;
+    
+    while( i < pfLength )
+    {
+        c = postfix[i][0];
+        
+        /* Must also handle negative numbers */
+        if( isdigit( c ) || ( c=='-' && strlen2(postfix[i])>1  && isdigit(postfix[i][1]) ) )
+        {
+            int number;
+            sscanf(postfix[i], "%d", &number);
+            
+            address = constantExistsInTable( number );
+            push( &stackPtr, address );     /* TODO - insert atoi method */
+        }
+        else if( isalpha( c ) ) 
+        {
+            address = variableExistsInTable( c );
+            push( &stackPtr, address ); 
+        }
+        else if( isOperator( c ) )
+        {
+            if(isEmpty( stackPtr ) ) {
+                printf("Invalid postfix expression!\n");
+                return 0;
+            }
+            x = pop( &stackPtr );
+            
+            if(isEmpty( stackPtr ) ) {
+                printf("Invalid postfix expression!\n");
+                return 0;
+            }
+            y = pop( &stackPtr );
+            
+            push( &stackPtr, calculate( y, x, c ) );
+        }
+        i++;
+    }
+    
+    if(isEmpty( stackPtr ) ) {
+        printf("Invalid postfix expression!\n");
+        return 0;
+    }
+    
+    return pop( &stackPtr );
 }
 
 
@@ -878,76 +878,76 @@ int evaluatePostfixExpression( char *expr )
  *         result of the math operation.
  */
 int calculate( int op1, int op2, char theOperator )
-{	
+{   
     int tempStorage = VARCONSTADDRESS--;
-	
-	int loadInstruction = LOAD * 10000;
-	loadInstruction += op1;
-	
-	int storeInstruction = STORE * 10000;
-	storeInstruction += tempStorage;
-	
-	int addInstruction = ADD * 10000;
-	int subInstruction = SUBTRACT * 10000;
-	int mulInstruction = MULTIPLY * 10000;
-	int divInstruction = DIVIDE * 10000;
-	int expInstruction = EXPONENTIATION * 10000;
-	int modInstruction = MODULUS * 10000;
-	
-	switch( theOperator )
-	{
-		case '+':
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
-		
-			addInstruction += op2;
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = addInstruction;   // add op2
-			
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
-			break;
-		case '-':
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
-			
-			subInstruction += op2;
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = subInstruction;   // subtract op2
-			
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
-			break;
-		case '*':
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
-			
-			mulInstruction += op2;
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = mulInstruction;   // multiply by op2
-			
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
-			break;
-		case '/':
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
-			
-			divInstruction += op2;
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = divInstruction;   // divide by op2
-			
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
-			break;
-		case '^':
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
-			
-			expInstruction += op2;
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = expInstruction;   // raise to the power of op2
-			
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
-			break;
-		case '%':
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
-			
-			modInstruction += op2;
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = modInstruction;   // modulo by op2
-			
-			MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
-			break;
-		default:
-			break;
-	}
-	
+    
+    int loadInstruction = LOAD * 10000;
+    loadInstruction += op1;
+    
+    int storeInstruction = STORE * 10000;
+    storeInstruction += tempStorage;
+    
+    int addInstruction = ADD * 10000;
+    int subInstruction = SUBTRACT * 10000;
+    int mulInstruction = MULTIPLY * 10000;
+    int divInstruction = DIVIDE * 10000;
+    int expInstruction = EXPONENTIATION * 10000;
+    int modInstruction = MODULUS * 10000;
+    
+    switch( theOperator )
+    {
+        case '+':
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
+        
+            addInstruction += op2;
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = addInstruction;   // add op2
+            
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
+            break;
+        case '-':
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
+            
+            subInstruction += op2;
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = subInstruction;   // subtract op2
+            
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
+            break;
+        case '*':
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
+            
+            mulInstruction += op2;
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = mulInstruction;   // multiply by op2
+            
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
+            break;
+        case '/':
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
+            
+            divInstruction += op2;
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = divInstruction;   // divide by op2
+            
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
+            break;
+        case '^':
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
+            
+            expInstruction += op2;
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = expInstruction;   // raise to the power of op2
+            
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
+            break;
+        case '%':
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = loadInstruction;  // load op1 to accumulator
+            
+            modInstruction += op2;
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = modInstruction;   // modulo by op2
+            
+            MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction; // store result to tempStorage
+            break;
+        default:
+            break;
+    }
+    
     return tempStorage;
 }
 
@@ -964,17 +964,17 @@ int calculate( int op1, int op2, char theOperator )
  */
 int getComparisonOperatorIndex( char tokens[ ][ MAXTOKENLENGTH ], int length )
 {
-	int idx, idx2;
-	
-	for( idx=3; idx<length; idx++ ) {
-		for( idx2=0; idx2<NUMBEROFCOMPOPERATORS; idx2++ ) 
-		{
-			if(strcmp2(tokens[idx], compOperators[idx2]) == 0 )
-			    return idx;
-		}	
-	}
-	
-	return -1;
+    int idx, idx2;
+    
+    for( idx=3; idx<length; idx++ ) {
+        for( idx2=0; idx2<NUMBEROFCOMPOPERATORS; idx2++ ) 
+        {
+            if(strcmp2(tokens[idx], compOperators[idx2]) == 0 )
+                return idx;
+        }   
+    }
+    
+    return -1;
 }
 
 
@@ -987,13 +987,13 @@ int getComparisonOperatorIndex( char tokens[ ][ MAXTOKENLENGTH ], int length )
  */
 int isComparisonOperator( char *test ) 
 {
-	int idx;
-	for( idx=0; idx<NUMBEROFCOMPOPERATORS; idx++ ) 
-	{
-		if(strcmp2(test, compOperators[idx]) == 0 )
-		    return idx;
-	}	
-	return -1;
+    int idx;
+    for( idx=0; idx<NUMBEROFCOMPOPERATORS; idx++ ) 
+    {
+        if(strcmp2(test, compOperators[idx]) == 0 )
+            return idx;
+    }   
+    return -1;
 }
 
 
@@ -1007,46 +1007,46 @@ int isComparisonOperator( char *test )
  */
 int doLTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int ltIndex )
 {
-	int LHSAddress, RHSAddress;
-	int returnAddress;
+    int LHSAddress, RHSAddress;
+    int returnAddress;
 
-	char LHSPostfix[ MAXLINELENGTH ];	
-	char RHSPostfix[ MAXLINELENGTH ];
+    char LHSPostfix[ MAXLINELENGTH ];   
+    char RHSPostfix[ MAXLINELENGTH ];
 
-	convertToPostfix( tokenArray, LHSPostfix, 2,         ltIndex ); 
-	convertToPostfix( tokenArray, RHSPostfix, ltIndex+1, numberOfTokens-2 ); 
-	
-	LHSAddress = evaluatePostfixExpression( LHSPostfix );
-	RHSAddress = evaluatePostfixExpression( RHSPostfix );
+    convertToPostfix( tokenArray, LHSPostfix, 2,         ltIndex ); 
+    convertToPostfix( tokenArray, RHSPostfix, ltIndex+1, numberOfTokens-2 ); 
+    
+    LHSAddress = evaluatePostfixExpression( LHSPostfix );
+    RHSAddress = evaluatePostfixExpression( RHSPostfix );
 
     int instruction1 = LOAD * 10000;
     instruction1 += LHSAddress;
-    	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
+        
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
     
     /* Subtract RHS expression result from the accumulator */
     int instruction2 = SUBTRACT * 10000;
     instruction2 += RHSAddress;
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
 
     /* Branch if accumulator is less than zero */
-	int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
-	
-	returnAddress = lineNumberExistsInTable( returnLineNumber );
+    int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
+    
+    returnAddress = lineNumberExistsInTable( returnLineNumber );
 
-	int instruction3 = BRANCHNEG * 10000;
-	
-	if(returnAddress != -1 ) {
-		instruction3 += returnAddress;
-	}  
-	else {
-	    Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
-	}
-	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;
+    int instruction3 = BRANCHNEG * 10000;
+    
+    if(returnAddress != -1 ) {
+        instruction3 += returnAddress;
+    }  
+    else {
+        Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
+    }
+    
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;
 
     return 1;
-}			
+}           
 
 
 /**
@@ -1059,46 +1059,46 @@ int doLTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int ltIndex 
  */
 int doGTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int gtIndex )
 {
-	int LHSAddress, RHSAddress;
-	int returnAddress;
+    int LHSAddress, RHSAddress;
+    int returnAddress;
 
-	char LHSPostfix[ MAXLINELENGTH ];	
-	char RHSPostfix[ MAXLINELENGTH ];
+    char LHSPostfix[ MAXLINELENGTH ];   
+    char RHSPostfix[ MAXLINELENGTH ];
 
-	convertToPostfix( tokenArray, LHSPostfix, 2,         gtIndex ); 
-	convertToPostfix( tokenArray, RHSPostfix, gtIndex+1, numberOfTokens-2 ); 
-	
-	LHSAddress = evaluatePostfixExpression( LHSPostfix );
-	RHSAddress = evaluatePostfixExpression( RHSPostfix );
+    convertToPostfix( tokenArray, LHSPostfix, 2,         gtIndex ); 
+    convertToPostfix( tokenArray, RHSPostfix, gtIndex+1, numberOfTokens-2 ); 
+    
+    LHSAddress = evaluatePostfixExpression( LHSPostfix );
+    RHSAddress = evaluatePostfixExpression( RHSPostfix );
 
     int instruction1 = LOAD * 10000;
     instruction1 += LHSAddress;
     
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
     
     /* Subtract RHS expression result from the accumulator */
     int instruction2 = SUBTRACT * 10000;
-    instruction2 += RHSAddress;	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
+    instruction2 += RHSAddress; 
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
 
     /* Branch if accumulator is greater than zero */
-	int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
-	
-	returnAddress = lineNumberExistsInTable( returnLineNumber );
+    int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
+    
+    returnAddress = lineNumberExistsInTable( returnLineNumber );
 
-	int instruction3 = BRANCHPOS*10000;
-	
-	if(returnAddress != -1 ) {
-		instruction3 += returnAddress;
-	}
-	else {
-	    Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
-	}
-		
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;
+    int instruction3 = BRANCHPOS*10000;
+    
+    if(returnAddress != -1 ) {
+        instruction3 += returnAddress;
+    }
+    else {
+        Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
+    }
+        
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;
 
     return 1;
-}	
+}   
 
 
 /**
@@ -1108,53 +1108,53 @@ int doGTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int gtIndex 
  * @param tokenArray A tokenised line from the Simple source file.
  * @param numberOfTokens The number of tokens contained in tokenArray.
  * @return 1 if the instructions were successfully created.
- */			
+ */         
 int doLTEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int lteIndex )
 {
-	int LHSAddress, RHSAddress;
-	int returnAddress;
+    int LHSAddress, RHSAddress;
+    int returnAddress;
 
-	char LHSPostfix[ MAXLINELENGTH ];	
-	char RHSPostfix[ MAXLINELENGTH ];
+    char LHSPostfix[ MAXLINELENGTH ];   
+    char RHSPostfix[ MAXLINELENGTH ];
 
-	convertToPostfix( tokenArray, LHSPostfix, 2,          lteIndex ); 
-	convertToPostfix( tokenArray, RHSPostfix, lteIndex+1, numberOfTokens-2 ); 
-	
-	LHSAddress = evaluatePostfixExpression( LHSPostfix );
-	RHSAddress = evaluatePostfixExpression( RHSPostfix );
+    convertToPostfix( tokenArray, LHSPostfix, 2,          lteIndex ); 
+    convertToPostfix( tokenArray, RHSPostfix, lteIndex+1, numberOfTokens-2 ); 
+    
+    LHSAddress = evaluatePostfixExpression( LHSPostfix );
+    RHSAddress = evaluatePostfixExpression( RHSPostfix );
 
     int instruction1 = LOAD * 10000;
     instruction1 += LHSAddress;
-    	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
+        
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
     
     /* Subtract RHS expression result from the accumulator */
     int instruction2 = SUBTRACT * 10000;
-    instruction2 += RHSAddress;	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
+    instruction2 += RHSAddress; 
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
 
     /* Branch if accumulator is less than or equal to zero */
-	int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
-	
-	returnAddress = lineNumberExistsInTable( returnLineNumber );
+    int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
+    
+    returnAddress = lineNumberExistsInTable( returnLineNumber );
 
-	int instruction3 = BRANCHNEG*10000;
-	int instruction4 = BRANCHZERO*10000;
-	
-	if(returnAddress != -1 ) {
-		instruction3 += returnAddress;
-		instruction4 += returnAddress;
-	}	    
-	else {
-	    Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
-	    Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
-	}
-		
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction4;
+    int instruction3 = BRANCHNEG*10000;
+    int instruction4 = BRANCHZERO*10000;
+    
+    if(returnAddress != -1 ) {
+        instruction3 += returnAddress;
+        instruction4 += returnAddress;
+    }       
+    else {
+        Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
+        Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
+    }
+        
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;  
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction4;
 
     return 1;
-}			
+}           
 
 
 /**
@@ -1167,52 +1167,52 @@ int doLTEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int lteInde
  */
 int doGTEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int gteIndex )
 {
-	int LHSAddress, RHSAddress;
-	int returnAddress;
+    int LHSAddress, RHSAddress;
+    int returnAddress;
 
-	char LHSPostfix[ MAXLINELENGTH ];	
-	char RHSPostfix[ MAXLINELENGTH ];
+    char LHSPostfix[ MAXLINELENGTH ];   
+    char RHSPostfix[ MAXLINELENGTH ];
 
-	convertToPostfix( tokenArray, LHSPostfix, 2,          gteIndex ); 
-	convertToPostfix( tokenArray, RHSPostfix, gteIndex+1, numberOfTokens-2 ); 
-	
-	LHSAddress = evaluatePostfixExpression( LHSPostfix );
-	RHSAddress = evaluatePostfixExpression( RHSPostfix );
+    convertToPostfix( tokenArray, LHSPostfix, 2,          gteIndex ); 
+    convertToPostfix( tokenArray, RHSPostfix, gteIndex+1, numberOfTokens-2 ); 
+    
+    LHSAddress = evaluatePostfixExpression( LHSPostfix );
+    RHSAddress = evaluatePostfixExpression( RHSPostfix );
 
     int instruction1 = LOAD * 10000;
     instruction1 += LHSAddress;
     
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
     
     /* Subtract RHS expression result from the accumulator */
     int instruction2 = SUBTRACT * 10000;
     instruction2 += RHSAddress;
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
 
     /* Branch if accumulator is greater than or equal to zero */
-	int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
-	
-	returnAddress = lineNumberExistsInTable( returnLineNumber );
+    int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
+    
+    returnAddress = lineNumberExistsInTable( returnLineNumber );
 
-	int instruction3 = BRANCHPOS*10000;
-	int instruction4 = BRANCHZERO*10000;
-	
-	if(returnAddress != -1 ) {
-		instruction3 += returnAddress;
-		instruction4 += returnAddress;
-	}  
-	else {
-	    Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
-	    Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
-	}
-	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction4;
+    int instruction3 = BRANCHPOS*10000;
+    int instruction4 = BRANCHZERO*10000;
+    
+    if(returnAddress != -1 ) {
+        instruction3 += returnAddress;
+        instruction4 += returnAddress;
+    }  
+    else {
+        Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
+        Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
+    }
+    
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;  
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction4;
 
     return 1;
-}	
+}   
 
-	
+    
 /**
  * The function doEQJMP creates the necessary instructions to perform
  * the SML equivalent of a Simple 'if x == y goto n'. It is used during
@@ -1223,51 +1223,51 @@ int doGTEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int gteInde
  */
 int doEQJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int eqIndex )
 {
-	/* For the address of the temporarily allocated memory holding the results
-	 * of the operation on the Left-hand and right-hand sides of the comparison
-	 * operator */
-	int LHSAddress, RHSAddress;
-	int returnAddress;
+    /* For the address of the temporarily allocated memory holding the results
+     * of the operation on the Left-hand and right-hand sides of the comparison
+     * operator */
+    int LHSAddress, RHSAddress;
+    int returnAddress;
 
-	char LHSPostfix[ MAXLINELENGTH ];	
-	char RHSPostfix[ MAXLINELENGTH ];
+    char LHSPostfix[ MAXLINELENGTH ];   
+    char RHSPostfix[ MAXLINELENGTH ];
 
-	convertToPostfix( tokenArray, LHSPostfix, 2,         eqIndex ); 
-	convertToPostfix( tokenArray, RHSPostfix, eqIndex+1, numberOfTokens-2 ); 
-	
-	/* Evaluate the expression on the LHS of the comparison operator */
-	LHSAddress = evaluatePostfixExpression( LHSPostfix );
+    convertToPostfix( tokenArray, LHSPostfix, 2,         eqIndex ); 
+    convertToPostfix( tokenArray, RHSPostfix, eqIndex+1, numberOfTokens-2 ); 
+    
+    /* Evaluate the expression on the LHS of the comparison operator */
+    LHSAddress = evaluatePostfixExpression( LHSPostfix );
 
-	/* Evaluate the expression on the LHS of the comparison operator */
-	RHSAddress = evaluatePostfixExpression( RHSPostfix );
+    /* Evaluate the expression on the LHS of the comparison operator */
+    RHSAddress = evaluatePostfixExpression( RHSPostfix );
 
     /* Load LHS expression result into the accumulator */
     int instruction1 = LOAD * 10000;
     instruction1 += LHSAddress;
-    	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
+        
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
     
     /* Subtract RHS expression result from the accumulator */
     int instruction2 = SUBTRACT * 10000;
     instruction2 += RHSAddress;
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
 
     /* Branch if accumulator is equal to zero */
-	int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
-	returnAddress = lineNumberExistsInTable( returnLineNumber );
+    int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
+    returnAddress = lineNumberExistsInTable( returnLineNumber );
 
-	int instruction3 = BRANCHZERO*10000;
+    int instruction3 = BRANCHZERO*10000;
 
-	if(returnAddress != -1 )
-	    instruction3 += returnAddress;
-	else {
-	    Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
-	}
-	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;
+    if(returnAddress != -1 )
+        instruction3 += returnAddress;
+    else {
+        Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
+    }
+    
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;
 
     return 1;
-}			
+}           
 
 
 /**
@@ -1280,46 +1280,46 @@ int doEQJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int eqIndex 
  */
 int doNEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int neIndex )
 {
-	int LHSAddress, RHSAddress;
-	int returnAddress;
+    int LHSAddress, RHSAddress;
+    int returnAddress;
 
-	char LHSPostfix[ MAXLINELENGTH ];	
-	char RHSPostfix[ MAXLINELENGTH ];
+    char LHSPostfix[ MAXLINELENGTH ];   
+    char RHSPostfix[ MAXLINELENGTH ];
 
-	convertToPostfix( tokenArray, LHSPostfix, 2,         neIndex ); 
-	convertToPostfix( tokenArray, RHSPostfix, neIndex+1, numberOfTokens-2 ); 
-	
-	LHSAddress = evaluatePostfixExpression( LHSPostfix );
-	RHSAddress = evaluatePostfixExpression( RHSPostfix );
+    convertToPostfix( tokenArray, LHSPostfix, 2,         neIndex ); 
+    convertToPostfix( tokenArray, RHSPostfix, neIndex+1, numberOfTokens-2 ); 
+    
+    LHSAddress = evaluatePostfixExpression( LHSPostfix );
+    RHSAddress = evaluatePostfixExpression( RHSPostfix );
 
     int instruction1 = LOAD * 10000;
     instruction1 += LHSAddress;
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction1;
     
     /* Subtract RHS expression result from the accumulator */
     int instruction2 = SUBTRACT * 10000;
     instruction2 += RHSAddress;
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
 
     /* Branch if accumulator is not equal to zero */
-	int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
-	
-	returnAddress = lineNumberExistsInTable( returnLineNumber );
+    int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
+    
+    returnAddress = lineNumberExistsInTable( returnLineNumber );
 
-	int instruction3 = BRANCHNEG*10000;
-	int instruction4 = BRANCHPOS*10000;
-	
-	if(returnAddress != -1 ) {
-		instruction3 += returnAddress;
-		instruction4 += returnAddress;
-	}
-	else {
-	    Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
-	    Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
-	}
-	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;	
-	MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction4;
+    int instruction3 = BRANCHNEG*10000;
+    int instruction4 = BRANCHPOS*10000;
+    
+    if(returnAddress != -1 ) {
+        instruction3 += returnAddress;
+        instruction4 += returnAddress;
+    }
+    else {
+        Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
+        Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
+    }
+    
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction3;  
+    MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction4;
 
     return 1;
 }

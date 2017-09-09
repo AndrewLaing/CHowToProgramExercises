@@ -1,5 +1,5 @@
 /*
- * Filename:	StringMethods.c
+ * Filename:    StringMethods.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        31/08/2017.
@@ -18,16 +18,16 @@
  */
 int getLine( char s[], int maxLength )
 {
-	int c, i=0;
-	
-	while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
-	    s[i++]=c;
+    int c, i=0;
+    
+    while( ( --maxLength > 0)  && ( (c=getchar())!=EOF ) && ( c!='\n' ) )
+        s[i++]=c;
 
-	s[i] = '\0';
-	
-	fflush(stdin);	/* Clear any overflow*/
-	
-	return i;	
+    s[i] = '\0';
+    
+    fflush(stdin);  /* Clear any overflow*/
+    
+    return i;   
 }
 
 
@@ -41,9 +41,9 @@ int getLine( char s[], int maxLength )
  */
 int startsWith( const char *s, char c )
 {
-	if(s!=NULL)
-	    return s[0] == c;
-	return 0;
+    if(s!=NULL)
+        return s[0] == c;
+    return 0;
 }
 
 
@@ -57,14 +57,14 @@ int startsWith( const char *s, char c )
  */
 int endsWith( const char *s, char c )
 {
-	if(s==NULL)
-	   return 0;
-	int i=0;
-	
-	while(s[i]!='\0')
-	    i++;
-	
-	return s[--i] == c;
+    if(s==NULL)
+       return 0;
+    int i=0;
+    
+    while(s[i]!='\0')
+        i++;
+    
+    return s[--i] == c;
 }
 
 
@@ -94,17 +94,17 @@ int endsWithSuffix(const char *s, const char *suffix)
  */
 int isOperator( char c )
 {
-	int result = 0;
+    int result = 0;
 
-	switch( c )
-	{
-		case '^': case '*': case '/': case '%': case '+': 
-		case '-': case '=': case '!': case '<': case '>':
-	        result = 1;
-	    	break;
-	    default:
-	    	break;
-	}
+    switch( c )
+    {
+        case '^': case '*': case '/': case '%': case '+': 
+        case '-': case '=': case '!': case '<': case '>':
+            result = 1;
+            break;
+        default:
+            break;
+    }
 
     return result;
 }
@@ -116,14 +116,14 @@ int isOperator( char c )
  */
 void removeEndChar( char *s )
 {
-	if(s==NULL)
-	   return;
-	int i=0;
-	
-	while(s[i]!='\0')
-	    i++;
-	
-	s[--i] = '\0';
+    if(s==NULL)
+       return;
+    int i=0;
+    
+    while(s[i]!='\0')
+        i++;
+    
+    s[--i] = '\0';
 }
 
 
@@ -134,10 +134,10 @@ void removeEndChar( char *s )
  */
 int strToInt(const char *str)
 {
-	int result;
+    int result;
     sscanf(str, "%d", &result);
 
-	return result;
+    return result;
 }
 
 
@@ -150,10 +150,10 @@ int strlen2( const char* s )
 {
     int i=0;
     
-	while(*s++!='\0')
-		i++;
+    while(*s++!='\0')
+        i++;
 
-	return i;
+    return i;
 }
 
 
@@ -168,11 +168,11 @@ char *strcpy2( char* s1, const char *s2 )
 {   
     char *result = s1;
     
-	while(*s2!='\0')
-		*s1++=*s2++;
-	    
-	*s1='\0';
-	return result;	
+    while(*s2!='\0')
+        *s1++=*s2++;
+        
+    *s1='\0';
+    return result;  
 }
 
 
@@ -187,17 +187,17 @@ char *strcpy2( char* s1, const char *s2 )
  */
 int strcmp2( const char *s1, const char *s2 )
 {      
-	while(*s2!='\0') {
-		if(*s1<*s2)
-		    return -1;
-		else if(*s1>*s2)
-		    return 1;
-		s1++;
-		s2++;			
-	}
+    while(*s2!='\0') {
+        if(*s1<*s2)
+            return -1;
+        else if(*s1>*s2)
+            return 1;
+        s1++;
+        s2++;           
+    }
 
     if(*s1!='\0')
         return 1;
-	return 0;	
+    return 0;   
 }
 

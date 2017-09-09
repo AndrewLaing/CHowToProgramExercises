@@ -1,5 +1,5 @@
 /*
- * Filename:	IntStack.h
+ * Filename:    IntStack.h
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
  * Date:        31/08/2017.
@@ -10,8 +10,8 @@
 #define INT_STACK_H
 
 struct stackNode { 
-	int data;
-	struct stackNode *nextPtr;
+    int data;
+    struct stackNode *nextPtr;
 };
 
 typedef struct stackNode StackNode;
