@@ -2,16 +2,7 @@
  * Filename:    main.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
- * Date:        10/09/2017.
- *
- * TODO: for the JMP functions implement the optimise
- 
-    // Optimise if this was a production
-    if(MEMORY[INSTRUCTIONCOUNTER-1]/10000 == STORE)
-    {
-        MEMORY[ INSTRUCTIONCOUNTER-1 ] = storeInstruction;
-    }
- 
+ * Date:        11/09/2017.
  */
 
 #include "SimpleCompiler.h"
