@@ -331,6 +331,11 @@ int addSymbolsToTable( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens )
                     INSTRUCTIONCOUNTER--;
                     return 1;
                 }
+                /* If the goto command is encountered skip the rest of the line 
+                 * so that the return line number is not added as a constant */               
+                else if( strcmp2( tokenArray[i], "goto") == 0 ) {
+                    return 1;
+                }
             }    
         }
         else 
