@@ -7,7 +7,6 @@
 
 #include "SimpleCompiler.h"
 
-
 int main()
 {
     /* Set each element in flags to -1 */
@@ -42,7 +41,6 @@ int main()
 void initialiseFlags()
 {
     int i;
-    
     for(i=0; i<MEMORYSIZE; i++)
         Flags[i]=-1;
 }
@@ -507,10 +505,8 @@ int createLetInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens 
         MEMORY[ INSTRUCTIONCOUNTER++ ] = storeInstruction;        
     }
 
-    
     return 1;
 }
-
 
 
 /**
@@ -1049,7 +1045,6 @@ int doLTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int ltIndex 
         MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
     }
 
-
     /* Branch if accumulator is less than zero */
     int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
     
@@ -1351,7 +1346,6 @@ int doNEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int neIndex 
         MEMORY[ INSTRUCTIONCOUNTER++ ] = instruction2;
     } 
 
-
     /* Branch if accumulator is not equal to zero */
     int returnLineNumber = strToInt(tokenArray[numberOfTokens-1]);
     
@@ -1374,4 +1368,3 @@ int doNEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int neIndex 
 
     return 1;
 }
-
