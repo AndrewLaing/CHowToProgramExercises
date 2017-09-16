@@ -498,7 +498,9 @@ int createLetInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens 
     storeInstruction += variableAddress; 
        
     /* Optimise if this was a production*/
-    if(MEMORY[INSTRUCTIONCOUNTER-1]/10000 == STORE)
+    if( (INSTRUCTIONCOUNTER-1 > 2) &&  
+        (MEMORY[INSTRUCTIONCOUNTER-1]/10000 == STORE) && 
+        (MEMORY[INSTRUCTIONCOUNTER-2]/10000 != LOAD) )
     {
         MEMORY[ INSTRUCTIONCOUNTER-1 ] = storeInstruction;
     }
