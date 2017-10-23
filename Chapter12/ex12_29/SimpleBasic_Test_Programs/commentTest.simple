@@ -1,0 +1,7 @@
+5 rem do some mathematics
+10 let a = 30 * 9 / 5 + 32
+11 rem display the answer
+15 print "30 * 9 / 5 + 32 = "
+20 print a
+25 newline
+30 end

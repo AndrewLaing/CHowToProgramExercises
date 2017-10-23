@@ -1,0 +1,8 @@
+5 print "Enter a number between 1 and 10 > "
+10 input a
+20 if a < 1 goto 40
+25 if a > 10 goto 40
+30 print "Well done anon."
+35 goto 50
+40 print "You dun goofed."
+50 end

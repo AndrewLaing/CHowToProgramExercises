@@ -1,0 +1,11 @@
+10 dim a(3)
+20 let a(1) = 33
+30 let a(2) = 44
+40 let c = a(1) + a(2)
+45 print a(1)
+46 print " + "
+47 print a(2)
+48 print " = "
+50 print c
+55 newline
+60 end

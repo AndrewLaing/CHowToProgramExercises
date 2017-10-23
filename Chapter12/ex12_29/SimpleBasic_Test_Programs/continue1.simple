@@ -1,0 +1,14 @@
+10 dim a$(10)
+20 print "Enter a number > "
+30 input b
+35 let c = b
+40 let b = c * c
+50 print "The square of "
+60 print c
+70 print " is "
+80 print b
+90 newline
+100 print "Do you want to enter another value? (y/n) > "
+110 input a$
+120 if a$ == "y" goto 20
+130 end

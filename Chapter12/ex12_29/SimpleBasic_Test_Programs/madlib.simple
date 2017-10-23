@@ -1,0 +1,17 @@
+10 dim a$(20)
+20 dim b$(20)
+30 dim c$(20)
+40 print "Enter a male name > "
+50 input a$
+60 print "Enter an emotion > "
+70 input b$
+80 print "Enter an action > "
+90 input c$
+100 newline
+110 print a$
+120 print " was feeling "
+130 print b$
+140 print " so he decided to "
+150 print c$
+160 newline
+170 end

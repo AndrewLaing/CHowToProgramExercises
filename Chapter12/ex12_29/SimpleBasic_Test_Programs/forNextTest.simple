@@ -1,0 +1,8 @@
+10 for a = 1 to 10
+20 print a
+30 print ": green bottle"
+40 newline
+50 next
+60 print "Standing on the wall"
+70 newline
+80 end

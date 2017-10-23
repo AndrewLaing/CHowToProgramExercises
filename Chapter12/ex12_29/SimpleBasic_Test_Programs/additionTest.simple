@@ -1,0 +1,9 @@
+5 print "Enter the value of x > "
+10 input x
+15 print "Enter the value of y > "
+20 input y
+30 let r = x * y
+40 newline
+50 print "x * y = "
+60 print r
+99 end

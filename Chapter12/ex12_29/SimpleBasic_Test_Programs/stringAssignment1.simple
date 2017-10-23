@@ -1,0 +1,4 @@
+1 dim a$(20)
+2 let a$ = "Fuckin ell lad"
+5 print a$
+10 end

@@ -1,0 +1,14 @@
+10 dim a$(10)
+20 print "Do you want to continue? (yes/no) > "
+30 input a$
+40 if a$ == "y" goto 60
+50 goto 80
+60 print "You want to continue. You entered '"
+65 print a$
+66 print "'."
+70 goto 90
+80 print "You do NOT want to continue. You entered '"
+81 print a$
+82 print "'."
+90 newline
+100 end

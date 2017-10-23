@@ -1,0 +1,13 @@
+1 dim a$(20)
+2 dim b$(20)
+3 let a$ = "Frog"
+4 let b$ = "Frog"
+5 if a$ == b$ goto 9
+6 if a$ != b$ goto 11
+7 print "Comparison Failed"
+8 goto 12
+9 print "a$ == b$"
+10 goto 12
+11 print "a$ != b$"
+12 newline
+13 end
