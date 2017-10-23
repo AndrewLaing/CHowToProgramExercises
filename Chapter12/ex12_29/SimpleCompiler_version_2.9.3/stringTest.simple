@@ -1,0 +1,6 @@
+10 print "Do you liek mudkips?"
+20 newline
+30 print "Do you liek mudkips?"
+40 newline
+50 print "Do you liek mudkips?"
+100 end
