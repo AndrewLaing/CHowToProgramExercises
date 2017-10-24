@@ -10,6 +10,9 @@
 #ifndef SIMPLE_COMPILER_H
 #define SIMPLE_COMPILER_H
 
+#define ADDINSTRUCTION(instruction)  if( addInstructionToMemory( instruction ) == FAIL ) \
+                return FAIL;  
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

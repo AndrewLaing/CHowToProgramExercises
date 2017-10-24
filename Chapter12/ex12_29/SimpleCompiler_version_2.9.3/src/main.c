@@ -2,8 +2,8 @@
  * Filename:    main.c
  * Author:      Andrew Laing
  * Email:       parisianconnections@gmail.com
- * Date:        18/10/2017.
- * Version:     V2.9.3
+ * Date:        24/10/2017.
+ * Version:     V2.9.4
  * Description: Code has been tidied up a little
  *              Corrected problem with String literal assigning the wrong 
  *               string length to the beginning of strings stored in memory
@@ -23,6 +23,7 @@
  *              Add a string literal array so that once a string literal is
  *                added to memory it does not need to be readded each time
  *                it is included into the program.
+ *              Added Macro ADDINSTRUCTION
  */
 
 #include "SimpleCompiler.h"
@@ -644,9 +645,8 @@ int createInputInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToken
         }
         
         instruction += variableAddress;
-        
-        if( addInstructionToMemory( instruction ) == FAIL ) 
-            return FAIL;      
+        ADDINSTRUCTION(instruction);
+   
     }
     
     return SUCCESS;
@@ -810,8 +810,7 @@ int createPrintInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToken
 
         instruction += variableAddress;
          
-        if( addInstructionToMemory( instruction ) == FAIL ) 
-            return FAIL;                 
+        ADDINSTRUCTION(instruction);                 
     }
     
     return SUCCESS;
@@ -844,8 +843,7 @@ int createGotoInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens
         Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
     }
     
-    if( addInstructionToMemory( instruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(instruction);  
     
     return SUCCESS;
 }
@@ -863,8 +861,7 @@ int createEndInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens 
 {
     int instruction = HALT*10000;
     
-    if( addInstructionToMemory( instruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(instruction);  
     
     return SUCCESS;
 }
@@ -1005,11 +1002,9 @@ int createLetInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens 
     }
     else {
         /* Load result of evaluation to the accumulator */
-        if( addInstructionToMemory( loadInstruction ) == FAIL ) 
-            return FAIL;  
+        ADDINSTRUCTION(loadInstruction);
         /* Store the accumulator value into the variable */ 
-        if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-            return FAIL;        
+        ADDINSTRUCTION(storeInstruction);      
     }
 
     return SUCCESS;
@@ -1179,8 +1174,7 @@ int createGosubInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToken
     
     loadInstruction += constantExistsInTable( returnAddress );
     
-    if( addInstructionToMemory( loadInstruction ) == -1 ) 
-        return FAIL;  
+    ADDINSTRUCTION(loadInstruction);
     
     int gosubVarAddress = variableExistsInTable( '@' );
     if(gosubVarAddress == -1)
@@ -1188,8 +1182,7 @@ int createGosubInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToken
         
     storeInstruction += gosubVarAddress;
     
-    if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(storeInstruction);
      
     /* Create a goto instruction to branch to the subroutine */
     int gotoInstruction = BRANCH*10000;
@@ -1203,8 +1196,7 @@ int createGosubInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToken
         Flags[ INSTRUCTIONCOUNTER ] = gotoLineNumber;
     }
     
-    if( addInstructionToMemory( gotoInstruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(gotoInstruction);
     return SUCCESS;
 }
 
@@ -1236,8 +1228,7 @@ int createReturnInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToke
          return FAIL;
 
     instruction1 += addressOfVariable;
-    if( addInstructionToMemory( instruction1 ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(instruction1);
     
     int addInstruction = ADD*10000;
     int returnAddress = variableExistsInTable( '@' );
@@ -1246,14 +1237,13 @@ int createReturnInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfToke
         return FAIL;
     
     addInstruction += returnAddress;
-    if( addInstructionToMemory( addInstruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(addInstruction);
     
     int storeInstruction = STORE*10000;
     storeInstruction += INSTRUCTIONCOUNTER+1;
     
-    if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(storeInstruction);
+    
     /* Create a space for the BRANCH instruction to be placed */
     INSTRUCTIONCOUNTER++;
     return SUCCESS;
@@ -1410,23 +1400,19 @@ int createNextInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens
     /* Augment the count variable of the For loop */
     int loadInstruction  = LOAD * 10000;
     loadInstruction += stackPopped[0];
-    if( addInstructionToMemory( loadInstruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(loadInstruction); 
     
     int addInstruction   = ADD * 10000;
     addInstruction += stackPopped[1];
-    if( addInstructionToMemory( addInstruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(addInstruction);
     
     int storeInstruction = STORE * 10000;
     storeInstruction += stackPopped[0];
-    if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(storeInstruction); 
     
     int branchInstruction = BRANCH * 10000;
     branchInstruction += stackPopped[2];
-    if( addInstructionToMemory( branchInstruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(branchInstruction);
     
     /* Correct the goto addresses for the conditional branch created in
      * createForInstruction to point to the first instruction after
@@ -1457,8 +1443,7 @@ int createNewlineInstruction( char tokenArray[][MAXTOKENLENGTH], int numberOfTok
     
     /* Augment the count variable of the For loop */
     int instruction  = NEWLINE * 10000;
-    if( addInstructionToMemory( instruction ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(instruction);
     
     return SUCCESS;
 }
@@ -1835,70 +1820,40 @@ int calculate( int op1, int op2, char theOperator )
     switch( theOperator )
     {
         case '+':
-            if( addInstructionToMemory( loadInstruction ) == FAIL ) 
-                return FAIL;  // load op1 to accumulator
-        
+            ADDINSTRUCTION(loadInstruction);
             addInstruction += op2;
-            if( addInstructionToMemory( addInstruction ) == FAIL ) 
-                return FAIL;  // add op2  
-            
-            if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-                return FAIL;  // store result to tempStorage
+            ADDINSTRUCTION(addInstruction);   // add op2  
+            ADDINSTRUCTION(storeInstruction); // store result to tempStorage
             break;
         case '-':
-            if( addInstructionToMemory( loadInstruction ) == FAIL ) 
-                return FAIL;  // load op1 to accumulator 
-            
+            ADDINSTRUCTION(loadInstruction);  // load op1 to accumulator 
             subInstruction += op2;
-            if( addInstructionToMemory( subInstruction ) == FAIL ) 
-                return FAIL;    // subtract op2
-            
-            if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-                return FAIL;  // store result to tempStorage
+            ADDINSTRUCTION(subInstruction);   // subtract op2
+            ADDINSTRUCTION(storeInstruction); // store result to tempStorage
             break;
         case '*':
-            if( addInstructionToMemory( loadInstruction ) == FAIL ) 
-                return FAIL;  // load op1 to accumulator
-            
+            ADDINSTRUCTION(loadInstruction);  // load op1 to accumulator
             mulInstruction += op2;
-            if( addInstructionToMemory( mulInstruction ) == FAIL ) 
-                return FAIL;  // multiply by op2 
-            
-            if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-                return FAIL;  // store result to tempStorage
+            ADDINSTRUCTION(mulInstruction);   // multiply by op2 
+            ADDINSTRUCTION(storeInstruction); // store result to tempStorage
             break;
         case '/':
-            if( addInstructionToMemory( loadInstruction ) == FAIL ) 
-                return FAIL;  // load op1 to accumulator
-            
+            ADDINSTRUCTION(loadInstruction);  // load op1 to accumulator
             divInstruction += op2;
-            if( addInstructionToMemory( divInstruction ) == FAIL ) 
-                return FAIL;  // divide by op2  
-            
-            if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-                return FAIL;  // store result to tempStorage
+            ADDINSTRUCTION(divInstruction);   // divide by op2  
+            ADDINSTRUCTION(storeInstruction); // store result to tempStorage
             break;
         case '^':
-            if( addInstructionToMemory( loadInstruction ) == FAIL ) 
-                return FAIL;  // load op1 to accumulator
-            
+            ADDINSTRUCTION(loadInstruction);  // load op1 to accumulator
             expInstruction += op2;
-            if( addInstructionToMemory( expInstruction ) == FAIL ) 
-                return FAIL;  // raise to the power of op2
-            
-            if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-                return FAIL;  // store result to tempStorage
+            ADDINSTRUCTION(expInstruction);   // raise to the power of op2
+            ADDINSTRUCTION(storeInstruction); // store result to tempStorage
             break;
         case '%':
-            if( addInstructionToMemory( loadInstruction ) == FAIL ) 
-                return FAIL;  // load op1 to accumulator
-            
+            ADDINSTRUCTION(loadInstruction);  // load op1 to accumulator
             modInstruction += op2;
-            if( addInstructionToMemory( modInstruction ) == FAIL ) 
-                return FAIL;  // modulo by op2 
-            
-            if( addInstructionToMemory( storeInstruction ) == FAIL ) 
-                return FAIL;  // store result to tempStorage
+            ADDINSTRUCTION(modInstruction);   // modulo by op2 
+            ADDINSTRUCTION(storeInstruction);
             break;
         default:
             break;
@@ -1993,10 +1948,8 @@ int doLTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int ltIndex 
         MEMORY[ INSTRUCTIONCOUNTER-1 ] = instruction2;
     }
     else {
-        if( addInstructionToMemory( instruction1 ) == FAIL ) 
-            return FAIL;  
-        if( addInstructionToMemory( instruction2 ) == FAIL ) 
-            return FAIL;  
+        ADDINSTRUCTION(instruction1);
+        ADDINSTRUCTION(instruction2);
     }
 
     /* Branch if accumulator is less than zero */
@@ -2013,8 +1966,7 @@ int doLTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int ltIndex 
         Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
     }
     
-    if( addInstructionToMemory( instruction3 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(instruction3 );
           
     return SUCCESS;
 }           
@@ -2060,10 +2012,8 @@ int doGTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int gtIndex 
         MEMORY[ INSTRUCTIONCOUNTER-1 ] = instruction2;
     }
     else {
-        if( addInstructionToMemory( instruction1 ) == FAIL ) 
-            return FAIL;  
-        if( addInstructionToMemory( instruction2 ) == FAIL ) 
-            return FAIL;  
+        ADDINSTRUCTION(instruction1);
+        ADDINSTRUCTION(instruction2);
     }
 
     /* Branch if accumulator is greater than zero */
@@ -2080,8 +2030,7 @@ int doGTJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int gtIndex 
         Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
     }
 
-    if( addInstructionToMemory( instruction3 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(instruction3);
 
     return SUCCESS;
 }   
@@ -2127,10 +2076,8 @@ int doLTEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int lteInde
         MEMORY[ INSTRUCTIONCOUNTER-1 ] = instruction2;
     }
     else {
-        if( addInstructionToMemory( instruction1 ) == FAIL ) 
-            return FAIL;  
-        if( addInstructionToMemory( instruction2 ) == FAIL ) 
-            return FAIL;  
+        ADDINSTRUCTION(instruction1);
+        ADDINSTRUCTION(instruction2);
     } 
 
     /* Branch if accumulator is less than or equal to zero */
@@ -2150,10 +2097,8 @@ int doLTEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int lteInde
         Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
     }
     
-    if( addInstructionToMemory( instruction3 ) == FAIL ) 
-        return FAIL;  
-    if( addInstructionToMemory( instruction4 ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(instruction3);
+    ADDINSTRUCTION(instruction4); 
 
     return SUCCESS;
 }           
@@ -2199,10 +2144,8 @@ int doGTEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int gteInde
         MEMORY[ INSTRUCTIONCOUNTER-1 ] = instruction2;
     }
     else {
-        if( addInstructionToMemory( instruction1 ) == FAIL ) 
-            return FAIL;  
-        if( addInstructionToMemory( instruction2 ) == FAIL ) 
-            return FAIL;  
+        ADDINSTRUCTION(instruction1);
+        ADDINSTRUCTION(instruction2);
     } 
 
     /* Branch if accumulator is greater than or equal to zero */
@@ -2222,10 +2165,8 @@ int doGTEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int gteInde
         Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
     }
     
-    if( addInstructionToMemory( instruction3 ) == FAIL ) 
-        return FAIL; 
-    if( addInstructionToMemory( instruction4 ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(instruction3);
+    ADDINSTRUCTION(instruction4); 
 
     return SUCCESS;
 }   
@@ -2271,10 +2212,8 @@ int doEQJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int eqIndex 
         MEMORY[ INSTRUCTIONCOUNTER-1 ] = instruction2;
     }
     else {
-        if( addInstructionToMemory( instruction1 ) == FAIL ) 
-            return FAIL;  
-        if( addInstructionToMemory( instruction2 ) == FAIL ) 
-            return FAIL;
+        ADDINSTRUCTION(instruction1);
+        ADDINSTRUCTION(instruction2);
     } 
 
     /* Branch if accumulator is equal to zero */
@@ -2289,8 +2228,7 @@ int doEQJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int eqIndex 
         Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
     }
     
-    if( addInstructionToMemory( instruction3 ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(instruction3);
 
     return SUCCESS;
 }           
@@ -2336,10 +2274,8 @@ int doNEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int neIndex 
         MEMORY[ INSTRUCTIONCOUNTER-1 ] = instruction2;
     }
     else {
-        if( addInstructionToMemory( instruction1 ) == FAIL ) 
-            return FAIL; 
-        if( addInstructionToMemory( instruction2 ) == FAIL ) 
-            return FAIL;
+        ADDINSTRUCTION(instruction1);
+        ADDINSTRUCTION(instruction2);
     } 
 
     /* Branch if accumulator is not equal to zero */
@@ -2359,10 +2295,8 @@ int doNEJMP( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int neIndex 
         Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
     }
     
-    if( addInstructionToMemory( instruction3 ) == FAIL ) 
-        return FAIL; 
-    if( addInstructionToMemory( instruction4 ) == FAIL ) 
-        return FAIL;  
+    ADDINSTRUCTION(instruction3);
+    ADDINSTRUCTION(instruction4);
 
     return SUCCESS;
 }
@@ -2396,8 +2330,7 @@ int doSTRCMP(char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
             Flags[ INSTRUCTIONCOUNTER ] = returnLineNumber;
         }
         
-        if( addInstructionToMemory( instruction3 ) == FAIL ) 
-            return FAIL;  
+        ADDINSTRUCTION(instruction3);
     }
     else if( strcmp2(tokenArray[cmpOpIndex], "!=" ) == 0) 
     {
@@ -2418,10 +2351,8 @@ int doSTRCMP(char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
             Flags[ INSTRUCTIONCOUNTER+1 ] = returnLineNumber;
         }
         
-        if( addInstructionToMemory( instruction3 ) == FAIL ) 
-            return FAIL; 
-        if( addInstructionToMemory( instruction4 ) == FAIL ) 
-            return FAIL;  
+        ADDINSTRUCTION(instruction3);
+        ADDINSTRUCTION(instruction4);
     }
     else {
         printf("Error - comparing strings with %s is not implemented yet!\n", tokenArray[cmpOpIndex]);
@@ -2558,32 +2489,27 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      * #######################################################
      */
     /* load the first byte of a$ */
-    if( addInstructionToMemory( loadInstruction + addressA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + addressA);
     
     /* divide by 1000 */
-    if( addInstructionToMemory( divideInstruction + thousand ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(divideInstruction + thousand);
     
     /* store strlen for a$ */
     int strlenAAddress;
     strlenAAddress = VARCONSTADDRESS;
     
-    if( addInstructionToMemory( storeInstruction + strlenAAddress ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + strlenAAddress);
     
     VARCONSTADDRESS--;
     
     /* multiply by 1000 */
-    if( addInstructionToMemory( multInstruction + thousand ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(multInstruction + thousand);
         
     /* store result of strLen(a$)*1000 */
     int strlenAThousand;
     strlenAThousand = VARCONSTADDRESS;
     
-    if( addInstructionToMemory( storeInstruction + strlenAThousand ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + strlenAThousand);
         
     VARCONSTADDRESS--;
     
@@ -2593,19 +2519,16 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */
     
     /* load address of a$ */
-    if( addInstructionToMemory( loadInstruction + positionInA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + positionInA);
         
     /* add strlen(a$) to create MAX for for-loop */
-    if( addInstructionToMemory( addInstruction + strlenAAddress ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(addInstruction + strlenAAddress);
         
     /* store MAX */
     int maxA;
     maxA = VARCONSTADDRESS;
     
-    if( addInstructionToMemory( storeInstruction + maxA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + maxA);
  
     VARCONSTADDRESS--;
         
@@ -2615,19 +2538,16 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */
     
     /* load first byte of a$ */
-    if( addInstructionToMemory( loadInstruction + addressA ) == FAIL ) 
-        return FAIL;    
+    ADDINSTRUCTION(loadInstruction + addressA);
 
     /* subtract strlen*1000 of a$ to get first char */
-    if( addInstructionToMemory( subInstruction + strlenAThousand ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(subInstruction + strlenAThousand);
     
     /* store first char of a$ */
     int tempA;
     tempA = VARCONSTADDRESS;
     
-    if( addInstructionToMemory( storeInstruction + tempA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + tempA);
         
     VARCONSTADDRESS--;
     
@@ -2637,33 +2557,27 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */
      
     /* load the first byte of b$ */
-    if( addInstructionToMemory( loadInstruction + addressB ) == FAIL ) 
-        return FAIL;    
+    ADDINSTRUCTION(loadInstruction + addressB);  
         
     /* divide by 1000 */
-    if( addInstructionToMemory( divideInstruction + thousand ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(divideInstruction + thousand);
      
     /* multiply by 1000 */
-    if( addInstructionToMemory( multInstruction + thousand ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(multInstruction + thousand);
      
     /* store strlen(b$)*1000 */
     int strlenBThousand;
     strlenBThousand = VARCONSTADDRESS;
     
-    if( addInstructionToMemory( storeInstruction + strlenBThousand ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + strlenBThousand);
         
     VARCONSTADDRESS--;
     
     /* load the first byte of b$ */
-    if( addInstructionToMemory( loadInstruction + addressB ) == FAIL ) 
-        return FAIL;    
+    ADDINSTRUCTION(loadInstruction + addressB);
     
     /* subtract strlen(b$)*1000 to get first char */
-    if( addInstructionToMemory( subInstruction + strlenBThousand ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(subInstruction + strlenBThousand);
 
     /* #######################################################
      *      compare first char of a$ with first char of b$
@@ -2672,19 +2586,16 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */  
     
     /* subtract 1st char of a$ from 1st char of b$ */
-    if( addInstructionToMemory( subInstruction + tempA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(subInstruction + tempA);
 
     /* branchneg   ie not equal to 
      * branch after the exitroutine which checks in cases where a$ matches b$
      * that b$ does not have extra characters
      */
-    if( addInstructionToMemory( branchNegInst + exitInstruction+4 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(branchNegInst + exitInstruction+4);
 
     /* branchpos   ie not equal to */
-    if( addInstructionToMemory( branchPosInst + exitInstruction+4 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(branchPosInst + exitInstruction+4);
         
     /* #######################################################
      *        for loop to compare the rest of a$ with b$
@@ -2693,24 +2604,19 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */
      
     /* load current position in a$ */
-    if( addInstructionToMemory( loadInstruction + positionInA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + positionInA);
     
     /* add 1 */
-    if( addInstructionToMemory( addInstruction + one ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(addInstruction + one);
     
     /* store incremented position */
-    if( addInstructionToMemory( storeInstruction + positionInA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + positionInA);
     
     /* subtract MAX */
-    if( addInstructionToMemory( subInstruction + maxA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(subInstruction + maxA);
     
     /* BRANCHZERO */
-    if( addInstructionToMemory( branchZeroInst + exitInstruction ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(branchZeroInst + exitInstruction);
     
     /* #######################################################
      *            increment the position in b$ 26-28
@@ -2718,16 +2624,13 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */
 
     /* load current position in b$ */
-    if( addInstructionToMemory( loadInstruction + positionInB ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + positionInB);
     
     /* add 1 */
-    if( addInstructionToMemory( addInstruction + one ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(addInstruction + one);
     
     /* store incremented position */
-    if( addInstructionToMemory( storeInstruction + positionInB ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + positionInB);
         
     /* #######################################################
      *   create a load instruction for position in a$ 29-31
@@ -2735,16 +2638,13 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */
      
     /* load LOAD instruction */
-    if( addInstructionToMemory( loadInstruction + loadA ) == FAIL ) 
-        return FAIL; 
+    ADDINSTRUCTION(loadInstruction + loadA);
     
     /* add current position in a$ */
-    if( addInstructionToMemory( addInstruction + positionInA ) == FAIL ) 
-        return FAIL;    
+    ADDINSTRUCTION(addInstruction + positionInA);   
     
     /* store 4 instructions from the current one */
-    if( addInstructionToMemory( storeInstruction + INSTRUCTIONCOUNTER+4 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + INSTRUCTIONCOUNTER+4);
         
     /* #######################################################
      * create a subtract instruction for position in b$ 32-34
@@ -2752,16 +2652,13 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */
      
     /* load SUBTRACT instruction */
-    if( addInstructionToMemory( loadInstruction + subB ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + subB);
     
     /* add current position in b$ */
-    if( addInstructionToMemory( addInstruction + positionInB ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(addInstruction + positionInB);
     
     /* store 3 instructions from the current one */
-    if( addInstructionToMemory( storeInstruction + INSTRUCTIONCOUNTER+3 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + INSTRUCTIONCOUNTER+3);
      
     /* #######################################################
      *  BRANCH to beginning of for-loop if values are equal
@@ -2775,25 +2672,20 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
     /* ********************************************************************** */    
     /* If the value loaded to the ACCUMULATOR is zero then it is the end
      * of the String */
-     
-    if( addInstructionToMemory( branchZeroInst + exitInstruction ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(branchZeroInst + exitInstruction);
     
     /* ********************************************************************** */
     
     INSTRUCTIONCOUNTER++;  /* Make space for subtract b$ chars*/
      
     /* branch zero to start of for-loop */
-    if( addInstructionToMemory( branchZeroInst + exitInstruction-20 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(branchZeroInst + exitInstruction-20);
     
     // Else strings are not equal  //
-    if( addInstructionToMemory( branchNegInst + exitInstruction+4 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(branchNegInst + exitInstruction+4);
 
     /* branchpos ie not equal to */
-    if( addInstructionToMemory( branchPosInst + exitInstruction+4 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(branchPosInst + exitInstruction+4);
     
     /* #######################################################
      * create a load instruction for position in b$ 
@@ -2801,45 +2693,36 @@ int doSTREQ( char tokenArray[][MAXTOKENLENGTH], int numberOfTokens, int cmpOpInd
      */
      
     /* load LOAD instruction */
-    if( addInstructionToMemory( loadInstruction + loadA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + loadA);
     
     /* add current position in b$ */
-    if( addInstructionToMemory( addInstruction + positionInB ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(addInstruction + positionInB);
     
     /* store 1 instructions from the current one */
-    if( addInstructionToMemory( storeInstruction + INSTRUCTIONCOUNTER+1 ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + INSTRUCTIONCOUNTER+1);
     
     INSTRUCTIONCOUNTER++;  /* Make space for load b$ chars*/
     /* if the strings are equal this will be 0 */
       
     /* store value in ACCUMULATOR to tempA */
-    if( addInstructionToMemory( storeInstruction + tempA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + tempA);
 
     /* //// Reinitialise the string index position counters //// */
         
     /* load stored start position of a$ */
-    if( addInstructionToMemory( loadInstruction + startOfA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + startOfA);
 
     /* store to positionInA */
-    if( addInstructionToMemory( storeInstruction + positionInA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + positionInA);
 
     /* load stored start position of b$ */
-    if( addInstructionToMemory( loadInstruction + startOfB ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + startOfB);
 
     /* store to  positionInB */
-    if( addInstructionToMemory( storeInstruction + positionInB ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(storeInstruction + positionInB);
 
     /* load stored position in b$ */
-    if( addInstructionToMemory( loadInstruction + tempA ) == FAIL ) 
-        return FAIL;
+    ADDINSTRUCTION(loadInstruction + tempA);
 
     return SUCCESS;
 }   
