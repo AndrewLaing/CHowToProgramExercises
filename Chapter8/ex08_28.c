@@ -50,7 +50,7 @@ int main()
     printf("Value of s4 = '%s'\n", s4 ); 
     
     printf("\n---- strcat2 ----\n"); 
-    printf("Value returned = '%s'\n", strcat1(s4, "ts") ); 
+    printf("Value returned = '%s'\n", strcat2(s4, "ts") ); 
     printf("Value of s4 = '%s'\n", s4 ); 
     
     printf("\n---- strncat2 ----\n"); 
@@ -160,7 +160,7 @@ char *strcat2( char* s1, const char *s2 )
     char *result = s1;
     
     while(*s1!='\0')
-        ;
+        *s1++;
     
     while(*s2!='\0')
         *s1++=*s2++;
