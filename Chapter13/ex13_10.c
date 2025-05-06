@@ -12,11 +12,11 @@
                                for( ; i<lenArr; i++ ) { \
                                    total += arr[i]; } \
                              printf("SUM = %d\n", total);
-                             
+// store the result in the variable given in parameter                             
 #define SUMARRAY1(arr,lenArr,sumTotal) i=0; \
-                                       total = 0; \
+                                       sumTotal = 0; \
                                        for( ; i<lenArr; i++ ) { \
-                                           total += arr[i]; }
+                                           sumTotal += arr[i]; }
 
 
 int main()
